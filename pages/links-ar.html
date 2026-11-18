@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>الروابط والمصادر</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;600;700&display=swap">
+<style>
+/* Layout: a field-guide handout, light only. The pages are projected on a
+   whiteboard and opened on laptops and phones, so there is one look whatever
+   the operating system prefers. Chrome wears Green Southerners' green; the
+   event types keep the colours they have on greensoutherners.org (fires
+   orange, detonations red, phosphorus pink red), bulldozing takes an ochre
+   that none of them uses, and the four groups take colours none of the kinds
+   uses. The site pages sit inside .site (big type for projection, right to
+   left support); the older classes below .site's block stay for the private
+   pack. */
+:root {
+  --plane: #f6f7f5;
+  --surface: #ffffff;
+  --ink-1: #1f2220;
+  --ink-2: #444845;
+  --ink-3: #676b68;
+  --hairline: #dfe2de;
+  --accent: #3a954f;
+  --accent-ink: #195828;
+  --accent-wash: #eaf4ec;
+  --blast: #c81d2b;
+  --wp: #c42a62;
+  --fire: #b34a00;
+  --blast-wash: #fdecee;
+  --wp-wash: #fcebf1;
+  --fire-wash: #fff0e5;
+  --bull: #8a6100;
+  --bull-wash: #fbf3dc;
+  --river: #237f96;
+  --map-land: #eef1ea;
+  --map-ink: #3b3f3a;
+  --warn-wash: #fff6dc;
+  --warn-ink: #6e4b00;
+  --g1: #2b5ea7;
+  --g2: #6b48a8;
+  --g3: #11756b;
+  --g4: #56616e;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-ar: "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --radius: 10px;
+  --measure: 70ch;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--plane); }
+body {
+  margin: 0;
+  background: var(--plane);
+  color: var(--ink-1);
+  font: 16px/1.6 var(--font);
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
+  -webkit-text-size-adjust: 100%;
+}
+.page { max-width: 1080px; margin: 0 auto; padding-block: 8px 48px; }
+.read { max-width: var(--measure); }
+p, li { max-width: var(--measure); }
+a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+h1, h2, h3, h4 { text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.35rem, 2.6vw, 1.7rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.08rem; font-weight: 650; }
+h4 { font-size: 0.95rem; font-weight: 650; }
+small, .small { font-size: 0.875rem; }
+.muted { color: var(--ink-2); }
+.eyebrow { font-size: 0.75rem; font-weight: 650; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); }
+.url, code { font-family: var(--mono); font-size: 0.86em; word-break: break-word; overflow-wrap: anywhere; }
+[lang="ar"] { font-family: var(--font-ar); unicode-bidi: isolate; }
+.ar-block { direction: rtl; text-align: right; }
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* top strip and hero */
+.topline { display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; align-items: center; padding-block: 14px; border-bottom: 1px solid var(--hairline); font-size: 0.85rem; color: var(--ink-2); }
+.topline b { color: var(--ink-1); font-weight: 650; }
+.hero { padding-block: clamp(28px, 6vw, 56px) 24px; display: grid; gap: 14px; }
+.hero .deck { font-size: clamp(1.05rem, 1.8vw, 1.2rem); color: var(--ink-2); max-width: 62ch; margin: 0; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 0; padding: 0; list-style: none; }
+.facts li { background: var(--surface); border: 1px solid var(--hairline); border-radius: 999px; padding: 4px 12px; font-size: 0.875rem; }
+.toc { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.9rem; padding: 0; margin: 0; list-style: none; }
+
+/* sections */
+section { padding-block: clamp(28px, 5vw, 44px); border-top: 1px solid var(--hairline); display: grid; gap: 16px; }
+section > header { display: grid; gap: 6px; }
+section > header p { margin: 0; color: var(--ink-2); }
+.stack { display: grid; gap: 12px; }
+.grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.grid > * { min-width: 0; }
+.card { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 16px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.card p { margin: 0; }
+.card ul, .card ol { margin: 0; padding-inline-start: 1.2em; }
+.card li + li { margin-top: 3px; }
+
+/* event type chips */
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 650; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.chip.blast { background: var(--blast-wash); color: var(--blast); }
+.chip.wp { background: var(--wp-wash); color: var(--wp); }
+.chip.fire { background: var(--fire-wash); color: var(--fire); }
+.chip.bull { background: var(--bull-wash); color: var(--bull); }
+
+/* numbered steps (a real sequence) */
+.steps { counter-reset: step; display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.step { counter-increment: step; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 16px; }
+.step::before { content: counter(step); width: 36px; height: 36px; border-radius: 50%; background: var(--accent-wash); color: var(--accent-ink); font-weight: 700; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
+.step > div { display: grid; gap: 6px; min-width: 0; }
+.step p { margin: 0; }
+
+/* tables */
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: start; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--hairline); }
+th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-3); font-weight: 650; background: var(--plane); }
+tr:last-child td { border-bottom: 0; }
+
+/* notes and warnings */
+.note { background: var(--warn-wash); border-radius: var(--radius); padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.note > strong:first-child { color: var(--warn-ink); }
+.note p, .note ul { margin: 0; }
+.note ul { padding-inline-start: 1.2em; }
+.tip { background: var(--accent-wash); border-radius: var(--radius); padding: 12px 16px; }
+.tip p { margin: 0; }
+
+details { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 12px 16px; }
+details > summary { cursor: pointer; font-weight: 650; }
+details[open] > summary { margin-bottom: 8px; }
+
+footer.end { border-top: 1px solid var(--hairline); padding-block: 24px; font-size: 0.875rem; color: var(--ink-2); display: grid; gap: 6px; }
+
+@media (max-width: 520px) {
+  .step { grid-template-columns: minmax(0, 1fr); }
+  .step::before { width: 30px; height: 30px; }
+  th, td { padding: 8px 10px; }
+}
+
+/* the overview map (inline SVG, drawn from coordinates; labels come from the string table) */
+.map { width: 100%; height: auto; display: block; border-radius: var(--radius); border: 1px solid var(--hairline); background: var(--map-land); direction: ltr; }
+.m-land { fill: var(--map-land); }
+.m-box { fill: none; stroke: var(--ink-3); stroke-width: 1.4; stroke-dasharray: 6 5; opacity: .75; }
+.m-river-halo { fill: none; stroke: var(--surface); stroke-width: 9; stroke-linejoin: round; stroke-linecap: round; }
+.m-river { fill: none; stroke: var(--river); stroke-width: 4.5; stroke-linejoin: round; stroke-linecap: round; }
+.m-rlabel { font: italic 600 19px var(--font); fill: var(--river); paint-order: stroke; stroke: var(--map-land); stroke-width: 5px; }
+.m-castle { fill: var(--map-ink); }
+.m-clabel { font: 600 17px var(--font); fill: var(--map-ink); paint-order: stroke; stroke: var(--map-land); stroke-width: 5px; }
+.m-vdot { fill: var(--surface); stroke: var(--ink-1); stroke-width: 2.5; }
+.m-tie { stroke: var(--ink-3); stroke-width: 2; stroke-dasharray: 3 3; }
+.m-mark { stroke: var(--surface); stroke-width: 3; }
+.m-mark.g1 { fill: var(--g1); } .m-mark.g2 { fill: var(--g2); } .m-mark.g3 { fill: var(--g3); } .m-mark.g4 { fill: var(--g4); }
+.m-num { font: 700 22px var(--font); fill: #ffffff; text-anchor: middle; dominant-baseline: central; }
+.m-label { font: 700 20px var(--font); fill: var(--ink-1); paint-order: stroke; stroke: var(--map-land); stroke-width: 5px; }
+.m-link { cursor: pointer; }
+.m-link:hover .m-mark, .m-link:focus .m-mark { stroke: var(--ink-1); }
+.m-link:hover .m-label, .m-link:focus .m-label { text-decoration: underline; }
+.m-scale { stroke: var(--map-ink); stroke-width: 3.5; }
+.m-north { fill: var(--map-ink); }
+.m-small { font: 15px var(--font); fill: var(--ink-2); }
+.m-credit { font: 13px var(--font); fill: var(--ink-3); }
+[dir="rtl"] .map text { font-family: var(--font-ar); }
+[dir="rtl"] .m-label { font-size: 22px; }
+/* Arabic has no italic: the browser would only slant the river's name */
+[dir="rtl"] .m-rlabel { font-style: normal; }
+@media (max-width: 640px) {
+  .m-label, [dir="rtl"] .m-label { font-size: 30px; }
+  .m-clabel, .m-rlabel { font-size: 24px; }
+}
+/* a phone draws the 900 px wide map at about 0.4: the names and numbers grow to stay readable, the markers with them,
+   and the credit goes (the caption under the map credits OpenStreetMap) */
+@media (max-width: 560px) {
+  .m-label { font-size: 34px; }
+  [dir="rtl"] .m-label { font-size: 31px; }  /* Arabic glyphs run larger: as tall as the English, and يحمر الشقيف clears the river */
+  .m-mark { r: 26px; }
+  .m-num { font-size: 32px; }
+  .m-clabel, .m-rlabel, .m-small { font-size: 28px; }
+  .m-credit { display: none; }
+}
+figure { margin: 0; display: grid; gap: 6px; }
+figcaption { font-size: 0.875rem; color: var(--ink-2); }
+
+@page { size: A4; margin: 14mm; }
+@media print {
+  body { background: #ffffff; color: #000000; font-size: 11pt; padding: 0; }
+  .noprint, .topbar { display: none !important; }
+  section { break-inside: auto; padding-block: 14px; }
+  section > header { break-inside: avoid; break-after: avoid; }
+  .step, .card, .note, .tip, tr, .stepcard, .gcard, .rolecard { break-inside: avoid; }
+  a { color: #000000; text-decoration: underline; }
+  .table-wrap { overflow: visible; border: 0; }
+  .timing, .gcard, .stepcard .num, .m-mark { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ============ The workshop site: big type for projection, phones too ============ */
+.site { font-size: clamp(17px, 0.9rem + 0.42vw, 21px); line-height: 1.55; }
+.site .page { max-width: 1320px; padding-block: 0 2em; }
+.site p, .site li { max-width: 62ch; }
+.site h1 { font-size: clamp(2em, 1.1em + 2.4vw, 3em); line-height: 1.1; }
+.site h2 { font-size: clamp(1.45em, 1em + 1.1vw, 2em); }
+.site h3 { font-size: 1.25em; font-weight: 700; }
+.site section { gap: 0.9em; padding-block: clamp(1.4em, 3vw, 2.2em); }
+.site section > header p { font-size: 1em; }
+.site footer.end { font-size: 0.85em; }
+.site img { max-width: 100%; }
+/* an English run inside an Arabic page: kept whole and left to right */
+.ltr { direction: ltr; unicode-bidi: isolate; font-family: var(--font); font-size: 0.94em; }
+[dir="rtl"] .site { font-family: var(--font-ar); font-size: clamp(18px, 0.95rem + 0.46vw, 22.5px); line-height: 1.7; }
+[dir="rtl"] .site h1, [dir="rtl"] .site h2, [dir="rtl"] .site h3 { line-height: 1.4; letter-spacing: 0; }
+[dir="rtl"] .site .eyebrow { letter-spacing: 0; }
+.flip { display: inline-block; }
+.nw { white-space: nowrap; }
+[dir="rtl"] .flip { transform: scaleX(-1); }
+
+/* sticky top bar: Home, Tools, Links, Prerequisites, the other language */
+.topbar { position: sticky; top: 0; z-index: 20; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); background: rgba(255, 255, 255, 0.96); border-bottom: 1px solid var(--hairline); backdrop-filter: blur(6px); }
+.topbar ul { list-style: none; margin: 0 auto; padding: 0.35em 0; max-width: 1320px; display: flex; flex-wrap: wrap; align-items: center; gap: 0.2em 0.4em; }
+.topbar li { max-width: none; }
+.topbar a { display: inline-flex; align-items: center; gap: 0.4em; padding: 0.35em 0.7em; border-radius: 999px; color: var(--ink-1); text-decoration: none; font-weight: 650; font-size: 0.9em; white-space: nowrap; min-height: 44px; }
+.topbar a:hover { background: var(--accent-wash); }
+.topbar a[aria-current="page"] { background: var(--accent-wash); color: var(--accent-ink); }
+.topbar img { width: 1.5em; height: 1.5em; flex: none; }
+.topbar .tb-end { margin-inline-start: auto; }
+.topbar .tb-lang { border: 2px solid var(--accent); color: var(--accent-ink); }
+@media (max-width: 560px) {
+  .topbar ul { gap: 0; }
+  .topbar a { padding: 0.3em 0.45em; font-size: 0.8em; gap: 0.3em; }
+  .topbar img { width: 1.3em; height: 1.3em; }
+}
+@media (max-width: 480px) {
+  .topbar a img { display: none; }
+}
+
+/* page head */
+.head { display: grid; gap: 0.6em; padding-block: clamp(1.2em, 3vw, 2.2em) 0.6em; }
+.head .eyebrow { font-size: 0.8em; margin: 0; }
+.head .deck { font-size: 1.15em; color: var(--ink-2); margin: 0; max-width: 52ch; }
+.head .where { margin: 0; color: var(--ink-2); }
+.names { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.15em 0.6em; }
+.names .alt { font-size: 0.55em; font-weight: 600; color: var(--ink-2); }
+
+/* link buttons */
+.btns { display: flex; flex-wrap: wrap; gap: 0.5em; margin: 0; padding: 0; list-style: none; }
+.btns li { max-width: 100%; }
+.btn { display: inline-flex; align-items: center; gap: 0.5em; min-height: 48px; padding: 0.5em 1em; border: 2px solid var(--accent); border-radius: 12px; background: var(--surface); color: var(--accent-ink); font-weight: 650; text-decoration: none; line-height: 1.25; max-width: 100%; overflow-wrap: anywhere; }
+.btn:hover { background: var(--accent-wash); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+.btn.primary:hover { background: var(--accent-ink); }
+.btn.sm { min-height: 40px; padding: 0.3em 0.75em; font-size: 0.85em; border-width: 1.5px; border-radius: 10px; }
+.btn img { height: 1.6em; width: auto; flex: none; }
+.btn small { font-weight: 500; color: var(--ink-2); }
+.btn.primary small { color: #e9f5ec; }
+.btnhint { font-size: 0.85em; color: var(--ink-2); margin: 0; }
+
+/* the four group cards on the home page */
+.gcards { display: grid; gap: 1em; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); margin: 0; padding: 0; list-style: none; }
+.gcards > li { max-width: none; min-width: 0; }
+.gcard { --g: var(--accent); display: grid; grid-template-rows: auto 1fr auto; height: 100%; background: var(--surface); border: 1px solid var(--hairline); border-top: 8px solid var(--g); border-radius: 14px; overflow: hidden; color: var(--ink-1); text-decoration: none; }
+.gcard:hover, .gcard:focus-visible { box-shadow: 0 0 0 3px var(--g); }
+.gcard img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: var(--map-land); }
+.gcard .gopen img { height: auto; }
+.gcard .gtext { padding: 0.8em 1em 0.4em; display: grid; gap: 0.2em; align-content: start; }
+.gcard .gnum { font-weight: 800; color: var(--g); font-size: 0.95em; text-transform: uppercase; letter-spacing: 0.05em; }
+[dir="rtl"] .gcard .gnum { letter-spacing: 0; }
+.gcard .gname { font-size: 1.45em; font-weight: 750; line-height: 1.2; display: grid; }
+.gcard .galt { display: grid; }
+.gcard .galt > * { justify-self: start; }
+.gcard .galt { color: var(--ink-2); font-weight: 600; }
+.gcard .gopen { display: flex; align-items: center; justify-content: space-between; gap: 0.5em; padding: 0.6em 1em 0.9em; font-weight: 700; color: var(--g); }
+.gcard .gopen img { width: 2em; height: auto; aspect-ratio: 2 / 1; }
+.g1 { --g: var(--g1); } .g2 { --g: var(--g2); } .g3 { --g: var(--g3); } .g4 { --g: var(--g4); }
+
+/* the 90 minutes, drawn to scale */
+.timing { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; border-radius: 12px; overflow: hidden; border: 1px solid var(--hairline); background: var(--hairline); }
+.timing li { max-width: none; background: var(--surface); padding: 0.7em 0.9em; display: grid; gap: 0.15em; align-content: start; min-width: 0; border-top: 6px solid var(--hairline); }
+.timing li.work { background: var(--accent-wash); border-top-color: var(--accent); }
+.timing .tmin { font-variant-numeric: tabular-nums; font-size: 0.8em; color: var(--ink-3); font-weight: 700; }
+.timing .tname { font-weight: 750; font-size: 1.1em; }
+.timing .twhat { font-size: 0.88em; color: var(--ink-2); }
+@media (min-width: 760px) { .timing { grid-template-columns: var(--cols, 1fr); } }
+
+/* a flow: steps joined by arrows that turn round in right to left */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.4em; margin: 0; padding: 0; list-style: none; }
+.flow > li { max-width: none; }
+.flow .fstep { flex: 1 1 0; min-width: 7.5em; display: flex; }
+.flow .fnode { flex: 1 1 auto; min-width: 0; background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; padding: 0.7em 0.8em; display: grid; gap: 0.3em; align-content: start; }
+.flow .fnode .fnum { width: 1.9em; height: 1.9em; border-radius: 50%; display: grid; place-items: center; font-weight: 800; background: var(--k, var(--accent)); color: #ffffff; font-variant-numeric: tabular-nums; }
+.flow .fnode b { font-size: 1em; line-height: 1.25; }
+.flow .fnode .fd { font-size: 0.85em; color: var(--ink-2); line-height: 1.35; }
+/* A flow node's title is often a button name alone ("KMZ for Google Earth"): in Arabic it may wrap inside its narrow box. */
+.flow .fnode b .ltr.nw { white-space: normal; }
+.flow .farrow { flex: none; align-self: center; display: grid; place-items: center; width: 2em; }
+.flow .farrow img { width: 2em; height: 1em; }
+a.fnode { color: var(--ink-1); text-decoration: none; }
+a.fnode:hover { border-color: var(--k, var(--accent)); box-shadow: 0 0 0 2px var(--k, var(--accent)); }
+@media (max-width: 760px) {
+  .flow { flex-direction: column; }
+  .flow .fstep { min-width: 0; }
+  .flow .farrow { width: 100%; height: 1.2em; }
+  .flow .fnode { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2em 0.6em; padding: 0.5em 0.7em; }
+  .flow .fnode .fd { flex-basis: 100%; padding-inline-start: 2.5em; }
+  .flow .farrow img { height: 0.9em; }
+  .flow .farrow img, [dir="rtl"] .flow .farrow img { transform: rotate(90deg); }
+}
+
+/* the five mission steps */
+.k-blast { --k: var(--blast); --kw: var(--blast-wash); }
+.k-fire { --k: var(--fire); --kw: var(--fire-wash); }
+.k-bull { --k: var(--bull); --kw: var(--bull-wash); }
+.k-wp { --k: var(--wp); --kw: var(--wp-wash); }
+.k-src { --k: var(--accent-ink); --kw: var(--accent-wash); }
+.stepcards { display: grid; gap: 1.1em; margin: 0; padding: 0; list-style: none; }
+.stepcards > li { max-width: none; }
+.stepcard { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.8em; background: var(--surface); border: 1px solid var(--hairline); border-inline-start: 8px solid var(--k); border-radius: 14px; padding: 1.1em 1.2em; scroll-margin-top: 4em; }
+.stepcard .shead { display: flex; align-items: center; gap: 0.6em; }
+.stepcard .num { flex: none; width: 2.1em; height: 2.1em; border-radius: 50%; display: grid; place-items: center; background: var(--k); color: #ffffff; font-weight: 800; font-size: 1.1em; }
+.stepcard .sills { display: grid; gap: 0.6em; align-content: start; grid-template-columns: repeat(auto-fit, minmax(120px, 220px)); }
+.stepcard .sill { display: block; width: 100%; max-width: 240px; height: auto; aspect-ratio: 4 / 3; background: var(--kw); border-radius: 12px; padding: 0.6em; }
+.stepcard .sbody { display: grid; gap: 0.8em; min-width: 0; align-content: start; }
+.stepcard ul.bul { margin: 0; padding-inline-start: 1.2em; display: grid; gap: 0.35em; }
+.stepcard ul.bul li::marker { color: var(--k); }
+.stepcard .trap { margin: 0; padding: 0.5em 0.8em; background: var(--warn-wash); border-radius: 10px; font-size: 0.92em; max-width: none; }
+@media (max-width: 859px) {
+  .stepcard .sills { grid-template-columns: repeat(auto-fit, minmax(110px, 170px)); }
+}
+@media (min-width: 860px) {
+  .stepcard { grid-template-columns: 220px minmax(0, 1fr); column-gap: 1.6em; }
+  .stepcard .shead { grid-column: 1 / -1; }
+  .stepcard .sills { grid-column: 1; grid-row: 2; grid-template-columns: minmax(0, 1fr); }
+  .stepcard .sbody { grid-column: 2; grid-row: 2; }
+}
+
+/* keyword chips: the exact words on screen in the tools and the sheet */
+.kwrow { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35em; margin: 0; }
+.kwrow > b { font-size: 0.82em; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.05em; margin-inline-end: 0.2em; }
+[dir="rtl"] .kwrow > b { letter-spacing: 0; text-transform: none; }
+.kchip { display: inline-block; font-size: 0.82em; font-weight: 600; padding: 0.1em 0.55em; border-radius: 6px; background: var(--plane); border: 1px solid var(--hairline); color: var(--ink-1); line-height: 1.45; overflow-wrap: anywhere; }
+.kchip.tool { background: #eef3fb; border-color: #c9d6ea; }
+.kchip.sheet { background: var(--accent-wash); border-color: #c4dfca; }
+.kchip.word { font-family: var(--font-ar); font-size: 0.95em; background: var(--surface); }
+
+/* the three roles */
+.roles3 { display: grid; gap: 1em; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); margin: 0; padding: 0; list-style: none; }
+.roles3 > li { max-width: none; }
+.rolecard { display: grid; grid-template-columns: 5em minmax(0, 1fr); gap: 0.9em; align-items: center; background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 0.9em 1em; height: 100%; }
+.rolecard img { width: 5em; height: auto; aspect-ratio: 1 / 1; }
+.rolecard div { display: grid; gap: 0.15em; }
+.rolecard span { font-size: 0.92em; color: var(--ink-2); line-height: 1.4; }
+
+/* before and after thumbnails */
+.pair { display: grid; gap: 0.8em; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; }
+.ghead .gtitle { display: grid; gap: 0.6em; align-content: start; }
+@media (min-width: 980px) {
+  .ghead { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); column-gap: 2em; align-items: start; }
+}
+.pair figure { gap: 0.3em; }
+.pair img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px; border: 1px solid var(--hairline); }
+.pair figcaption { font-size: 0.85em; }
+.pair figcaption b { color: var(--ink-1); }
+
+/* the empty timeline chart: the group's own, to fill */
+.tl { background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 1em 1.1em; display: grid; gap: 0.6em; }
+.tl .tl-y { font-size: 0.82em; font-weight: 700; color: var(--ink-3); margin: 0; }
+.tl ol { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0.4em; margin: 0; padding: 0; list-style: none; }
+.tl li { max-width: none; display: grid; grid-template-rows: 9em auto; gap: 0.35em; min-width: 0; }
+.tl .tl-track { border: 2px dashed var(--hairline); border-bottom: 3px solid var(--ink-2); border-radius: 8px 8px 0 0; background: repeating-linear-gradient(0deg, transparent 0 2.2em, #f0f2ef 2.2em calc(2.2em + 1px)); }
+.tl .tl-lab { display: grid; justify-items: center; text-align: center; font-size: 0.72em; line-height: 1.25; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.tl .tl-lab .to { color: var(--ink-3); }
+.tl figcaption { font-size: 0.9em; }
+@media (max-width: 760px) {
+  .tl ol { grid-template-columns: minmax(0, 1fr); }
+  .tl li { grid-template-rows: none; grid-template-columns: 9.5em minmax(0, 1fr); align-items: center; }
+  .tl .tl-track { order: 2; height: 1.8em; border: 2px dashed var(--hairline); border-inline-start: 3px solid var(--ink-2); border-radius: 0 6px 6px 0; background: none; }
+  [dir="rtl"] .tl .tl-track { border-radius: 6px 0 0 6px; }
+  .tl .tl-lab { order: 1; display: flex; flex-wrap: wrap; gap: 0 0.3em; justify-content: flex-start; text-align: start; font-size: 0.78em; }
+}
+
+/* a section head with its illustration */
+.hrow { display: flex; align-items: center; gap: 0.7em; }
+.hrow img { width: 5.5em; height: auto; flex: none; }
+.mapfig { max-width: 1040px; }
+.site [lang="en"] { font-family: var(--font); }
+
+/* a call-out line under a section */
+.after { margin: 0; padding: 0.7em 1em; background: var(--accent-wash); border-radius: 12px; max-width: none; }
+
+/* links page */
+.lgroups { display: grid; gap: 1em; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); align-items: start; }
+.lgroup { background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 1em 1.1em; display: grid; gap: 0.7em; align-content: start; min-width: 0; }
+.lgroup h3 { display: flex; align-items: center; gap: 0.5em; }
+.lgroup .btns { flex-direction: column; align-items: stretch; }
+.lgroup .btns .btn { justify-content: flex-start; }
+.lgroup .btn small { display: block; }
+.lgroup .btns.wrap { flex-direction: row; }
+.lgroup .tgline { margin: 0.3em 0 0; font-size: 0.9em; color: var(--ink-2); }
+.lgroup .tgline b { color: var(--ink-1); }
+.recipes { display: grid; gap: 0.8em; }
+.recipe { border-inline-start: 6px solid var(--g, var(--accent)); }
+.recipe > summary { font-size: 1.05em; }
+.recipe .rrow { display: grid; gap: 0.35em; padding-block: 0.5em; border-top: 1px solid var(--hairline); }
+.recipe .rrow > b { font-size: 0.9em; }
+.qr { display: grid; justify-items: center; gap: 0.3em; margin: 0; }
+.qr svg { width: 9em; height: 9em; background: #ffffff; border: 1px solid var(--hairline); border-radius: 8px; padding: 0.3em; }
+.qr figcaption { font-size: 0.8em; text-align: center; }
+.padlet { display: flex; flex-wrap: wrap; gap: 1em 1.4em; align-items: center; }
+
+/* glossary */
+.glossary { width: 100%; border-collapse: collapse; font-size: 0.95em; background: var(--surface); }
+.glossary th, .glossary td { padding: 0.55em 0.8em; border-bottom: 1px solid var(--hairline); text-align: start; vertical-align: top; }
+.glossary th { font-size: 0.8em; text-transform: none; letter-spacing: 0; }
+.glossary td:first-child { width: 36%; }
+@media (max-width: 560px) {
+  .glossary, .glossary tbody, .glossary tr, .glossary td { display: block; width: auto !important; }
+  .glossary thead { display: none; }
+  .glossary tr { padding: 0.5em 0; border-bottom: 1px solid var(--hairline); }
+  .glossary td { border: 0; padding: 0.1em 0.8em; }
+}
+
+/* checklist (prerequisites) */
+.check { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.5em; }
+.check li { padding-inline-start: 1.8em; position: relative; }
+.check li::before { content: ""; position: absolute; inset-inline-start: 0; top: 0.25em; width: 1.05em; height: 1.05em; border: 2px solid var(--accent); border-radius: 4px; }
+.respect { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4em; }
+.respect li { padding: 0.5em 0.8em; background: var(--warn-wash); border-radius: 10px; max-width: none; }
+.two { display: grid; gap: 1em; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); align-items: start; }
+.hill { width: 100%; max-width: 260px; aspect-ratio: 4 / 3; }
+
+/* the online copy of the site, under a page head */
+.online { display: flex; align-items: center; gap: 0.5em; margin: 0; font-size: 0.95em; color: var(--ink-2); max-width: none; }
+.online img { width: 1.4em; height: 1.4em; flex: none; }
+.online a { font-weight: 650; overflow-wrap: anywhere; }
+
+/* a small label: easier to use, a video or photo */
+.tag { display: inline-block; vertical-align: middle; font-size: 0.72em; font-weight: 700; line-height: 1.35; padding: 0.12em 0.6em; border-radius: 999px; background: var(--accent-wash); color: var(--accent-ink); border: 1px solid #c4dfca; white-space: nowrap; letter-spacing: 0; text-transform: none; }
+.tag.media { background: var(--wp-wash); color: var(--wp); border-color: #efc2d3; }
+.btn.easy { background: var(--accent-wash); }
+.btn.easy:hover { background: #d9ecdd; }
+
+/* step 4: our white phosphorus reports to start from */
+.wpr { display: grid; gap: 0.55em; background: var(--kw, var(--plane)); border-radius: 12px; padding: 0.8em 0.9em; }
+.wpr-h { margin: 0; }
+.wpr-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5em; }
+.wpr-item { max-width: none; background: var(--surface); border: 1px solid var(--hairline); border-radius: 10px; padding: 0.55em 0.75em; display: grid; gap: 0.35em; }
+.wpr-item p { margin: 0; max-width: none; display: flex; flex-wrap: wrap; align-items: center; gap: 0.3em 0.5em; }
+.wpr-top { font-size: 1.02em; }
+.wpr-date { font-weight: 750; }
+.wpr-posts { font-size: 0.95em; }
+.wpr-v { font-weight: 650; }
+.wpr-k { font-size: 0.78em; font-weight: 700; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.05em; }
+[dir="rtl"] .wpr-k { text-transform: none; letter-spacing: 0; font-size: 0.85em; }
+.wpr-place { font-size: 0.92em; color: var(--ink-2); }
+.wpr-place .wpr-k + span { margin-inline-end: 0.6em; }
+.wpr-none { margin: 0; }
+.lchip { display: inline-block; font-size: 0.82em; font-weight: 600; padding: 0.1em 0.55em; border-radius: 6px; border: 1px solid var(--hairline); background: var(--plane); color: var(--accent-ink); text-decoration: none; line-height: 1.5; overflow-wrap: anywhere; }
+.lchip:hover { border-color: var(--accent); background: var(--accent-wash); }
+
+/* tools page: one card per tool */
+.tcards { list-style: none; margin: 0; padding: 0; display: grid; gap: 1em; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); }
+.tcards > li { max-width: none; min-width: 0; }
+.tcard { height: 100%; background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 1em 1.1em; display: grid; grid-template-rows: auto 1fr auto; gap: 0.7em; align-content: start; scroll-margin-top: 4em; }
+.thead { display: grid; grid-template-columns: 6em minmax(0, 1fr); gap: 0.9em; align-items: center; }
+.tico { display: block; width: 6em; height: 4.5em; object-fit: contain; background: var(--plane); border-radius: 10px; padding: 0.3em; }
+.thead h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3em 0.5em; }
+/* In a flex heading an English name becomes a left to right block: on an Arabic page it still sits on the right when it wraps. */
+[dir="rtl"] .site h3 > .ltr { text-align: right; }
+.tline { margin: 0.25em 0 0; color: var(--ink-2); font-size: 0.95em; }
+.tcard ul.bul { margin: 0; padding-inline-start: 1.2em; display: grid; gap: 0.3em; align-content: start; font-size: 0.95em; }
+.tcard ul.bul li::marker { color: var(--accent); }
+
+/* prerequisites: the group sheet, drawn from build_sheet.py */
+.sheetmap { background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 0.9em 1em; display: grid; gap: 0.6em; }
+.kchip.tab { background: var(--kw, var(--plane)); border-color: var(--k, var(--ink-3)); color: var(--k, var(--ink-1)); font-weight: 700; border-width: 1.5px; }
+.kchip.slot { background: transparent; border-style: dashed; border-color: var(--ink-3); color: var(--ink-3); font-style: italic; }
+[dir="rtl"] .kchip.slot { font-style: normal; }
+.sheetmap .kwrow { max-width: none; }
+.owncols { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4em; }
+.owncols li { max-width: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35em; }
+@media print {
+  .tcard, .wpr-item, .sheetmap { break-inside: avoid; }
+}
+
+</style>
+</head>
+<body>
+<div class="site" lang="ar" dir="rtl">
+<nav class="topbar" aria-label="صفحات الورشة"><ul><li><a href="../0-start-here-ar.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJNMy41IDExIDEyIDMuOGw4LjUgNy4yTTUuNSA5LjVWMjBoMTNWOS41IiBzdHJva2U9IiMxZjIyMjAiLz4KPHBhdGggZD0iTTEwIDIwdi01aDR2NSIgc3Ryb2tlPSIjM2E5NTRmIi8+Cjwvc3ZnPgo=" alt="" width="24" height="24"><span>الرئيسية</span></a></li><li><a href="tools-ar.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJNMyA5LjVoMThWMTlhMS41IDEuNSAwIDAgMS0xLjUgMS41aC0xNUExLjUgMS41IDAgMCAxIDMgMTlaIiBzdHJva2U9IiMxZjIyMjAiLz4KPHBhdGggZD0iTTguNSA5LjVWNi41QTEuNSAxLjUgMCAwIDEgMTAgNWg0YTEuNSAxLjUgMCAwIDEgMS41IDEuNXYzTTMgMTRoMTgiIHN0cm9rZT0iIzFmMjIyMCIvPgo8cmVjdCB4PSIxMCIgeT0iMTIuNSIgd2lkdGg9IjQiIGhlaWdodD0iMy41IiByeD0iLjgiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzNhOTU0ZiIvPgo8L3N2Zz4K" alt="" width="24" height="24"><span>الأدوات</span></a></li><li><a href="links-ar.html" aria-current="page"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8ZyB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgMTIgMTIpIj48cmVjdCB4PSIxLjUiIHk9IjguNSIgd2lkdGg9IjEyIiBoZWlnaHQ9IjciIHJ4PSIzLjUiIHN0cm9rZT0iIzFmMjIyMCIvPjxyZWN0IHg9IjEwLjUiIHk9IjguNSIgd2lkdGg9IjEyIiBoZWlnaHQ9IjciIHJ4PSIzLjUiIHN0cm9rZT0iIzNhOTU0ZiIvPjwvZz4KPC9zdmc+Cg==" alt="" width="24" height="24"><span>الروابط</span></a></li><li><a href="prerequisites-ar.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8cmVjdCB4PSI1IiB5PSI0LjUiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNi41IiByeD0iMiIgc3Ryb2tlPSIjMWYyMjIwIi8+CjxyZWN0IHg9IjkiIHk9IjIuNSIgd2lkdGg9IjYiIGhlaWdodD0iNCIgcng9IjEiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzFmMjIyMCIvPgo8cGF0aCBkPSJtOC41IDEzLjUgMi41IDIuNSA0LjUtNSIgc3Ryb2tlPSIjM2E5NTRmIi8+Cjwvc3ZnPgo=" alt="" width="24" height="24"><span>المتطلبات</span></a></li><li class="tb-end"><a class="tb-lang" href="links.html" hreflang="en" title="هذه الصفحة بالإنكليزية"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI5IiBzdHJva2U9IiMxZjIyMjAiLz4KPHBhdGggZD0iTTMgMTJoMTgiIHN0cm9rZT0iIzFmMjIyMCIvPgo8ZWxsaXBzZSBjeD0iMTIiIGN5PSIxMiIgcng9IjQiIHJ5PSI5IiBzdHJva2U9IiMzYTk1NGYiLz4KPC9zdmc+Cg==" alt="" width="24" height="24"><span><span class="ltr nw" lang="en" dir="ltr">English</span></span></a></li></ul></nav>
+<div class="page">
+<main>
+<header class="head"><p class="eyebrow">كل الروابط في مكان واحد</p><h1>الروابط والمصادر</h1><p class="deck">مجمّعة بحسب الاستعمال. الروابط الخارجية تُفتح في تبويب جديد في المتصفح.</p><p class="online"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI5IiBzdHJva2U9IiMxZjIyMjAiLz4KPHBhdGggZD0iTTMgMTJoMTgiIHN0cm9rZT0iIzFmMjIyMCIvPgo8ZWxsaXBzZSBjeD0iMTIiIGN5PSIxMiIgcng9IjQiIHJ5PSI5IiBzdHJva2U9IiMzYTk1NGYiLz4KPC9zdmc+Cg==" alt="" width="24" height="24"><span>الموقع كله متاح أيضًا على الإنترنت، بالصفحات والأدوات نفسها، ولكن من دون صور القرى: <a href="https://alislayman.github.io/usj-litani-workshop/" target="_blank" rel="noopener"><span class="ltr" lang="en" dir="ltr">alislayman.github.io/usj-litani-workshop</span></a></span></p></header><section id="tools"><header><h2>المواقع والملفات</h2></header><div class="lgroups"><div class="lgroup"><h3><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cmVjdCB4PSI4IiB5PSIxMCIgd2lkdGg9IjE0NCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMCIgZmlsbD0iI2VlZjFlYSIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utd2lkdGg9IjMuNSIvPgo8ZyBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMi41Ij48cmVjdCB4PSIxOCIgeT0iMjAiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNiIgcng9IjUiLz48cmVjdCB4PSI2MSIgeT0iMjAiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNiIgcng9IjUiLz48cmVjdCB4PSIxMDQiIHk9IjIwIiB3aWR0aD0iMzgiIGhlaWdodD0iMzYiIHJ4PSI1Ii8+PHJlY3QgeD0iMTgiIHk9IjY0IiB3aWR0aD0iMzgiIGhlaWdodD0iMzYiIHJ4PSI1Ii8+PHJlY3QgeD0iNjEiIHk9IjY0IiB3aWR0aD0iMzgiIGhlaWdodD0iMzYiIHJ4PSI1Ii8+PHJlY3QgeD0iMTA0IiB5PSI2NCIgd2lkdGg9IjM4IiBoZWlnaHQ9IjM2IiByeD0iNSIvPjwvZz4KPHBhdGggZD0ibTY2IDUwIDktMTIgNyA4IDUtNSA3IDlaIiBmaWxsPSIjMjM3Zjk2Ii8+CjxwYXRoIGQ9Im0yMyA5NCA5LTEyIDcgOCA1LTUgNyA5WiIgZmlsbD0iIzNhOTU0ZiIvPgo8ZyBmaWxsPSIjMWYyMjIwIiBmaWxsLW9wYWNpdHk9Ii4zNSI+PHJlY3QgeD0iMjQiIHk9IjI3IiB3aWR0aD0iMjYiIGhlaWdodD0iNC41IiByeD0iMi4yNSIvPjxyZWN0IHg9IjI0IiB5PSIzNiIgd2lkdGg9IjIwIiBoZWlnaHQ9IjQuNSIgcng9IjIuMjUiLz48cmVjdCB4PSIyNCIgeT0iNDUiIHdpZHRoPSIyNCIgaGVpZ2h0PSI0LjUiIHJ4PSIyLjI1Ii8+PHJlY3QgeD0iMTEwIiB5PSI3MSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjQuNSIgcng9IjIuMjUiLz48cmVjdCB4PSIxMTAiIHk9IjgwIiB3aWR0aD0iMTgiIGhlaWdodD0iNC41IiByeD0iMi4yNSIvPjxyZWN0IHg9IjY3IiB5PSI3MSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjQuNSIgcng9IjIuMjUiLz48cmVjdCB4PSI2NyIgeT0iODAiIHdpZHRoPSIyMiIgaGVpZ2h0PSI0LjUiIHJ4PSIyLjI1Ii8+PHJlY3QgeD0iNjciIHk9Ijg5IiB3aWR0aD0iMTQiIGhlaWdodD0iNC41IiByeD0iMi4yNSIvPjwvZz4KPHBhdGggZD0iTTExNCAyN2gxMWw2IDZ2MTZoLTE3WiIgZmlsbD0iI2VhZjRlYyIgc3Ryb2tlPSIjM2E5NTRmIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8cGF0aCBkPSJNMTI1IDI3djZoNiIgc3Ryb2tlPSIjM2E5NTRmIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8L3N2Zz4K" alt="" width="64" height="48"><span>الورشة</span></h3><figure class="qr"><svg viewBox="0 0 41 41" role="img" aria-label="QR" shape-rendering="crispEdges"><rect width="41" height="41" fill="#ffffff"/><path d="M4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM7,4h1v1h-1zM8,4h1v1h-1zM9,4h1v1h-1zM10,4h1v1h-1zM12,4h1v1h-1zM15,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM22,4h1v1h-1zM23,4h1v1h-1zM24,4h1v1h-1zM26,4h1v1h-1zM27,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM33,4h1v1h-1zM34,4h1v1h-1zM35,4h1v1h-1zM36,4h1v1h-1zM4,5h1v1h-1zM10,5h1v1h-1zM12,5h1v1h-1zM13,5h1v1h-1zM14,5h1v1h-1zM16,5h1v1h-1zM17,5h1v1h-1zM21,5h1v1h-1zM22,5h1v1h-1zM24,5h1v1h-1zM25,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM36,5h1v1h-1zM4,6h1v1h-1zM6,6h1v1h-1zM7,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM13,6h1v1h-1zM14,6h1v1h-1zM15,6h1v1h-1zM20,6h1v1h-1zM22,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM32,6h1v1h-1zM33,6h1v1h-1zM34,6h1v1h-1zM36,6h1v1h-1zM4,7h1v1h-1zM6,7h1v1h-1zM7,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM12,7h1v1h-1zM18,7h1v1h-1zM21,7h1v1h-1zM22,7h1v1h-1zM28,7h1v1h-1zM30,7h1v1h-1zM32,7h1v1h-1zM33,7h1v1h-1zM34,7h1v1h-1zM36,7h1v1h-1zM4,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM13,8h1v1h-1zM14,8h1v1h-1zM18,8h1v1h-1zM21,8h1v1h-1zM22,8h1v1h-1zM23,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM30,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM36,8h1v1h-1zM4,9h1v1h-1zM10,9h1v1h-1zM13,9h1v1h-1zM14,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM20,9h1v1h-1zM22,9h1v1h-1zM23,9h1v1h-1zM28,9h1v1h-1zM30,9h1v1h-1zM36,9h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM10,10h1v1h-1zM12,10h1v1h-1zM14,10h1v1h-1zM16,10h1v1h-1zM18,10h1v1h-1zM20,10h1v1h-1zM22,10h1v1h-1zM24,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM32,10h1v1h-1zM33,10h1v1h-1zM34,10h1v1h-1zM35,10h1v1h-1zM36,10h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM27,11h1v1h-1zM28,11h1v1h-1zM4,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM11,12h1v1h-1zM13,12h1v1h-1zM16,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM21,12h1v1h-1zM22,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM26,12h1v1h-1zM30,12h1v1h-1zM33,12h1v1h-1zM35,12h1v1h-1zM36,12h1v1h-1zM5,13h1v1h-1zM9,13h1v1h-1zM11,13h1v1h-1zM13,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM20,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM27,13h1v1h-1zM30,13h1v1h-1zM31,13h1v1h-1zM33,13h1v1h-1zM34,13h1v1h-1zM35,13h1v1h-1zM36,13h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM9,14h1v1h-1zM10,14h1v1h-1zM11,14h1v1h-1zM14,14h1v1h-1zM15,14h1v1h-1zM18,14h1v1h-1zM25,14h1v1h-1zM27,14h1v1h-1zM31,14h1v1h-1zM32,14h1v1h-1zM33,14h1v1h-1zM35,14h1v1h-1zM36,14h1v1h-1zM4,15h1v1h-1zM5,15h1v1h-1zM7,15h1v1h-1zM9,15h1v1h-1zM11,15h1v1h-1zM13,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM17,15h1v1h-1zM18,15h1v1h-1zM22,15h1v1h-1zM24,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM31,15h1v1h-1zM33,15h1v1h-1zM4,16h1v1h-1zM6,16h1v1h-1zM9,16h1v1h-1zM10,16h1v1h-1zM11,16h1v1h-1zM13,16h1v1h-1zM14,16h1v1h-1zM16,16h1v1h-1zM19,16h1v1h-1zM21,16h1v1h-1zM22,16h1v1h-1zM24,16h1v1h-1zM27,16h1v1h-1zM31,16h1v1h-1zM32,16h1v1h-1zM33,16h1v1h-1zM35,16h1v1h-1zM4,17h1v1h-1zM5,17h1v1h-1zM7,17h1v1h-1zM13,17h1v1h-1zM14,17h1v1h-1zM19,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM22,17h1v1h-1zM23,17h1v1h-1zM24,17h1v1h-1zM25,17h1v1h-1zM26,17h1v1h-1zM31,17h1v1h-1zM33,17h1v1h-1zM35,17h1v1h-1zM4,18h1v1h-1zM8,18h1v1h-1zM10,18h1v1h-1zM12,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM20,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM25,18h1v1h-1zM30,18h1v1h-1zM31,18h1v1h-1zM34,18h1v1h-1zM4,19h1v1h-1zM11,19h1v1h-1zM12,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM23,19h1v1h-1zM25,19h1v1h-1zM27,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM31,19h1v1h-1zM33,19h1v1h-1zM34,19h1v1h-1zM4,20h1v1h-1zM5,20h1v1h-1zM6,20h1v1h-1zM8,20h1v1h-1zM10,20h1v1h-1zM13,20h1v1h-1zM14,20h1v1h-1zM16,20h1v1h-1zM19,20h1v1h-1zM20,20h1v1h-1zM22,20h1v1h-1zM23,20h1v1h-1zM24,20h1v1h-1zM25,20h1v1h-1zM26,20h1v1h-1zM27,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM34,20h1v1h-1zM4,21h1v1h-1zM6,21h1v1h-1zM9,21h1v1h-1zM11,21h1v1h-1zM12,21h1v1h-1zM13,21h1v1h-1zM15,21h1v1h-1zM17,21h1v1h-1zM18,21h1v1h-1zM19,21h1v1h-1zM24,21h1v1h-1zM26,21h1v1h-1zM27,21h1v1h-1zM28,21h1v1h-1zM30,21h1v1h-1zM32,21h1v1h-1zM33,21h1v1h-1zM35,21h1v1h-1zM36,21h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM7,22h1v1h-1zM9,22h1v1h-1zM10,22h1v1h-1zM11,22h1v1h-1zM12,22h1v1h-1zM13,22h1v1h-1zM14,22h1v1h-1zM15,22h1v1h-1zM17,22h1v1h-1zM19,22h1v1h-1zM20,22h1v1h-1zM21,22h1v1h-1zM24,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM34,22h1v1h-1zM35,22h1v1h-1zM4,23h1v1h-1zM5,23h1v1h-1zM8,23h1v1h-1zM12,23h1v1h-1zM14,23h1v1h-1zM16,23h1v1h-1zM18,23h1v1h-1zM20,23h1v1h-1zM21,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM27,23h1v1h-1zM28,23h1v1h-1zM29,23h1v1h-1zM30,23h1v1h-1zM32,23h1v1h-1zM5,24h1v1h-1zM7,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM15,24h1v1h-1zM18,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM25,24h1v1h-1zM28,24h1v1h-1zM31,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM36,24h1v1h-1zM4,25h1v1h-1zM6,25h1v1h-1zM7,25h1v1h-1zM8,25h1v1h-1zM14,25h1v1h-1zM15,25h1v1h-1zM17,25h1v1h-1zM18,25h1v1h-1zM20,25h1v1h-1zM21,25h1v1h-1zM23,25h1v1h-1zM24,25h1v1h-1zM25,25h1v1h-1zM26,25h1v1h-1zM27,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM30,25h1v1h-1zM34,25h1v1h-1zM36,25h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM10,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM17,26h1v1h-1zM22,26h1v1h-1zM24,26h1v1h-1zM25,26h1v1h-1zM27,26h1v1h-1zM30,26h1v1h-1zM31,26h1v1h-1zM34,26h1v1h-1zM35,26h1v1h-1zM36,26h1v1h-1zM5,27h1v1h-1zM6,27h1v1h-1zM7,27h1v1h-1zM9,27h1v1h-1zM12,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM17,27h1v1h-1zM23,27h1v1h-1zM29,27h1v1h-1zM31,27h1v1h-1zM32,27h1v1h-1zM35,27h1v1h-1zM4,28h1v1h-1zM6,28h1v1h-1zM9,28h1v1h-1zM10,28h1v1h-1zM14,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM19,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM23,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM30,28h1v1h-1zM31,28h1v1h-1zM32,28h1v1h-1zM35,28h1v1h-1zM36,28h1v1h-1zM12,29h1v1h-1zM15,29h1v1h-1zM17,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM21,29h1v1h-1zM22,29h1v1h-1zM23,29h1v1h-1zM24,29h1v1h-1zM25,29h1v1h-1zM27,29h1v1h-1zM28,29h1v1h-1zM32,29h1v1h-1zM33,29h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM7,30h1v1h-1zM8,30h1v1h-1zM9,30h1v1h-1zM10,30h1v1h-1zM12,30h1v1h-1zM13,30h1v1h-1zM14,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM17,30h1v1h-1zM23,30h1v1h-1zM24,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM4,31h1v1h-1zM10,31h1v1h-1zM12,31h1v1h-1zM16,31h1v1h-1zM17,31h1v1h-1zM20,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM27,31h1v1h-1zM28,31h1v1h-1zM32,31h1v1h-1zM33,31h1v1h-1zM34,31h1v1h-1zM36,31h1v1h-1zM4,32h1v1h-1zM6,32h1v1h-1zM7,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM13,32h1v1h-1zM14,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM23,32h1v1h-1zM24,32h1v1h-1zM25,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM30,32h1v1h-1zM31,32h1v1h-1zM32,32h1v1h-1zM34,32h1v1h-1zM36,32h1v1h-1zM4,33h1v1h-1zM6,33h1v1h-1zM7,33h1v1h-1zM8,33h1v1h-1zM10,33h1v1h-1zM12,33h1v1h-1zM14,33h1v1h-1zM15,33h1v1h-1zM18,33h1v1h-1zM19,33h1v1h-1zM20,33h1v1h-1zM24,33h1v1h-1zM25,33h1v1h-1zM26,33h1v1h-1zM27,33h1v1h-1zM31,33h1v1h-1zM33,33h1v1h-1zM34,33h1v1h-1zM36,33h1v1h-1zM4,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM12,34h1v1h-1zM13,34h1v1h-1zM16,34h1v1h-1zM17,34h1v1h-1zM18,34h1v1h-1zM19,34h1v1h-1zM21,34h1v1h-1zM22,34h1v1h-1zM24,34h1v1h-1zM26,34h1v1h-1zM28,34h1v1h-1zM30,34h1v1h-1zM31,34h1v1h-1zM33,34h1v1h-1zM4,35h1v1h-1zM10,35h1v1h-1zM13,35h1v1h-1zM14,35h1v1h-1zM15,35h1v1h-1zM19,35h1v1h-1zM21,35h1v1h-1zM22,35h1v1h-1zM24,35h1v1h-1zM26,35h1v1h-1zM28,35h1v1h-1zM30,35h1v1h-1zM31,35h1v1h-1zM32,35h1v1h-1zM36,35h1v1h-1zM4,36h1v1h-1zM5,36h1v1h-1zM6,36h1v1h-1zM7,36h1v1h-1zM8,36h1v1h-1zM9,36h1v1h-1zM10,36h1v1h-1zM12,36h1v1h-1zM13,36h1v1h-1zM14,36h1v1h-1zM17,36h1v1h-1zM20,36h1v1h-1zM21,36h1v1h-1zM22,36h1v1h-1zM25,36h1v1h-1zM30,36h1v1h-1zM32,36h1v1h-1zM33,36h1v1h-1zM34,36h1v1h-1z" fill="#1f2220"/></svg><figcaption>امسحوا الرمز لفتح <span class="ltr nw" lang="en" dir="ltr">Padlet</span></figcaption></figure><ul class="btns"><li><a class="btn primary" href="https://padlet.com/greensoutherners/usj-s025j32xihj8e37qb4lf" target="_blank" rel="noopener"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cmVjdCB4PSI4IiB5PSIxMCIgd2lkdGg9IjE0NCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMCIgZmlsbD0iI2VlZjFlYSIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utd2lkdGg9IjMuNSIvPgo8ZyBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMi41Ij48cmVjdCB4PSIxOCIgeT0iMjAiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNiIgcng9IjUiLz48cmVjdCB4PSI2MSIgeT0iMjAiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNiIgcng9IjUiLz48cmVjdCB4PSIxMDQiIHk9IjIwIiB3aWR0aD0iMzgiIGhlaWdodD0iMzYiIHJ4PSI1Ii8+PHJlY3QgeD0iMTgiIHk9IjY0IiB3aWR0aD0iMzgiIGhlaWdodD0iMzYiIHJ4PSI1Ii8+PHJlY3QgeD0iNjEiIHk9IjY0IiB3aWR0aD0iMzgiIGhlaWdodD0iMzYiIHJ4PSI1Ii8+PHJlY3QgeD0iMTA0IiB5PSI2NCIgd2lkdGg9IjM4IiBoZWlnaHQ9IjM2IiByeD0iNSIvPjwvZz4KPHBhdGggZD0ibTY2IDUwIDktMTIgNyA4IDUtNSA3IDlaIiBmaWxsPSIjMjM3Zjk2Ii8+CjxwYXRoIGQ9Im0yMyA5NCA5LTEyIDcgOCA1LTUgNyA5WiIgZmlsbD0iIzNhOTU0ZiIvPgo8ZyBmaWxsPSIjMWYyMjIwIiBmaWxsLW9wYWNpdHk9Ii4zNSI+PHJlY3QgeD0iMjQiIHk9IjI3IiB3aWR0aD0iMjYiIGhlaWdodD0iNC41IiByeD0iMi4yNSIvPjxyZWN0IHg9IjI0IiB5PSIzNiIgd2lkdGg9IjIwIiBoZWlnaHQ9IjQuNSIgcng9IjIuMjUiLz48cmVjdCB4PSIyNCIgeT0iNDUiIHdpZHRoPSIyNCIgaGVpZ2h0PSI0LjUiIHJ4PSIyLjI1Ii8+PHJlY3QgeD0iMTEwIiB5PSI3MSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjQuNSIgcng9IjIuMjUiLz48cmVjdCB4PSIxMTAiIHk9IjgwIiB3aWR0aD0iMTgiIGhlaWdodD0iNC41IiByeD0iMi4yNSIvPjxyZWN0IHg9IjY3IiB5PSI3MSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjQuNSIgcng9IjIuMjUiLz48cmVjdCB4PSI2NyIgeT0iODAiIHdpZHRoPSIyMiIgaGVpZ2h0PSI0LjUiIHJ4PSIyLjI1Ii8+PHJlY3QgeD0iNjciIHk9Ijg5IiB3aWR0aD0iMTQiIGhlaWdodD0iNC41IiByeD0iMi4yNSIvPjwvZz4KPHBhdGggZD0iTTExNCAyN2gxMWw2IDZ2MTZoLTE3WiIgZmlsbD0iI2VhZjRlYyIgc3Ryb2tlPSIjM2E5NTRmIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8cGF0aCBkPSJNMTI1IDI3djZoNiIgc3Ryb2tlPSIjM2E5NTRmIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8L3N2Zz4K" alt="" width="40" height="30"><span><span class="ltr nw" lang="en" dir="ltr">Padlet</span> الورشة <small>مجلد مجموعتكم وجدولها والتسليم</small></span></a></li><li><a class="btn" href="https://alislayman.github.io/usj-litani-workshop/" target="_blank" rel="noopener"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI5IiBzdHJva2U9IiMxZjIyMjAiLz4KPHBhdGggZD0iTTMgMTJoMTgiIHN0cm9rZT0iIzFmMjIyMCIvPgo8ZWxsaXBzZSBjeD0iMTIiIGN5PSIxMiIgcng9IjQiIHJ5PSI5IiBzdHJva2U9IiMzYTk1NGYiLz4KPC9zdmc+Cg==" alt="" width="24" height="24"><span>موقع الورشة على الإنترنت <small>الصفحات والأدوات نفسها، من دون صور القرى</small></span></a></li><li><a class="btn" href="tools-ar.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJNMyA5LjVoMThWMTlhMS41IDEuNSAwIDAgMS0xLjUgMS41aC0xNUExLjUgMS41IDAgMCAxIDMgMTlaIiBzdHJva2U9IiMxZjIyMjAiLz4KPHBhdGggZD0iTTguNSA5LjVWNi41QTEuNSAxLjUgMCAwIDEgMTAgNWg0YTEuNSAxLjUgMCAwIDEgMS41IDEuNXYzTTMgMTRoMTgiIHN0cm9rZT0iIzFmMjIyMCIvPgo8cmVjdCB4PSIxMCIgeT0iMTIuNSIgd2lkdGg9IjQiIGhlaWdodD0iMy41IiByeD0iLjgiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzNhOTU0ZiIvPgo8L3N2Zz4K" alt="" width="24" height="24"><span>صفحة الأدوات <small>ما فائدة كل أداة، وكيف تبدؤون بها</small></span></a></li><li><a class="btn" href="../change-marker/index.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KPHJlY3QgeD0iMTQiIHk9IjE4IiB3aWR0aD0iNjgiIGhlaWdodD0iNDciIHJ4PSI0IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMy41Ii8+CjxyZWN0IHg9IjIwIiB5PSIyNCIgd2lkdGg9IjU2IiBoZWlnaHQ9IjM1IiByeD0iMS41IiBmaWxsPSIjZWFmNGVjIi8+CjxwYXRoIGQ9Ik0yMCA1MGMxMS01IDE4IDMgMjktMnMxNy0xMCAyNy02IiBzdHJva2U9IiMyMzdmOTYiIHN0cm9rZS13aWR0aD0iNCIvPgo8ZyBmaWxsPSIjMWYyMjIwIj48cmVjdCB4PSIyNSIgeT0iMjkiIHdpZHRoPSI2IiBoZWlnaHQ9IjYiIHJ4PSIuOCIvPjxyZWN0IHg9IjM1IiB5PSIzMSIgd2lkdGg9IjYiIGhlaWdodD0iNSIgcng9Ii44Ii8+PHJlY3QgeD0iNTgiIHk9IjI4IiB3aWR0aD0iNiIgaGVpZ2h0PSI2IiByeD0iLjgiLz48cmVjdCB4PSI2NyIgeT0iMzEiIHdpZHRoPSI1IiBoZWlnaHQ9IjUiIHJ4PSIuOCIvPjwvZz4KPHJlY3QgeD0iNDUiIHk9IjMwIiB3aWR0aD0iOSIgaGVpZ2h0PSI5IiByeD0iMSIgZmlsbD0iI2ZkZWNlZSIgc3Ryb2tlPSIjYzgxZDJiIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8cGF0aCBkPSJNNiA2OWg4NGwtNSA5SDExWiIgZmlsbD0iI2RmZTJkZSIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utd2lkdGg9IjMuNSIvPgo8L3N2Zz4K" alt="" width="24" height="24"><span><span class="ltr nw" lang="en" dir="ltr">Change Marker</span> <small>في مجلدكم، مع صور قريتكم</small></span></a></li><li><a class="btn" href="https://alislayman.github.io/change-marker/" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">Change Marker</span> على الإنترنت <small>على الإنترنت: الأداة وحدها، من دون صور القرى</small></span></a></li><li><a class="btn" href="../sheet/group-sheet-template.xlsx" download><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cmVjdCB4PSIyMCIgeT0iOTIiIHdpZHRoPSIzNCIgaGVpZ2h0PSIxOCIgcng9IjQiIGZpbGw9IiNlYWY0ZWMiIHN0cm9rZT0iIzNhOTU0ZiIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxyZWN0IHg9IjU4IiB5PSI5MiIgd2lkdGg9IjM0IiBoZWlnaHQ9IjE4IiByeD0iNCIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utb3BhY2l0eT0iLjQ1IiBzdHJva2Utd2lkdGg9IjMiLz4KPHJlY3QgeD0iOTYiIHk9IjkyIiB3aWR0aD0iMzQiIGhlaWdodD0iMTgiIHJ4PSI0IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS1vcGFjaXR5PSIuNDUiIHN0cm9rZS13aWR0aD0iMyIvPgo8cmVjdCB4PSIxMiIgeT0iMTAiIHdpZHRoPSIxMzYiIGhlaWdodD0iODYiIHJ4PSI4IiBmaWxsPSIjZmZmIi8+CjxwYXRoIGQ9Ik0xMiAxOGE4IDggMCAwIDEgOC04aDEyMGE4IDggMCAwIDEgOCA4djEwSDEyWiIgZmlsbD0iIzNhOTU0ZiIvPgo8cGF0aCBkPSJNMTIgNDVoMTM2TTEyIDYyaDEzNk0xMiA3OWgxMzZNNDggMjh2NjhtNTAtNjh2NjgiIHN0cm9rZT0iIzFmMjIyMCIgc3Ryb2tlLW9wYWNpdHk9Ii4yNSIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KPGcgZmlsbD0iIzFmMjIyMCIgZmlsbC1vcGFjaXR5PSIuMzUiPjxyZWN0IHg9IjIwIiB5PSIzNCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSI1NiIgeT0iMzQiIHdpZHRoPSIzNCIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iMTA2IiB5PSIzNCIgd2lkdGg9IjI2IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSIyMCIgeT0iNTEiIHdpZHRoPSIxNiIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iNTYiIHk9IjUxIiB3aWR0aD0iMjgiIGhlaWdodD0iNSIgcng9IjIuNSIvPjxyZWN0IHg9IjEwNiIgeT0iNTEiIHdpZHRoPSIzNCIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iMjAiIHk9IjY4IiB3aWR0aD0iMjIiIGhlaWdodD0iNSIgcng9IjIuNSIvPjxyZWN0IHg9IjU2IiB5PSI2OCIgd2lkdGg9IjM2IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSIxMDYiIHk9IjY4IiB3aWR0aD0iMjAiIGhlaWdodD0iNSIgcng9IjIuNSIvPjxyZWN0IHg9IjIwIiB5PSI4NSIgd2lkdGg9IjE4IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSI1NiIgeT0iODUiIHdpZHRoPSIyNCIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iMTA2IiB5PSI4NSIgd2lkdGg9IjMwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48L2c+CjxyZWN0IHg9IjEyIiB5PSIxMCIgd2lkdGg9IjEzNiIgaGVpZ2h0PSI4NiIgcng9IjgiIHN0cm9rZT0iIzFmMjIyMCIgc3Ryb2tlLXdpZHRoPSIzLjUiLz4KPC9zdmc+Cg==" alt="" width="40" height="30"><span>نموذج جدول المجموعة <small>تجدون نسخة مجموعتكم الخاصة على <span class="ltr nw" lang="en" dir="ltr">Padlet</span></small></span></a></li><li><a class="btn" href="../tools/sheet-to-kmz.html"><span><span class="ltr nw" lang="en" dir="ltr">Sheet to KMZ</span> <small>الجدول كله في ملف خريطة واحد</small></span></a></li><li><a class="btn" href="../maps/litani-villages.kmz"><span>خريطة القرى، <span class="ltr nw" lang="en" dir="ltr">KMZ</span> <small>تُفتح في <span class="ltr nw" lang="en" dir="ltr">Google Earth</span></small></span></a></li></ul></div><div class="lgroup"><h3><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KPHJlY3QgeD0iMTQiIHk9IjE4IiB3aWR0aD0iNjgiIGhlaWdodD0iNDciIHJ4PSI0IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMy41Ii8+CjxyZWN0IHg9IjIwIiB5PSIyNCIgd2lkdGg9IjU2IiBoZWlnaHQ9IjM1IiByeD0iMS41IiBmaWxsPSIjZWFmNGVjIi8+CjxwYXRoIGQ9Ik0yMCA1MGMxMS01IDE4IDMgMjktMnMxNy0xMCAyNy02IiBzdHJva2U9IiMyMzdmOTYiIHN0cm9rZS13aWR0aD0iNCIvPgo8ZyBmaWxsPSIjMWYyMjIwIj48cmVjdCB4PSIyNSIgeT0iMjkiIHdpZHRoPSI2IiBoZWlnaHQ9IjYiIHJ4PSIuOCIvPjxyZWN0IHg9IjM1IiB5PSIzMSIgd2lkdGg9IjYiIGhlaWdodD0iNSIgcng9Ii44Ii8+PHJlY3QgeD0iNTgiIHk9IjI4IiB3aWR0aD0iNiIgaGVpZ2h0PSI2IiByeD0iLjgiLz48cmVjdCB4PSI2NyIgeT0iMzEiIHdpZHRoPSI1IiBoZWlnaHQ9IjUiIHJ4PSIuOCIvPjwvZz4KPHJlY3QgeD0iNDUiIHk9IjMwIiB3aWR0aD0iOSIgaGVpZ2h0PSI5IiByeD0iMSIgZmlsbD0iI2ZkZWNlZSIgc3Ryb2tlPSIjYzgxZDJiIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8cGF0aCBkPSJNNiA2OWg4NGwtNSA5SDExWiIgZmlsbD0iI2RmZTJkZSIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utd2lkdGg9IjMuNSIvPgo8L3N2Zz4K" alt="" width="64" height="48"><span>صور الأقمار الاصطناعية</span></h3><ul class="btns"><li><a class="btn easy" href="https://livingatlas.arcgis.com/sentinel2explorer" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">Sentinel-2 Explorer</span> <span class="tag">الأسهل استعمالًا</span> <small>مقارنة تاريخين بالسحب، من دون حساب</small></span></a></li><li><a class="btn" href="https://browser.dataspace.copernicus.eu/" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">Copernicus Browser</span> <small>أي تاريخ وأي طبقة؛ يتطلّب تعلّمًا أكثر، والحساب المجاني يفيد</small></span></a></li><li><a class="btn" href="https://earth.google.com/web/" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">Google Earth</span> على الويب <small>من دون تثبيت أي برنامج</small></span></a></li><li><a class="btn" href="https://www.google.com/earth/about/versions/" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">Google Earth Pro</span> <small>البرنامج المجاني للحاسوب</small></span></a></li></ul></div><div class="lgroup"><h3><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cGF0aCBkPSJNLTQgNDRDMzAgMzAgNjAgMjYgOTIgMzBzNTAgNiA3Mi0ydjk2SC00WiIgZmlsbD0iI2VhZjRlYyIgc3Ryb2tlPSIjM2E5NTRmIiBzdHJva2Utd2lkdGg9IjMuNSIvPgo8ZyBmaWxsPSIjM2E5NTRmIj48Y2lyY2xlIGN4PSIxOCIgY3k9IjU2IiByPSI1LjUiLz48Y2lyY2xlIGN4PSIzNiIgY3k9IjQ4IiByPSI1LjUiLz48Y2lyY2xlIGN4PSIyOCIgY3k9Ijc0IiByPSI1LjUiLz48Y2lyY2xlIGN4PSIxNCIgY3k9Ijk0IiByPSI1LjUiLz48Y2lyY2xlIGN4PSI0MCIgY3k9Ijk4IiByPSI1LjUiLz48Y2lyY2xlIGN4PSIxMjYiIGN5PSI0NiIgcj0iNS41Ii8+PGNpcmNsZSBjeD0iMTQ0IiBjeT0iNTgiIHI9IjUuNSIvPjxjaXJjbGUgY3g9IjEyNyIgY3k9IjcxIiByPSI1LjUiLz48Y2lyY2xlIGN4PSIxNDgiIGN5PSI4NiIgcj0iNS41Ii8+PGNpcmNsZSBjeD0iMTIyIiBjeT0iOTYiIHI9IjUuNSIvPjxjaXJjbGUgY3g9IjEwMiIgY3k9IjExMSIgcj0iNS41Ii8+PGNpcmNsZSBjeD0iNTQiIGN5PSIxMTIiIHI9IjUuNSIvPjwvZz4KPHBhdGggZD0iTTc0IDEwNCA2MiA5NGwtNC0xMC04LTgtMi0xMiA2LTgtMi04IDEwLTYgMTIgNCAxMC02IDEyIDQgMTAtMiA2IDEwLTQgMTAgNCAxMC0xMCAxMC02IDEwLTEwIDZaIiBmaWxsPSIjMWYyMjIwIiBzdHJva2U9IiNiMzRhMDAiIHN0cm9rZS13aWR0aD0iNC41Ii8+CjxnIHN0cm9rZT0iI2IzNGEwMCIgc3Ryb2tlLXdpZHRoPSIyIj48Y2lyY2xlIGN4PSI2NiIgY3k9IjYwIiByPSI0Ii8+PGNpcmNsZSBjeD0iODQiIGN5PSI1NCIgcj0iNCIvPjxjaXJjbGUgY3g9Ijk4IiBjeT0iNTgiIHI9IjQiLz48Y2lyY2xlIGN4PSI3NiIgY3k9Ijc0IiByPSI0Ii8+PGNpcmNsZSBjeD0iOTQiIGN5PSI3NiIgcj0iNCIvPjxjaXJjbGUgY3g9IjcyIiBjeT0iOTAiIHI9IjQiLz48L2c+Cjwvc3ZnPgo=" alt="" width="64" height="48"><span>الحرائق</span></h3><ul class="btns"><li><a class="btn" href="https://firms.modaps.eosdis.nasa.gov/map/" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">NASA FIRMS</span> <small>البقع الحرارية؛ اختاروا <span class="ltr nw" lang="en" dir="ltr">UTC</span> في جدوله</small></span></a></li><li><a class="btn" href="https://forest-fire.emergency.copernicus.eu/apps/effis.csv/" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">EFFIS</span> <small>المساحات المحروقة؛ الخريطة الفارغة قد تعني أن الخدمة متوقفة</small></span></a></li></ul></div><div class="lgroup"><h3><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cmVjdCB4PSI2IiB5PSIyOCIgd2lkdGg9IjcwIiBoZWlnaHQ9IjU2IiByeD0iNyIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNOCA2NGMxMC03IDE5LTEwIDI4LTdzMTYgMSAyMi01IDExLTYgMTYtNHYyOGE1IDUgMCAwIDEtNSA1SDEzYTUgNSAwIDAgMS01LTVaIiBmaWxsPSIjZWFmNGVjIi8+CjxwYXRoIGQ9Ik04IDY0YzEwLTcgMTktMTAgMjgtN3MxNiAxIDIyLTUgMTEtNiAxNi00IiBzdHJva2U9IiMzYTk1NGYiIHN0cm9rZS13aWR0aD0iMyIvPgo8ZyBmaWxsPSIjMWYyMjIwIj48cmVjdCB4PSIxNiIgeT0iNjQiIHdpZHRoPSIxMSIgaGVpZ2h0PSIxNyIvPjxyZWN0IHg9IjI5IiB5PSI2MCIgd2lkdGg9IjkiIGhlaWdodD0iMjEiLz48cmVjdCB4PSI0MCIgeT0iNjYiIHdpZHRoPSI4IiBoZWlnaHQ9IjE1Ii8+PHJlY3QgeD0iNjEiIHk9IjYzIiB3aWR0aD0iOSIgaGVpZ2h0PSIxOCIvPjwvZz4KPHJlY3QgeD0iNTEiIHk9IjQ0IiB3aWR0aD0iNyIgaGVpZ2h0PSIzNyIgZmlsbD0iIzIzN2Y5NiIvPgo8cmVjdCB4PSI2IiB5PSIyOCIgd2lkdGg9IjcwIiBoZWlnaHQ9IjU2IiByeD0iNyIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utd2lkdGg9IjMuNSIvPgo8cmVjdCB4PSI5MCIgeT0iMTQiIHdpZHRoPSI2NCIgaGVpZ2h0PSI5MiIgcng9IjciIGZpbGw9IiNlZWYxZWEiLz4KPHBhdGggZD0iTTkwIDcyaDY0TTEyMiAxNHY5MiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjYiIHN0cm9rZS1saW5lY2FwPSJidXR0Ii8+CjxwYXRoIGQ9Im0xNDAgOTktMzEtNDIgMjEtNFoiIGZpbGw9IiMyMzdmOTYiIGZpbGwtb3BhY2l0eT0iLjIiLz4KPGcgZmlsbD0iIzFmMjIyMCI+PHJlY3QgeD0iOTgiIHk9IjIyIiB3aWR0aD0iMTEiIGhlaWdodD0iOCIgcng9IjEiLz48cmVjdCB4PSI5OSIgeT0iMzYiIHdpZHRoPSI4IiBoZWlnaHQ9IjEwIiByeD0iMSIvPjxyZWN0IHg9IjEzMyIgeT0iMjMiIHdpZHRoPSIxMSIgaGVpZ2h0PSI5IiByeD0iMSIvPjxyZWN0IHg9IjEzMiIgeT0iNDIiIHdpZHRoPSIxMiIgaGVpZ2h0PSI4IiByeD0iMSIvPjxyZWN0IHg9Ijk4IiB5PSI4MiIgd2lkdGg9IjExIiBoZWlnaHQ9IjkiIHJ4PSIxIi8+PHJlY3QgeD0iMTMwIiB5PSI4MCIgd2lkdGg9IjkiIGhlaWdodD0iOSIgcng9IjEiLz48L2c+CjxyZWN0IHg9IjEwNSIgeT0iNTIiIHdpZHRoPSI5IiBoZWlnaHQ9IjkiIHJ4PSIxIiBmaWxsPSIjMjM3Zjk2Ii8+CjxjaXJjbGUgY3g9IjE0MCIgY3k9Ijk5IiByPSI0IiBmaWxsPSIjMjM3Zjk2Ii8+CjxyZWN0IHg9IjkwIiB5PSIxNCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjkyIiByeD0iNyIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utd2lkdGg9IjMuNSIvPgo8cGF0aCBkPSJNNTggNDBjMTgtMTQgMzYtNiA0NyAxMCIgc3Ryb2tlPSIjMjM3Zjk2IiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWRhc2hhcnJheT0iNCA1Ii8+Cjwvc3ZnPgo=" alt="" width="64" height="48"><span>الصور والفيديوهات</span></h3><ul class="btns"><li><a class="btn" href="https://www.suncalc.org/" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">SunCalc</span> <small>موقع الشمس في يوم وساعة بتوقيت بيروت</small></span></a></li><li><a class="btn" href="https://open-meteo.com/en/docs/historical-weather-api" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">Open-Meteo</span> <small>الرياح ساعةً بساعة، والأوقات بتوقيت <span class="ltr nw" lang="en" dir="ltr">GMT</span></small></span></a></li><li><a class="btn" href="https://earth.nullschool.net/" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">earth.nullschool.net</span> <small>الرياح على مجسّم للكرة الأرضية</small></span></a></li><li><a class="btn" href="https://www.peakfinder.com/" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">PeakFinder</span> <small>خط الأفق كما يُرى من نقطة</small></span></a></li></ul></div><div class="lgroup"><h3><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8ZyBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMyI+PHJlY3QgeD0iMTAiIHk9IjEyIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjI3IiByeD0iNiIvPjxyZWN0IHg9IjEwIiB5PSI0NyIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIyNyIgcng9IjYiLz48cmVjdCB4PSIxMCIgeT0iODIiIHdpZHRoPSIxMDAiIGhlaWdodD0iMjciIHJ4PSI2Ii8+PC9nPgo8ZyBmaWxsPSIjZGZlMmRlIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMi41Ij48Y2lyY2xlIGN4PSIyNCIgY3k9IjI1LjUiIHI9IjYiLz48Y2lyY2xlIGN4PSIyNCIgY3k9IjYwLjUiIHI9IjYiLz48Y2lyY2xlIGN4PSIyNCIgY3k9Ijk1LjUiIHI9IjYiLz48L2c+CjxnIGZpbGw9IiMxZjIyMjAiIGZpbGwtb3BhY2l0eT0iLjM1Ij48cmVjdCB4PSIzNiIgeT0iMTkiIHdpZHRoPSI2MCIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iMzYiIHk9IjI4IiB3aWR0aD0iMzgiIGhlaWdodD0iNSIgcng9IjIuNSIvPjxyZWN0IHg9IjM2IiB5PSI1NCIgd2lkdGg9IjU0IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSIzNiIgeT0iNjMiIHdpZHRoPSI0MiIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iMzYiIHk9Ijg5IiB3aWR0aD0iNTgiIGhlaWdodD0iNSIgcng9IjIuNSIvPjxyZWN0IHg9IjM2IiB5PSI5OCIgd2lkdGg9IjM0IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48L2c+CjxwYXRoIGQ9Im0xMzEgODAgMTkgMTkiIHN0cm9rZT0iIzNhOTU0ZiIgc3Ryb2tlLXdpZHRoPSIxMSIvPgo8Y2lyY2xlIGN4PSIxMTMiIGN5PSI2MiIgcj0iMjQiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iLjU1IiBzdHJva2U9IiMzYTk1NGYiIHN0cm9rZS13aWR0aD0iNyIvPgo8L3N2Zz4K" alt="" width="64" height="48"><span>البحث</span></h3><ul class="btns"><li><a class="btn" href="https://x.com/" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">X</span> <small>يتطلب البحث تسجيل الدخول إلى حساب على <span class="ltr nw" lang="en" dir="ltr">X</span></small></span></a></li><li><a class="btn" href="https://www.google.com/" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">Google</span> <small>البحث ضمن فترة زمنية محدّدة</small></span></a></li></ul><p class="tgline"><b><span class="ltr nw" lang="en" dir="ltr">Telegram</span></b>: قنوات إخبارية، تُقرأ في المتصفح</p><ul class="btns wrap"><li><a class="btn sm" href="https://t.me/s/LBCI_NEWS" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">LBCI</span></span></a></li><li><a class="btn sm" href="https://t.me/s/ALJADEED_NEWS" target="_blank" rel="noopener"><span>الجديد</span></a></li><li><a class="btn sm" href="https://t.me/s/annaharnewspaper" target="_blank" rel="noopener"><span>النهار</span></a></li><li><a class="btn sm" href="https://t.me/s/almayadeen" target="_blank" rel="noopener"><span>الميادين</span></a></li><li><a class="btn sm" href="https://t.me/s/alakhbar_news" target="_blank" rel="noopener"><span>الأخبار</span></a></li><li><a class="btn sm" href="https://t.me/s/AjaNews" target="_blank" rel="noopener"><span>الجزيرة</span></a></li><li><a class="btn sm" href="https://t.me/s/AlarabyTelevision" target="_blank" rel="noopener"><span>التلفزيون العربي</span></a></li></ul></div></div></section><section id="recipes"><header><h2>روابط البحث لكل قرية</h2><p><span class="ltr nw" lang="en" dir="ltr">X</span> و<span class="ltr nw" lang="en" dir="ltr">Google</span> و<span class="ltr nw" lang="en" dir="ltr">Telegram</span>، من <span class="ltr nw" lang="en" dir="ltr">2026-03-01</span> إلى <span class="ltr nw" lang="en" dir="ltr">2026-10-23</span>. يتطلب البحث في <span class="ltr nw" lang="en" dir="ltr">X</span> تسجيل الدخول إلى حساب على <span class="ltr nw" lang="en" dir="ltr">X</span>.</p></header><div class="recipes"><details class="recipe g1"><summary>المجموعة 1: أرنون</summary><p class="kwrow"><b>أسماء القرى</b> <span class="kchip word" lang="ar" dir="rtl">أرنون</span> <span class="kchip word" lang="ar" dir="rtl">ارنون</span></p><div class="rrow"><b><span class="ltr nw" lang="en" dir="ltr">X</span></b><ul class="btns"><li><a class="btn sm" href="https://x.com/search?q=%28%D8%A3%D8%B1%D9%86%D9%88%D9%86%20OR%20%D8%A7%D8%B1%D9%86%D9%88%D9%86%29%20%28%D8%AA%D9%81%D8%AC%D9%8A%D8%B1%20OR%20%D9%86%D8%B3%D9%81%20OR%20%D8%AA%D9%81%D8%AE%D9%8A%D8%AE%20OR%20%D8%AA%D8%AF%D9%85%D9%8A%D8%B1%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>تفجيرات</span></a></li><li><a class="btn sm" href="https://x.com/search?q=%28%D8%A3%D8%B1%D9%86%D9%88%D9%86%20OR%20%D8%A7%D8%B1%D9%86%D9%88%D9%86%29%20%28%D8%AD%D8%B1%D9%8A%D9%82%20OR%20%D8%AD%D8%B1%D8%A7%D8%A6%D9%82%20OR%20%D8%A7%D9%84%D9%86%D9%8A%D8%B1%D8%A7%D9%86%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>حرائق</span></a></li><li><a class="btn sm" href="https://x.com/search?q=%28%D8%A3%D8%B1%D9%86%D9%88%D9%86%20OR%20%D8%A7%D8%B1%D9%86%D9%88%D9%86%29%20%28%D8%AA%D8%AC%D8%B1%D9%8A%D9%81%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A9%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A7%D8%AA%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>تجريف</span></a></li><li><a class="btn sm" href="https://x.com/search?q=%28%D8%A3%D8%B1%D9%86%D9%88%D9%86%20OR%20%D8%A7%D8%B1%D9%86%D9%88%D9%86%29%20%28%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%D9%8A%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>فوسفور أبيض</span></a></li></ul></div><div class="rrow"><b><span class="ltr nw" lang="en" dir="ltr">Google</span></b><ul class="btns"><li><a class="btn sm" href="https://www.google.com/search?q=%28%D8%A3%D8%B1%D9%86%D9%88%D9%86%20OR%20%D8%A7%D8%B1%D9%86%D9%88%D9%86%29%20%28%D8%AA%D9%81%D8%AC%D9%8A%D8%B1%20OR%20%D9%86%D8%B3%D9%81%20OR%20%D8%AA%D9%81%D8%AE%D9%8A%D8%AE%20OR%20%D8%AA%D8%AF%D9%85%D9%8A%D8%B1%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>تفجيرات</span></a></li><li><a class="btn sm" href="https://www.google.com/search?q=%28%D8%A3%D8%B1%D9%86%D9%88%D9%86%20OR%20%D8%A7%D8%B1%D9%86%D9%88%D9%86%29%20%28%D8%AD%D8%B1%D9%8A%D9%82%20OR%20%D8%AD%D8%B1%D8%A7%D8%A6%D9%82%20OR%20%D8%A7%D9%84%D9%86%D9%8A%D8%B1%D8%A7%D9%86%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>حرائق</span></a></li><li><a class="btn sm" href="https://www.google.com/search?q=%28%D8%A3%D8%B1%D9%86%D9%88%D9%86%20OR%20%D8%A7%D8%B1%D9%86%D9%88%D9%86%29%20%28%D8%AA%D8%AC%D8%B1%D9%8A%D9%81%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A9%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A7%D8%AA%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>تجريف</span></a></li><li><a class="btn sm" href="https://www.google.com/search?q=%28%D8%A3%D8%B1%D9%86%D9%88%D9%86%20OR%20%D8%A7%D8%B1%D9%86%D9%88%D9%86%29%20%28%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%D9%8A%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>فوسفور أبيض</span></a></li></ul></div><div class="rrow"><b><span class="ltr nw" lang="en" dir="ltr">Telegram</span></b><ul class="btns"><li><a class="btn sm" href="https://t.me/s/LBCI_NEWS?q=%D8%A7%D8%B1%D9%86%D9%88%D9%86" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">LBCI</span></span></a></li><li><a class="btn sm" href="https://t.me/s/ALJADEED_NEWS?q=%D8%A7%D8%B1%D9%86%D9%88%D9%86" target="_blank" rel="noopener"><span>الجديد</span></a></li><li><a class="btn sm" href="https://t.me/s/annaharnewspaper?q=%D8%A7%D8%B1%D9%86%D9%88%D9%86" target="_blank" rel="noopener"><span>النهار</span></a></li><li><a class="btn sm" href="https://t.me/s/almayadeen?q=%D8%A7%D8%B1%D9%86%D9%88%D9%86" target="_blank" rel="noopener"><span>الميادين</span></a></li><li><a class="btn sm" href="https://t.me/s/alakhbar_news?q=%D8%A7%D8%B1%D9%86%D9%88%D9%86" target="_blank" rel="noopener"><span>الأخبار</span></a></li><li><a class="btn sm" href="https://t.me/s/AjaNews?q=%D8%A7%D8%B1%D9%86%D9%88%D9%86" target="_blank" rel="noopener"><span>الجزيرة</span></a></li><li><a class="btn sm" href="https://t.me/s/AlarabyTelevision?q=%D8%A7%D8%B1%D9%86%D9%88%D9%86" target="_blank" rel="noopener"><span>التلفزيون العربي</span></a></li></ul></div></details><details class="recipe g2"><summary>المجموعة 2: يحمر الشقيف</summary><p class="kwrow"><b>أسماء القرى</b> <span class="kchip word" lang="ar" dir="rtl">"يحمر الشقيف"</span></p><div class="rrow"><b><span class="ltr nw" lang="en" dir="ltr">X</span></b><ul class="btns"><li><a class="btn sm" href="https://x.com/search?q=%22%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81%22%20%28%D8%AA%D9%81%D8%AC%D9%8A%D8%B1%20OR%20%D9%86%D8%B3%D9%81%20OR%20%D8%AA%D9%81%D8%AE%D9%8A%D8%AE%20OR%20%D8%AA%D8%AF%D9%85%D9%8A%D8%B1%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>تفجيرات</span></a></li><li><a class="btn sm" href="https://x.com/search?q=%22%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81%22%20%28%D8%AD%D8%B1%D9%8A%D9%82%20OR%20%D8%AD%D8%B1%D8%A7%D8%A6%D9%82%20OR%20%D8%A7%D9%84%D9%86%D9%8A%D8%B1%D8%A7%D9%86%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>حرائق</span></a></li><li><a class="btn sm" href="https://x.com/search?q=%22%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81%22%20%28%D8%AA%D8%AC%D8%B1%D9%8A%D9%81%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A9%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A7%D8%AA%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>تجريف</span></a></li><li><a class="btn sm" href="https://x.com/search?q=%22%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81%22%20%28%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%D9%8A%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>فوسفور أبيض</span></a></li></ul></div><div class="rrow"><b><span class="ltr nw" lang="en" dir="ltr">Google</span></b><ul class="btns"><li><a class="btn sm" href="https://www.google.com/search?q=%22%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81%22%20%28%D8%AA%D9%81%D8%AC%D9%8A%D8%B1%20OR%20%D9%86%D8%B3%D9%81%20OR%20%D8%AA%D9%81%D8%AE%D9%8A%D8%AE%20OR%20%D8%AA%D8%AF%D9%85%D9%8A%D8%B1%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>تفجيرات</span></a></li><li><a class="btn sm" href="https://www.google.com/search?q=%22%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81%22%20%28%D8%AD%D8%B1%D9%8A%D9%82%20OR%20%D8%AD%D8%B1%D8%A7%D8%A6%D9%82%20OR%20%D8%A7%D9%84%D9%86%D9%8A%D8%B1%D8%A7%D9%86%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>حرائق</span></a></li><li><a class="btn sm" href="https://www.google.com/search?q=%22%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81%22%20%28%D8%AA%D8%AC%D8%B1%D9%8A%D9%81%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A9%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A7%D8%AA%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>تجريف</span></a></li><li><a class="btn sm" href="https://www.google.com/search?q=%22%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81%22%20%28%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%D9%8A%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>فوسفور أبيض</span></a></li></ul></div><div class="rrow"><b><span class="ltr nw" lang="en" dir="ltr">Telegram</span></b><ul class="btns"><li><a class="btn sm" href="https://t.me/s/LBCI_NEWS?q=%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">LBCI</span></span></a></li><li><a class="btn sm" href="https://t.me/s/ALJADEED_NEWS?q=%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81" target="_blank" rel="noopener"><span>الجديد</span></a></li><li><a class="btn sm" href="https://t.me/s/annaharnewspaper?q=%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81" target="_blank" rel="noopener"><span>النهار</span></a></li><li><a class="btn sm" href="https://t.me/s/almayadeen?q=%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81" target="_blank" rel="noopener"><span>الميادين</span></a></li><li><a class="btn sm" href="https://t.me/s/alakhbar_news?q=%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81" target="_blank" rel="noopener"><span>الأخبار</span></a></li><li><a class="btn sm" href="https://t.me/s/AjaNews?q=%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81" target="_blank" rel="noopener"><span>الجزيرة</span></a></li><li><a class="btn sm" href="https://t.me/s/AlarabyTelevision?q=%D9%8A%D8%AD%D9%85%D8%B1%20%D8%A7%D9%84%D8%B4%D9%82%D9%8A%D9%81" target="_blank" rel="noopener"><span>التلفزيون العربي</span></a></li></ul></div></details><details class="recipe g3"><summary>المجموعة 3: زوطر الشرقية وزوطر الغربية</summary><p class="kwrow"><b>أسماء القرى</b> <span class="kchip word" lang="ar" dir="rtl">"زوطر الشرقية"</span> <span class="kchip word" lang="ar" dir="rtl">"زوطر الغربية"</span> <span class="kchip word" lang="ar" dir="rtl">زوطر</span></p><div class="rrow"><b><span class="ltr nw" lang="en" dir="ltr">X</span></b><ul class="btns"><li><a class="btn sm" href="https://x.com/search?q=%28%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%B4%D8%B1%D9%82%D9%8A%D8%A9%22%20OR%20%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9%22%20OR%20%D8%B2%D9%88%D8%B7%D8%B1%29%20%28%D8%AA%D9%81%D8%AC%D9%8A%D8%B1%20OR%20%D9%86%D8%B3%D9%81%20OR%20%D8%AA%D9%81%D8%AE%D9%8A%D8%AE%20OR%20%D8%AA%D8%AF%D9%85%D9%8A%D8%B1%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>تفجيرات</span></a></li><li><a class="btn sm" href="https://x.com/search?q=%28%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%B4%D8%B1%D9%82%D9%8A%D8%A9%22%20OR%20%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9%22%20OR%20%D8%B2%D9%88%D8%B7%D8%B1%29%20%28%D8%AD%D8%B1%D9%8A%D9%82%20OR%20%D8%AD%D8%B1%D8%A7%D8%A6%D9%82%20OR%20%D8%A7%D9%84%D9%86%D9%8A%D8%B1%D8%A7%D9%86%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>حرائق</span></a></li><li><a class="btn sm" href="https://x.com/search?q=%28%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%B4%D8%B1%D9%82%D9%8A%D8%A9%22%20OR%20%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9%22%20OR%20%D8%B2%D9%88%D8%B7%D8%B1%29%20%28%D8%AA%D8%AC%D8%B1%D9%8A%D9%81%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A9%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A7%D8%AA%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>تجريف</span></a></li><li><a class="btn sm" href="https://x.com/search?q=%28%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%B4%D8%B1%D9%82%D9%8A%D8%A9%22%20OR%20%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9%22%20OR%20%D8%B2%D9%88%D8%B7%D8%B1%29%20%28%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%D9%8A%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>فوسفور أبيض</span></a></li></ul></div><div class="rrow"><b><span class="ltr nw" lang="en" dir="ltr">Google</span></b><ul class="btns"><li><a class="btn sm" href="https://www.google.com/search?q=%28%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%B4%D8%B1%D9%82%D9%8A%D8%A9%22%20OR%20%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9%22%20OR%20%D8%B2%D9%88%D8%B7%D8%B1%29%20%28%D8%AA%D9%81%D8%AC%D9%8A%D8%B1%20OR%20%D9%86%D8%B3%D9%81%20OR%20%D8%AA%D9%81%D8%AE%D9%8A%D8%AE%20OR%20%D8%AA%D8%AF%D9%85%D9%8A%D8%B1%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>تفجيرات</span></a></li><li><a class="btn sm" href="https://www.google.com/search?q=%28%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%B4%D8%B1%D9%82%D9%8A%D8%A9%22%20OR%20%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9%22%20OR%20%D8%B2%D9%88%D8%B7%D8%B1%29%20%28%D8%AD%D8%B1%D9%8A%D9%82%20OR%20%D8%AD%D8%B1%D8%A7%D8%A6%D9%82%20OR%20%D8%A7%D9%84%D9%86%D9%8A%D8%B1%D8%A7%D9%86%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>حرائق</span></a></li><li><a class="btn sm" href="https://www.google.com/search?q=%28%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%B4%D8%B1%D9%82%D9%8A%D8%A9%22%20OR%20%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9%22%20OR%20%D8%B2%D9%88%D8%B7%D8%B1%29%20%28%D8%AA%D8%AC%D8%B1%D9%8A%D9%81%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A9%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A7%D8%AA%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>تجريف</span></a></li><li><a class="btn sm" href="https://www.google.com/search?q=%28%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%B4%D8%B1%D9%82%D9%8A%D8%A9%22%20OR%20%22%D8%B2%D9%88%D8%B7%D8%B1%20%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9%22%20OR%20%D8%B2%D9%88%D8%B7%D8%B1%29%20%28%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%D9%8A%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>فوسفور أبيض</span></a></li></ul></div><div class="rrow"><b><span class="ltr nw" lang="en" dir="ltr">Telegram</span></b><ul class="btns"><li><a class="btn sm" href="https://t.me/s/LBCI_NEWS?q=%D8%B2%D9%88%D8%B7%D8%B1" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">LBCI</span></span></a></li><li><a class="btn sm" href="https://t.me/s/ALJADEED_NEWS?q=%D8%B2%D9%88%D8%B7%D8%B1" target="_blank" rel="noopener"><span>الجديد</span></a></li><li><a class="btn sm" href="https://t.me/s/annaharnewspaper?q=%D8%B2%D9%88%D8%B7%D8%B1" target="_blank" rel="noopener"><span>النهار</span></a></li><li><a class="btn sm" href="https://t.me/s/almayadeen?q=%D8%B2%D9%88%D8%B7%D8%B1" target="_blank" rel="noopener"><span>الميادين</span></a></li><li><a class="btn sm" href="https://t.me/s/alakhbar_news?q=%D8%B2%D9%88%D8%B7%D8%B1" target="_blank" rel="noopener"><span>الأخبار</span></a></li><li><a class="btn sm" href="https://t.me/s/AjaNews?q=%D8%B2%D9%88%D8%B7%D8%B1" target="_blank" rel="noopener"><span>الجزيرة</span></a></li><li><a class="btn sm" href="https://t.me/s/AlarabyTelevision?q=%D8%B2%D9%88%D8%B7%D8%B1" target="_blank" rel="noopener"><span>التلفزيون العربي</span></a></li></ul></div></details><details class="recipe g4"><summary>المجموعة 4: دير سريان</summary><p class="kwrow"><b>أسماء القرى</b> <span class="kchip word" lang="ar" dir="rtl">"دير سريان"</span></p><div class="rrow"><b><span class="ltr nw" lang="en" dir="ltr">X</span></b><ul class="btns"><li><a class="btn sm" href="https://x.com/search?q=%22%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86%22%20%28%D8%AA%D9%81%D8%AC%D9%8A%D8%B1%20OR%20%D9%86%D8%B3%D9%81%20OR%20%D8%AA%D9%81%D8%AE%D9%8A%D8%AE%20OR%20%D8%AA%D8%AF%D9%85%D9%8A%D8%B1%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>تفجيرات</span></a></li><li><a class="btn sm" href="https://x.com/search?q=%22%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86%22%20%28%D8%AD%D8%B1%D9%8A%D9%82%20OR%20%D8%AD%D8%B1%D8%A7%D8%A6%D9%82%20OR%20%D8%A7%D9%84%D9%86%D9%8A%D8%B1%D8%A7%D9%86%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>حرائق</span></a></li><li><a class="btn sm" href="https://x.com/search?q=%22%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86%22%20%28%D8%AA%D8%AC%D8%B1%D9%8A%D9%81%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A9%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A7%D8%AA%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>تجريف</span></a></li><li><a class="btn sm" href="https://x.com/search?q=%22%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86%22%20%28%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%D9%8A%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%29%20since%3A2026-03-01%20until%3A2026-10-24&amp;src=typed_query&amp;f=live" target="_blank" rel="noopener"><span>فوسفور أبيض</span></a></li></ul></div><div class="rrow"><b><span class="ltr nw" lang="en" dir="ltr">Google</span></b><ul class="btns"><li><a class="btn sm" href="https://www.google.com/search?q=%22%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86%22%20%28%D8%AA%D9%81%D8%AC%D9%8A%D8%B1%20OR%20%D9%86%D8%B3%D9%81%20OR%20%D8%AA%D9%81%D8%AE%D9%8A%D8%AE%20OR%20%D8%AA%D8%AF%D9%85%D9%8A%D8%B1%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>تفجيرات</span></a></li><li><a class="btn sm" href="https://www.google.com/search?q=%22%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86%22%20%28%D8%AD%D8%B1%D9%8A%D9%82%20OR%20%D8%AD%D8%B1%D8%A7%D8%A6%D9%82%20OR%20%D8%A7%D9%84%D9%86%D9%8A%D8%B1%D8%A7%D9%86%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>حرائق</span></a></li><li><a class="btn sm" href="https://www.google.com/search?q=%22%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86%22%20%28%D8%AA%D8%AC%D8%B1%D9%8A%D9%81%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A9%20OR%20%D8%AC%D8%B1%D8%A7%D9%81%D8%A7%D8%AA%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>تجريف</span></a></li><li><a class="btn sm" href="https://www.google.com/search?q=%22%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86%22%20%28%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%D9%8A%20OR%20%D8%A7%D9%84%D9%81%D9%88%D8%B3%D9%81%D9%88%D8%B1%29&amp;tbs=cdr%3A1%2Ccd_min%3A3%2F1%2F2026%2Ccd_max%3A10%2F23%2F2026" target="_blank" rel="noopener"><span>فوسفور أبيض</span></a></li></ul></div><div class="rrow"><b><span class="ltr nw" lang="en" dir="ltr">Telegram</span></b><ul class="btns"><li><a class="btn sm" href="https://t.me/s/LBCI_NEWS?q=%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86" target="_blank" rel="noopener"><span><span class="ltr nw" lang="en" dir="ltr">LBCI</span></span></a></li><li><a class="btn sm" href="https://t.me/s/ALJADEED_NEWS?q=%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86" target="_blank" rel="noopener"><span>الجديد</span></a></li><li><a class="btn sm" href="https://t.me/s/annaharnewspaper?q=%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86" target="_blank" rel="noopener"><span>النهار</span></a></li><li><a class="btn sm" href="https://t.me/s/almayadeen?q=%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86" target="_blank" rel="noopener"><span>الميادين</span></a></li><li><a class="btn sm" href="https://t.me/s/alakhbar_news?q=%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86" target="_blank" rel="noopener"><span>الأخبار</span></a></li><li><a class="btn sm" href="https://t.me/s/AjaNews?q=%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86" target="_blank" rel="noopener"><span>الجزيرة</span></a></li><li><a class="btn sm" href="https://t.me/s/AlarabyTelevision?q=%D8%AF%D9%8A%D8%B1%20%D8%B3%D8%B1%D9%8A%D8%A7%D9%86" target="_blank" rel="noopener"><span>التلفزيون العربي</span></a></li></ul></div></details></div></section><section id="keywords"><header><h2>الكلمات المفتاحية</h2><p>الكلمات الظاهرة على الشاشة في الأدوات والجدول.</p></header><div class="table-wrap"><table class="glossary"><thead><tr><th>الكلمة</th><th>المعنى</th></tr></thead><tbody><tr><td><span class="kchip tool" lang="en" dir="ltr">Sentinel-2</span></td><td>أقمار اصطناعية أوروبية؛ صورة كل بضعة أيام، والبكسل الواحد 10 م.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">True colour</span> <span class="kchip tool" lang="en" dir="ltr">True color</span></td><td>كما تراها العين: المباني والطرقات والأرض العارية.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">False colour (plants red)</span> <span class="kchip tool" lang="en" dir="ltr">False color</span></td><td>تظهر النباتات حمراء؛ والأرض التي فقدت نباتاتها تبدو رمادية أو خضراء مزرقّة أو بنّية.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Short-wave infrared (burns)</span> <span class="kchip tool" lang="en" dir="ltr">SWIR</span></td><td>النباتات خضراء، وندوب الحرائق الحديثة حمراء داكنة إلى سوداء، والتربة العارية والركام فاتحة اللون؛ البكسل الواحد 20 م.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Before</span> <span class="kchip tool" lang="en" dir="ltr">After</span></td><td>الصورتان اللتان تقارنون بينهما؛ وتتنقّلون بصورة <span class="ltr nw" lang="en" dir="ltr">After</span> شهرًا بعد شهر.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">First seen on this After picture</span></td><td>يكتب تاريخَي العلامة: تاريخ الصورة السابقة وتاريخ هذه الصورة.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Seen between</span></td><td>آخر صورة لا يظهر فيها التغيير، وأول صورة يظهر فيها.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Copy for the sheet</span></td><td>يضع علامة واحدة في الحافظة، للصقها في خانة <span class="ltr nw" lang="en" dir="ltr">Shape (GeoJSON)</span>.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Shape (GeoJSON)</span></td><td>مكان العلامة، في سطر نصّي واحد.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">KMZ for Google Earth</span></td><td>يحفظ كل العلامات مع الصورتين في ملف لـ <span class="ltr nw" lang="en" dir="ltr">Google Earth</span>.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Save work</span></td><td>يحفظ علاماتكم في ملف، تحسّبًا لإغلاق المتصفح.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Find changes</span></td><td>يقترح تغييرات محتملة كمسوّدات، لكن الظلال والحصاد والضباب تُنتج مسوّدات أيضًا. لا تحتفظوا بمسوّدة إلا بعد فحصها.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Your own pictures</span></td><td>قارنوا صورتين من عندكم، مثل لقطتَي شاشة.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Building destroyed</span> <span class="kchip tool" lang="en" dir="ltr">Bulldozed land</span> <span class="kchip tool" lang="en" dir="ltr">New road or track</span> <span class="kchip tool" lang="en" dir="ltr">Burn scar</span> <span class="kchip tool" lang="en" dir="ltr">White phosphorus</span> <span class="kchip tool" lang="en" dir="ltr">Trees or plants lost</span> <span class="kchip tool" lang="en" dir="ltr">Other change</span></td><td>أنواع العلامات في <span class="ltr nw" lang="en" dir="ltr">Change Marker</span>.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Detonations</span> <span class="kchip tool" lang="en" dir="ltr">Bulldozing</span> <span class="kchip tool" lang="en" dir="ltr">Fires</span> <span class="kchip tool" lang="en" dir="ltr">White phosphorus</span> <span class="kchip tool" lang="en" dir="ltr">Other changes</span></td><td>تبويبات الجدول، تبويب لكل نوع.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Timeline</span></td><td>التبويب الذي يعدّ صفوفكم في كل فترة.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Evidence</span> <span class="kchip tool" lang="en" dir="ltr">Seen and reported</span> <span class="kchip tool" lang="en" dir="ltr">Seen only</span> <span class="kchip tool" lang="en" dir="ltr">Reported by 2+ sources</span> <span class="kchip tool" lang="en" dir="ltr">Reported by 1 source</span></td><td>ما ظهر في الصور، أو ورد في المصادر، أو الاثنان معًا.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Date (Beirut)</span></td><td>اليوم الذي يذكره المصدر، بتوقيت بيروت.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Sources and media</span></td><td>كل رابط، المنشور الأول أولًا؛ والملفات المحفوظة بأسمائها.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">NASA FIRMS</span></td><td>بقع حرارية رصدتها الأقمار الاصطناعية؛ البقعة الواحدة بكسل يتراوح عرضه بين 375 م و1 كم.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">UTC</span></td><td>التوقيت العالمي. توقيت بيروت <span class="ltr nw" lang="en" dir="ltr">UTC + 3</span> من <span class="ltr nw" lang="en" dir="ltr">2026-03-29</span> إلى <span class="ltr nw" lang="en" dir="ltr">2026-10-24</span>، و<span class="ltr nw" lang="en" dir="ltr">UTC + 2</span> قبل ذلك وبعده.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">EFFIS</span></td><td>مساحات محروقة رسمها برنامج <span class="ltr nw" lang="en" dir="ltr">Copernicus</span> من صور الأقمار الاصطناعية.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">ha</span></td><td>الهكتار: 100 م في 100 م.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">GeoJSON</span></td><td>صيغة نصّية تصف الأماكن على الخريطة.</td></tr><tr><td><span class="kchip tool" lang="en" dir="ltr">Padlet</span></td><td>لوحة الورشة، فيها عمود لكل مجموعة.</td></tr></tbody></table></div></section>
+</main>
+<footer class="end"><p>من إعداد الجنوبيين الخضر لورشة العمل في جامعة القديس يوسف، تشرين الثاني 2026.</p></footer>
+</div>
+</div>
+</body>
+</html>

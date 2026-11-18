@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Workshop Tools</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;600;700&display=swap">
+<style>
+/* Layout: a field-guide handout, light only. The pages are projected on a
+   whiteboard and opened on laptops and phones, so there is one look whatever
+   the operating system prefers. Chrome wears Green Southerners' green; the
+   event types keep the colours they have on greensoutherners.org (fires
+   orange, detonations red, phosphorus pink red), bulldozing takes an ochre
+   that none of them uses, and the four groups take colours none of the kinds
+   uses. The site pages sit inside .site (big type for projection, right to
+   left support); the older classes below .site's block stay for the private
+   pack. */
+:root {
+  --plane: #f6f7f5;
+  --surface: #ffffff;
+  --ink-1: #1f2220;
+  --ink-2: #444845;
+  --ink-3: #676b68;
+  --hairline: #dfe2de;
+  --accent: #3a954f;
+  --accent-ink: #195828;
+  --accent-wash: #eaf4ec;
+  --blast: #c81d2b;
+  --wp: #c42a62;
+  --fire: #b34a00;
+  --blast-wash: #fdecee;
+  --wp-wash: #fcebf1;
+  --fire-wash: #fff0e5;
+  --bull: #8a6100;
+  --bull-wash: #fbf3dc;
+  --river: #237f96;
+  --map-land: #eef1ea;
+  --map-ink: #3b3f3a;
+  --warn-wash: #fff6dc;
+  --warn-ink: #6e4b00;
+  --g1: #2b5ea7;
+  --g2: #6b48a8;
+  --g3: #11756b;
+  --g4: #56616e;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-ar: "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --radius: 10px;
+  --measure: 70ch;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--plane); }
+body {
+  margin: 0;
+  background: var(--plane);
+  color: var(--ink-1);
+  font: 16px/1.6 var(--font);
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
+  -webkit-text-size-adjust: 100%;
+}
+.page { max-width: 1080px; margin: 0 auto; padding-block: 8px 48px; }
+.read { max-width: var(--measure); }
+p, li { max-width: var(--measure); }
+a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+h1, h2, h3, h4 { text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.35rem, 2.6vw, 1.7rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.08rem; font-weight: 650; }
+h4 { font-size: 0.95rem; font-weight: 650; }
+small, .small { font-size: 0.875rem; }
+.muted { color: var(--ink-2); }
+.eyebrow { font-size: 0.75rem; font-weight: 650; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); }
+.url, code { font-family: var(--mono); font-size: 0.86em; word-break: break-word; overflow-wrap: anywhere; }
+[lang="ar"] { font-family: var(--font-ar); unicode-bidi: isolate; }
+.ar-block { direction: rtl; text-align: right; }
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* top strip and hero */
+.topline { display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; align-items: center; padding-block: 14px; border-bottom: 1px solid var(--hairline); font-size: 0.85rem; color: var(--ink-2); }
+.topline b { color: var(--ink-1); font-weight: 650; }
+.hero { padding-block: clamp(28px, 6vw, 56px) 24px; display: grid; gap: 14px; }
+.hero .deck { font-size: clamp(1.05rem, 1.8vw, 1.2rem); color: var(--ink-2); max-width: 62ch; margin: 0; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 0; padding: 0; list-style: none; }
+.facts li { background: var(--surface); border: 1px solid var(--hairline); border-radius: 999px; padding: 4px 12px; font-size: 0.875rem; }
+.toc { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.9rem; padding: 0; margin: 0; list-style: none; }
+
+/* sections */
+section { padding-block: clamp(28px, 5vw, 44px); border-top: 1px solid var(--hairline); display: grid; gap: 16px; }
+section > header { display: grid; gap: 6px; }
+section > header p { margin: 0; color: var(--ink-2); }
+.stack { display: grid; gap: 12px; }
+.grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.grid > * { min-width: 0; }
+.card { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 16px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.card p { margin: 0; }
+.card ul, .card ol { margin: 0; padding-inline-start: 1.2em; }
+.card li + li { margin-top: 3px; }
+
+/* event type chips */
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 650; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.chip.blast { background: var(--blast-wash); color: var(--blast); }
+.chip.wp { background: var(--wp-wash); color: var(--wp); }
+.chip.fire { background: var(--fire-wash); color: var(--fire); }
+.chip.bull { background: var(--bull-wash); color: var(--bull); }
+
+/* numbered steps (a real sequence) */
+.steps { counter-reset: step; display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.step { counter-increment: step; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 16px; }
+.step::before { content: counter(step); width: 36px; height: 36px; border-radius: 50%; background: var(--accent-wash); color: var(--accent-ink); font-weight: 700; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
+.step > div { display: grid; gap: 6px; min-width: 0; }
+.step p { margin: 0; }
+
+/* tables */
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: start; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--hairline); }
+th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-3); font-weight: 650; background: var(--plane); }
+tr:last-child td { border-bottom: 0; }
+
+/* notes and warnings */
+.note { background: var(--warn-wash); border-radius: var(--radius); padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.note > strong:first-child { color: var(--warn-ink); }
+.note p, .note ul { margin: 0; }
+.note ul { padding-inline-start: 1.2em; }
+.tip { background: var(--accent-wash); border-radius: var(--radius); padding: 12px 16px; }
+.tip p { margin: 0; }
+
+details { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 12px 16px; }
+details > summary { cursor: pointer; font-weight: 650; }
+details[open] > summary { margin-bottom: 8px; }
+
+footer.end { border-top: 1px solid var(--hairline); padding-block: 24px; font-size: 0.875rem; color: var(--ink-2); display: grid; gap: 6px; }
+
+@media (max-width: 520px) {
+  .step { grid-template-columns: minmax(0, 1fr); }
+  .step::before { width: 30px; height: 30px; }
+  th, td { padding: 8px 10px; }
+}
+
+/* the overview map (inline SVG, drawn from coordinates; labels come from the string table) */
+.map { width: 100%; height: auto; display: block; border-radius: var(--radius); border: 1px solid var(--hairline); background: var(--map-land); direction: ltr; }
+.m-land { fill: var(--map-land); }
+.m-box { fill: none; stroke: var(--ink-3); stroke-width: 1.4; stroke-dasharray: 6 5; opacity: .75; }
+.m-river-halo { fill: none; stroke: var(--surface); stroke-width: 9; stroke-linejoin: round; stroke-linecap: round; }
+.m-river { fill: none; stroke: var(--river); stroke-width: 4.5; stroke-linejoin: round; stroke-linecap: round; }
+.m-rlabel { font: italic 600 19px var(--font); fill: var(--river); paint-order: stroke; stroke: var(--map-land); stroke-width: 5px; }
+.m-castle { fill: var(--map-ink); }
+.m-clabel { font: 600 17px var(--font); fill: var(--map-ink); paint-order: stroke; stroke: var(--map-land); stroke-width: 5px; }
+.m-vdot { fill: var(--surface); stroke: var(--ink-1); stroke-width: 2.5; }
+.m-tie { stroke: var(--ink-3); stroke-width: 2; stroke-dasharray: 3 3; }
+.m-mark { stroke: var(--surface); stroke-width: 3; }
+.m-mark.g1 { fill: var(--g1); } .m-mark.g2 { fill: var(--g2); } .m-mark.g3 { fill: var(--g3); } .m-mark.g4 { fill: var(--g4); }
+.m-num { font: 700 22px var(--font); fill: #ffffff; text-anchor: middle; dominant-baseline: central; }
+.m-label { font: 700 20px var(--font); fill: var(--ink-1); paint-order: stroke; stroke: var(--map-land); stroke-width: 5px; }
+.m-link { cursor: pointer; }
+.m-link:hover .m-mark, .m-link:focus .m-mark { stroke: var(--ink-1); }
+.m-link:hover .m-label, .m-link:focus .m-label { text-decoration: underline; }
+.m-scale { stroke: var(--map-ink); stroke-width: 3.5; }
+.m-north { fill: var(--map-ink); }
+.m-small { font: 15px var(--font); fill: var(--ink-2); }
+.m-credit { font: 13px var(--font); fill: var(--ink-3); }
+[dir="rtl"] .map text { font-family: var(--font-ar); }
+[dir="rtl"] .m-label { font-size: 22px; }
+/* Arabic has no italic: the browser would only slant the river's name */
+[dir="rtl"] .m-rlabel { font-style: normal; }
+@media (max-width: 640px) {
+  .m-label, [dir="rtl"] .m-label { font-size: 30px; }
+  .m-clabel, .m-rlabel { font-size: 24px; }
+}
+/* a phone draws the 900 px wide map at about 0.4: the names and numbers grow to stay readable, the markers with them,
+   and the credit goes (the caption under the map credits OpenStreetMap) */
+@media (max-width: 560px) {
+  .m-label { font-size: 34px; }
+  [dir="rtl"] .m-label { font-size: 31px; }  /* Arabic glyphs run larger: as tall as the English, and يحمر الشقيف clears the river */
+  .m-mark { r: 26px; }
+  .m-num { font-size: 32px; }
+  .m-clabel, .m-rlabel, .m-small { font-size: 28px; }
+  .m-credit { display: none; }
+}
+figure { margin: 0; display: grid; gap: 6px; }
+figcaption { font-size: 0.875rem; color: var(--ink-2); }
+
+@page { size: A4; margin: 14mm; }
+@media print {
+  body { background: #ffffff; color: #000000; font-size: 11pt; padding: 0; }
+  .noprint, .topbar { display: none !important; }
+  section { break-inside: auto; padding-block: 14px; }
+  section > header { break-inside: avoid; break-after: avoid; }
+  .step, .card, .note, .tip, tr, .stepcard, .gcard, .rolecard { break-inside: avoid; }
+  a { color: #000000; text-decoration: underline; }
+  .table-wrap { overflow: visible; border: 0; }
+  .timing, .gcard, .stepcard .num, .m-mark { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ============ The workshop site: big type for projection, phones too ============ */
+.site { font-size: clamp(17px, 0.9rem + 0.42vw, 21px); line-height: 1.55; }
+.site .page { max-width: 1320px; padding-block: 0 2em; }
+.site p, .site li { max-width: 62ch; }
+.site h1 { font-size: clamp(2em, 1.1em + 2.4vw, 3em); line-height: 1.1; }
+.site h2 { font-size: clamp(1.45em, 1em + 1.1vw, 2em); }
+.site h3 { font-size: 1.25em; font-weight: 700; }
+.site section { gap: 0.9em; padding-block: clamp(1.4em, 3vw, 2.2em); }
+.site section > header p { font-size: 1em; }
+.site footer.end { font-size: 0.85em; }
+.site img { max-width: 100%; }
+/* an English run inside an Arabic page: kept whole and left to right */
+.ltr { direction: ltr; unicode-bidi: isolate; font-family: var(--font); font-size: 0.94em; }
+[dir="rtl"] .site { font-family: var(--font-ar); font-size: clamp(18px, 0.95rem + 0.46vw, 22.5px); line-height: 1.7; }
+[dir="rtl"] .site h1, [dir="rtl"] .site h2, [dir="rtl"] .site h3 { line-height: 1.4; letter-spacing: 0; }
+[dir="rtl"] .site .eyebrow { letter-spacing: 0; }
+.flip { display: inline-block; }
+.nw { white-space: nowrap; }
+[dir="rtl"] .flip { transform: scaleX(-1); }
+
+/* sticky top bar: Home, Tools, Links, Prerequisites, the other language */
+.topbar { position: sticky; top: 0; z-index: 20; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); background: rgba(255, 255, 255, 0.96); border-bottom: 1px solid var(--hairline); backdrop-filter: blur(6px); }
+.topbar ul { list-style: none; margin: 0 auto; padding: 0.35em 0; max-width: 1320px; display: flex; flex-wrap: wrap; align-items: center; gap: 0.2em 0.4em; }
+.topbar li { max-width: none; }
+.topbar a { display: inline-flex; align-items: center; gap: 0.4em; padding: 0.35em 0.7em; border-radius: 999px; color: var(--ink-1); text-decoration: none; font-weight: 650; font-size: 0.9em; white-space: nowrap; min-height: 44px; }
+.topbar a:hover { background: var(--accent-wash); }
+.topbar a[aria-current="page"] { background: var(--accent-wash); color: var(--accent-ink); }
+.topbar img { width: 1.5em; height: 1.5em; flex: none; }
+.topbar .tb-end { margin-inline-start: auto; }
+.topbar .tb-lang { border: 2px solid var(--accent); color: var(--accent-ink); }
+@media (max-width: 560px) {
+  .topbar ul { gap: 0; }
+  .topbar a { padding: 0.3em 0.45em; font-size: 0.8em; gap: 0.3em; }
+  .topbar img { width: 1.3em; height: 1.3em; }
+}
+@media (max-width: 480px) {
+  .topbar a img { display: none; }
+}
+
+/* page head */
+.head { display: grid; gap: 0.6em; padding-block: clamp(1.2em, 3vw, 2.2em) 0.6em; }
+.head .eyebrow { font-size: 0.8em; margin: 0; }
+.head .deck { font-size: 1.15em; color: var(--ink-2); margin: 0; max-width: 52ch; }
+.head .where { margin: 0; color: var(--ink-2); }
+.names { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.15em 0.6em; }
+.names .alt { font-size: 0.55em; font-weight: 600; color: var(--ink-2); }
+
+/* link buttons */
+.btns { display: flex; flex-wrap: wrap; gap: 0.5em; margin: 0; padding: 0; list-style: none; }
+.btns li { max-width: 100%; }
+.btn { display: inline-flex; align-items: center; gap: 0.5em; min-height: 48px; padding: 0.5em 1em; border: 2px solid var(--accent); border-radius: 12px; background: var(--surface); color: var(--accent-ink); font-weight: 650; text-decoration: none; line-height: 1.25; max-width: 100%; overflow-wrap: anywhere; }
+.btn:hover { background: var(--accent-wash); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+.btn.primary:hover { background: var(--accent-ink); }
+.btn.sm { min-height: 40px; padding: 0.3em 0.75em; font-size: 0.85em; border-width: 1.5px; border-radius: 10px; }
+.btn img { height: 1.6em; width: auto; flex: none; }
+.btn small { font-weight: 500; color: var(--ink-2); }
+.btn.primary small { color: #e9f5ec; }
+.btnhint { font-size: 0.85em; color: var(--ink-2); margin: 0; }
+
+/* the four group cards on the home page */
+.gcards { display: grid; gap: 1em; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); margin: 0; padding: 0; list-style: none; }
+.gcards > li { max-width: none; min-width: 0; }
+.gcard { --g: var(--accent); display: grid; grid-template-rows: auto 1fr auto; height: 100%; background: var(--surface); border: 1px solid var(--hairline); border-top: 8px solid var(--g); border-radius: 14px; overflow: hidden; color: var(--ink-1); text-decoration: none; }
+.gcard:hover, .gcard:focus-visible { box-shadow: 0 0 0 3px var(--g); }
+.gcard img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: var(--map-land); }
+.gcard .gopen img { height: auto; }
+.gcard .gtext { padding: 0.8em 1em 0.4em; display: grid; gap: 0.2em; align-content: start; }
+.gcard .gnum { font-weight: 800; color: var(--g); font-size: 0.95em; text-transform: uppercase; letter-spacing: 0.05em; }
+[dir="rtl"] .gcard .gnum { letter-spacing: 0; }
+.gcard .gname { font-size: 1.45em; font-weight: 750; line-height: 1.2; display: grid; }
+.gcard .galt { display: grid; }
+.gcard .galt > * { justify-self: start; }
+.gcard .galt { color: var(--ink-2); font-weight: 600; }
+.gcard .gopen { display: flex; align-items: center; justify-content: space-between; gap: 0.5em; padding: 0.6em 1em 0.9em; font-weight: 700; color: var(--g); }
+.gcard .gopen img { width: 2em; height: auto; aspect-ratio: 2 / 1; }
+.g1 { --g: var(--g1); } .g2 { --g: var(--g2); } .g3 { --g: var(--g3); } .g4 { --g: var(--g4); }
+
+/* the 90 minutes, drawn to scale */
+.timing { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; border-radius: 12px; overflow: hidden; border: 1px solid var(--hairline); background: var(--hairline); }
+.timing li { max-width: none; background: var(--surface); padding: 0.7em 0.9em; display: grid; gap: 0.15em; align-content: start; min-width: 0; border-top: 6px solid var(--hairline); }
+.timing li.work { background: var(--accent-wash); border-top-color: var(--accent); }
+.timing .tmin { font-variant-numeric: tabular-nums; font-size: 0.8em; color: var(--ink-3); font-weight: 700; }
+.timing .tname { font-weight: 750; font-size: 1.1em; }
+.timing .twhat { font-size: 0.88em; color: var(--ink-2); }
+@media (min-width: 760px) { .timing { grid-template-columns: var(--cols, 1fr); } }
+
+/* a flow: steps joined by arrows that turn round in right to left */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.4em; margin: 0; padding: 0; list-style: none; }
+.flow > li { max-width: none; }
+.flow .fstep { flex: 1 1 0; min-width: 7.5em; display: flex; }
+.flow .fnode { flex: 1 1 auto; min-width: 0; background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; padding: 0.7em 0.8em; display: grid; gap: 0.3em; align-content: start; }
+.flow .fnode .fnum { width: 1.9em; height: 1.9em; border-radius: 50%; display: grid; place-items: center; font-weight: 800; background: var(--k, var(--accent)); color: #ffffff; font-variant-numeric: tabular-nums; }
+.flow .fnode b { font-size: 1em; line-height: 1.25; }
+.flow .fnode .fd { font-size: 0.85em; color: var(--ink-2); line-height: 1.35; }
+/* A flow node's title is often a button name alone ("KMZ for Google Earth"): in Arabic it may wrap inside its narrow box. */
+.flow .fnode b .ltr.nw { white-space: normal; }
+.flow .farrow { flex: none; align-self: center; display: grid; place-items: center; width: 2em; }
+.flow .farrow img { width: 2em; height: 1em; }
+a.fnode { color: var(--ink-1); text-decoration: none; }
+a.fnode:hover { border-color: var(--k, var(--accent)); box-shadow: 0 0 0 2px var(--k, var(--accent)); }
+@media (max-width: 760px) {
+  .flow { flex-direction: column; }
+  .flow .fstep { min-width: 0; }
+  .flow .farrow { width: 100%; height: 1.2em; }
+  .flow .fnode { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2em 0.6em; padding: 0.5em 0.7em; }
+  .flow .fnode .fd { flex-basis: 100%; padding-inline-start: 2.5em; }
+  .flow .farrow img { height: 0.9em; }
+  .flow .farrow img, [dir="rtl"] .flow .farrow img { transform: rotate(90deg); }
+}
+
+/* the five mission steps */
+.k-blast { --k: var(--blast); --kw: var(--blast-wash); }
+.k-fire { --k: var(--fire); --kw: var(--fire-wash); }
+.k-bull { --k: var(--bull); --kw: var(--bull-wash); }
+.k-wp { --k: var(--wp); --kw: var(--wp-wash); }
+.k-src { --k: var(--accent-ink); --kw: var(--accent-wash); }
+.stepcards { display: grid; gap: 1.1em; margin: 0; padding: 0; list-style: none; }
+.stepcards > li { max-width: none; }
+.stepcard { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.8em; background: var(--surface); border: 1px solid var(--hairline); border-inline-start: 8px solid var(--k); border-radius: 14px; padding: 1.1em 1.2em; scroll-margin-top: 4em; }
+.stepcard .shead { display: flex; align-items: center; gap: 0.6em; }
+.stepcard .num { flex: none; width: 2.1em; height: 2.1em; border-radius: 50%; display: grid; place-items: center; background: var(--k); color: #ffffff; font-weight: 800; font-size: 1.1em; }
+.stepcard .sills { display: grid; gap: 0.6em; align-content: start; grid-template-columns: repeat(auto-fit, minmax(120px, 220px)); }
+.stepcard .sill { display: block; width: 100%; max-width: 240px; height: auto; aspect-ratio: 4 / 3; background: var(--kw); border-radius: 12px; padding: 0.6em; }
+.stepcard .sbody { display: grid; gap: 0.8em; min-width: 0; align-content: start; }
+.stepcard ul.bul { margin: 0; padding-inline-start: 1.2em; display: grid; gap: 0.35em; }
+.stepcard ul.bul li::marker { color: var(--k); }
+.stepcard .trap { margin: 0; padding: 0.5em 0.8em; background: var(--warn-wash); border-radius: 10px; font-size: 0.92em; max-width: none; }
+@media (max-width: 859px) {
+  .stepcard .sills { grid-template-columns: repeat(auto-fit, minmax(110px, 170px)); }
+}
+@media (min-width: 860px) {
+  .stepcard { grid-template-columns: 220px minmax(0, 1fr); column-gap: 1.6em; }
+  .stepcard .shead { grid-column: 1 / -1; }
+  .stepcard .sills { grid-column: 1; grid-row: 2; grid-template-columns: minmax(0, 1fr); }
+  .stepcard .sbody { grid-column: 2; grid-row: 2; }
+}
+
+/* keyword chips: the exact words on screen in the tools and the sheet */
+.kwrow { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35em; margin: 0; }
+.kwrow > b { font-size: 0.82em; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.05em; margin-inline-end: 0.2em; }
+[dir="rtl"] .kwrow > b { letter-spacing: 0; text-transform: none; }
+.kchip { display: inline-block; font-size: 0.82em; font-weight: 600; padding: 0.1em 0.55em; border-radius: 6px; background: var(--plane); border: 1px solid var(--hairline); color: var(--ink-1); line-height: 1.45; overflow-wrap: anywhere; }
+.kchip.tool { background: #eef3fb; border-color: #c9d6ea; }
+.kchip.sheet { background: var(--accent-wash); border-color: #c4dfca; }
+.kchip.word { font-family: var(--font-ar); font-size: 0.95em; background: var(--surface); }
+
+/* the three roles */
+.roles3 { display: grid; gap: 1em; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); margin: 0; padding: 0; list-style: none; }
+.roles3 > li { max-width: none; }
+.rolecard { display: grid; grid-template-columns: 5em minmax(0, 1fr); gap: 0.9em; align-items: center; background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 0.9em 1em; height: 100%; }
+.rolecard img { width: 5em; height: auto; aspect-ratio: 1 / 1; }
+.rolecard div { display: grid; gap: 0.15em; }
+.rolecard span { font-size: 0.92em; color: var(--ink-2); line-height: 1.4; }
+
+/* before and after thumbnails */
+.pair { display: grid; gap: 0.8em; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; }
+.ghead .gtitle { display: grid; gap: 0.6em; align-content: start; }
+@media (min-width: 980px) {
+  .ghead { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); column-gap: 2em; align-items: start; }
+}
+.pair figure { gap: 0.3em; }
+.pair img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px; border: 1px solid var(--hairline); }
+.pair figcaption { font-size: 0.85em; }
+.pair figcaption b { color: var(--ink-1); }
+
+/* the empty timeline chart: the group's own, to fill */
+.tl { background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 1em 1.1em; display: grid; gap: 0.6em; }
+.tl .tl-y { font-size: 0.82em; font-weight: 700; color: var(--ink-3); margin: 0; }
+.tl ol { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0.4em; margin: 0; padding: 0; list-style: none; }
+.tl li { max-width: none; display: grid; grid-template-rows: 9em auto; gap: 0.35em; min-width: 0; }
+.tl .tl-track { border: 2px dashed var(--hairline); border-bottom: 3px solid var(--ink-2); border-radius: 8px 8px 0 0; background: repeating-linear-gradient(0deg, transparent 0 2.2em, #f0f2ef 2.2em calc(2.2em + 1px)); }
+.tl .tl-lab { display: grid; justify-items: center; text-align: center; font-size: 0.72em; line-height: 1.25; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.tl .tl-lab .to { color: var(--ink-3); }
+.tl figcaption { font-size: 0.9em; }
+@media (max-width: 760px) {
+  .tl ol { grid-template-columns: minmax(0, 1fr); }
+  .tl li { grid-template-rows: none; grid-template-columns: 9.5em minmax(0, 1fr); align-items: center; }
+  .tl .tl-track { order: 2; height: 1.8em; border: 2px dashed var(--hairline); border-inline-start: 3px solid var(--ink-2); border-radius: 0 6px 6px 0; background: none; }
+  [dir="rtl"] .tl .tl-track { border-radius: 6px 0 0 6px; }
+  .tl .tl-lab { order: 1; display: flex; flex-wrap: wrap; gap: 0 0.3em; justify-content: flex-start; text-align: start; font-size: 0.78em; }
+}
+
+/* a section head with its illustration */
+.hrow { display: flex; align-items: center; gap: 0.7em; }
+.hrow img { width: 5.5em; height: auto; flex: none; }
+.mapfig { max-width: 1040px; }
+.site [lang="en"] { font-family: var(--font); }
+
+/* a call-out line under a section */
+.after { margin: 0; padding: 0.7em 1em; background: var(--accent-wash); border-radius: 12px; max-width: none; }
+
+/* links page */
+.lgroups { display: grid; gap: 1em; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); align-items: start; }
+.lgroup { background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 1em 1.1em; display: grid; gap: 0.7em; align-content: start; min-width: 0; }
+.lgroup h3 { display: flex; align-items: center; gap: 0.5em; }
+.lgroup .btns { flex-direction: column; align-items: stretch; }
+.lgroup .btns .btn { justify-content: flex-start; }
+.lgroup .btn small { display: block; }
+.lgroup .btns.wrap { flex-direction: row; }
+.lgroup .tgline { margin: 0.3em 0 0; font-size: 0.9em; color: var(--ink-2); }
+.lgroup .tgline b { color: var(--ink-1); }
+.recipes { display: grid; gap: 0.8em; }
+.recipe { border-inline-start: 6px solid var(--g, var(--accent)); }
+.recipe > summary { font-size: 1.05em; }
+.recipe .rrow { display: grid; gap: 0.35em; padding-block: 0.5em; border-top: 1px solid var(--hairline); }
+.recipe .rrow > b { font-size: 0.9em; }
+.qr { display: grid; justify-items: center; gap: 0.3em; margin: 0; }
+.qr svg { width: 9em; height: 9em; background: #ffffff; border: 1px solid var(--hairline); border-radius: 8px; padding: 0.3em; }
+.qr figcaption { font-size: 0.8em; text-align: center; }
+.padlet { display: flex; flex-wrap: wrap; gap: 1em 1.4em; align-items: center; }
+
+/* glossary */
+.glossary { width: 100%; border-collapse: collapse; font-size: 0.95em; background: var(--surface); }
+.glossary th, .glossary td { padding: 0.55em 0.8em; border-bottom: 1px solid var(--hairline); text-align: start; vertical-align: top; }
+.glossary th { font-size: 0.8em; text-transform: none; letter-spacing: 0; }
+.glossary td:first-child { width: 36%; }
+@media (max-width: 560px) {
+  .glossary, .glossary tbody, .glossary tr, .glossary td { display: block; width: auto !important; }
+  .glossary thead { display: none; }
+  .glossary tr { padding: 0.5em 0; border-bottom: 1px solid var(--hairline); }
+  .glossary td { border: 0; padding: 0.1em 0.8em; }
+}
+
+/* checklist (prerequisites) */
+.check { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.5em; }
+.check li { padding-inline-start: 1.8em; position: relative; }
+.check li::before { content: ""; position: absolute; inset-inline-start: 0; top: 0.25em; width: 1.05em; height: 1.05em; border: 2px solid var(--accent); border-radius: 4px; }
+.respect { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4em; }
+.respect li { padding: 0.5em 0.8em; background: var(--warn-wash); border-radius: 10px; max-width: none; }
+.two { display: grid; gap: 1em; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); align-items: start; }
+.hill { width: 100%; max-width: 260px; aspect-ratio: 4 / 3; }
+
+/* the online copy of the site, under a page head */
+.online { display: flex; align-items: center; gap: 0.5em; margin: 0; font-size: 0.95em; color: var(--ink-2); max-width: none; }
+.online img { width: 1.4em; height: 1.4em; flex: none; }
+.online a { font-weight: 650; overflow-wrap: anywhere; }
+
+/* a small label: easier to use, a video or photo */
+.tag { display: inline-block; vertical-align: middle; font-size: 0.72em; font-weight: 700; line-height: 1.35; padding: 0.12em 0.6em; border-radius: 999px; background: var(--accent-wash); color: var(--accent-ink); border: 1px solid #c4dfca; white-space: nowrap; letter-spacing: 0; text-transform: none; }
+.tag.media { background: var(--wp-wash); color: var(--wp); border-color: #efc2d3; }
+.btn.easy { background: var(--accent-wash); }
+.btn.easy:hover { background: #d9ecdd; }
+
+/* step 4: our white phosphorus reports to start from */
+.wpr { display: grid; gap: 0.55em; background: var(--kw, var(--plane)); border-radius: 12px; padding: 0.8em 0.9em; }
+.wpr-h { margin: 0; }
+.wpr-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5em; }
+.wpr-item { max-width: none; background: var(--surface); border: 1px solid var(--hairline); border-radius: 10px; padding: 0.55em 0.75em; display: grid; gap: 0.35em; }
+.wpr-item p { margin: 0; max-width: none; display: flex; flex-wrap: wrap; align-items: center; gap: 0.3em 0.5em; }
+.wpr-top { font-size: 1.02em; }
+.wpr-date { font-weight: 750; }
+.wpr-posts { font-size: 0.95em; }
+.wpr-v { font-weight: 650; }
+.wpr-k { font-size: 0.78em; font-weight: 700; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.05em; }
+[dir="rtl"] .wpr-k { text-transform: none; letter-spacing: 0; font-size: 0.85em; }
+.wpr-place { font-size: 0.92em; color: var(--ink-2); }
+.wpr-place .wpr-k + span { margin-inline-end: 0.6em; }
+.wpr-none { margin: 0; }
+.lchip { display: inline-block; font-size: 0.82em; font-weight: 600; padding: 0.1em 0.55em; border-radius: 6px; border: 1px solid var(--hairline); background: var(--plane); color: var(--accent-ink); text-decoration: none; line-height: 1.5; overflow-wrap: anywhere; }
+.lchip:hover { border-color: var(--accent); background: var(--accent-wash); }
+
+/* tools page: one card per tool */
+.tcards { list-style: none; margin: 0; padding: 0; display: grid; gap: 1em; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); }
+.tcards > li { max-width: none; min-width: 0; }
+.tcard { height: 100%; background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 1em 1.1em; display: grid; grid-template-rows: auto 1fr auto; gap: 0.7em; align-content: start; scroll-margin-top: 4em; }
+.thead { display: grid; grid-template-columns: 6em minmax(0, 1fr); gap: 0.9em; align-items: center; }
+.tico { display: block; width: 6em; height: 4.5em; object-fit: contain; background: var(--plane); border-radius: 10px; padding: 0.3em; }
+.thead h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3em 0.5em; }
+/* In a flex heading an English name becomes a left to right block: on an Arabic page it still sits on the right when it wraps. */
+[dir="rtl"] .site h3 > .ltr { text-align: right; }
+.tline { margin: 0.25em 0 0; color: var(--ink-2); font-size: 0.95em; }
+.tcard ul.bul { margin: 0; padding-inline-start: 1.2em; display: grid; gap: 0.3em; align-content: start; font-size: 0.95em; }
+.tcard ul.bul li::marker { color: var(--accent); }
+
+/* prerequisites: the group sheet, drawn from build_sheet.py */
+.sheetmap { background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 0.9em 1em; display: grid; gap: 0.6em; }
+.kchip.tab { background: var(--kw, var(--plane)); border-color: var(--k, var(--ink-3)); color: var(--k, var(--ink-1)); font-weight: 700; border-width: 1.5px; }
+.kchip.slot { background: transparent; border-style: dashed; border-color: var(--ink-3); color: var(--ink-3); font-style: italic; }
+[dir="rtl"] .kchip.slot { font-style: normal; }
+.sheetmap .kwrow { max-width: none; }
+.owncols { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4em; }
+.owncols li { max-width: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35em; }
+@media print {
+  .tcard, .wpr-item, .sheetmap { break-inside: avoid; }
+}
+
+</style>
+</head>
+<body>
+<div class="site" lang="en" dir="ltr">
+<nav class="topbar" aria-label="Workshop pages"><ul><li><a href="../0-start-here.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJNMy41IDExIDEyIDMuOGw4LjUgNy4yTTUuNSA5LjVWMjBoMTNWOS41IiBzdHJva2U9IiMxZjIyMjAiLz4KPHBhdGggZD0iTTEwIDIwdi01aDR2NSIgc3Ryb2tlPSIjM2E5NTRmIi8+Cjwvc3ZnPgo=" alt="" width="24" height="24"><span>Home</span></a></li><li><a href="tools.html" aria-current="page"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJNMyA5LjVoMThWMTlhMS41IDEuNSAwIDAgMS0xLjUgMS41aC0xNUExLjUgMS41IDAgMCAxIDMgMTlaIiBzdHJva2U9IiMxZjIyMjAiLz4KPHBhdGggZD0iTTguNSA5LjVWNi41QTEuNSAxLjUgMCAwIDEgMTAgNWg0YTEuNSAxLjUgMCAwIDEgMS41IDEuNXYzTTMgMTRoMTgiIHN0cm9rZT0iIzFmMjIyMCIvPgo8cmVjdCB4PSIxMCIgeT0iMTIuNSIgd2lkdGg9IjQiIGhlaWdodD0iMy41IiByeD0iLjgiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzNhOTU0ZiIvPgo8L3N2Zz4K" alt="" width="24" height="24"><span>Tools</span></a></li><li><a href="links.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8ZyB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgMTIgMTIpIj48cmVjdCB4PSIxLjUiIHk9IjguNSIgd2lkdGg9IjEyIiBoZWlnaHQ9IjciIHJ4PSIzLjUiIHN0cm9rZT0iIzFmMjIyMCIvPjxyZWN0IHg9IjEwLjUiIHk9IjguNSIgd2lkdGg9IjEyIiBoZWlnaHQ9IjciIHJ4PSIzLjUiIHN0cm9rZT0iIzNhOTU0ZiIvPjwvZz4KPC9zdmc+Cg==" alt="" width="24" height="24"><span>Links</span></a></li><li><a href="prerequisites.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8cmVjdCB4PSI1IiB5PSI0LjUiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNi41IiByeD0iMiIgc3Ryb2tlPSIjMWYyMjIwIi8+CjxyZWN0IHg9IjkiIHk9IjIuNSIgd2lkdGg9IjYiIGhlaWdodD0iNCIgcng9IjEiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzFmMjIyMCIvPgo8cGF0aCBkPSJtOC41IDEzLjUgMi41IDIuNSA0LjUtNSIgc3Ryb2tlPSIjM2E5NTRmIi8+Cjwvc3ZnPgo=" alt="" width="24" height="24"><span>Prerequisites</span></a></li><li class="tb-end"><a class="tb-lang" href="tools-ar.html" hreflang="ar" title="This page in Arabic"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI5IiBzdHJva2U9IiMxZjIyMjAiLz4KPHBhdGggZD0iTTMgMTJoMTgiIHN0cm9rZT0iIzFmMjIyMCIvPgo8ZWxsaXBzZSBjeD0iMTIiIGN5PSIxMiIgcng9IjQiIHJ5PSI5IiBzdHJva2U9IiMzYTk1NGYiLz4KPC9zdmc+Cg==" alt="" width="24" height="24"><span><span lang="ar" dir="rtl">العربية</span></span></a></li></ul></nav>
+<div class="page">
+<main>
+<header class="head"><p class="eyebrow">Free, in your browser</p><h1>Tools</h1><p class="deck">What each tool is for, and how to start with it.</p><p class="online"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPgo8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI5IiBzdHJva2U9IiMxZjIyMjAiLz4KPHBhdGggZD0iTTMgMTJoMTgiIHN0cm9rZT0iIzFmMjIyMCIvPgo8ZWxsaXBzZSBjeD0iMTIiIGN5PSIxMiIgcng9IjQiIHJ5PSI5IiBzdHJva2U9IiMzYTk1NGYiLz4KPC9zdmc+Cg==" alt="" width="24" height="24"><span>The whole site is also online, the same pages and tools without the village pictures: <a href="https://alislayman.github.io/usj-litani-workshop/" target="_blank" rel="noopener">alislayman.github.io/usj-litani-workshop</a></span></p></header><section id="workshop-tools"><header><h2>Workshop tools</h2></header><ul class="tcards"><li><article class="tcard" id="tool-cm"><div class="thead"><img class="tico" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KPHJlY3QgeD0iMTQiIHk9IjE4IiB3aWR0aD0iNjgiIGhlaWdodD0iNDciIHJ4PSI0IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMy41Ii8+CjxyZWN0IHg9IjIwIiB5PSIyNCIgd2lkdGg9IjU2IiBoZWlnaHQ9IjM1IiByeD0iMS41IiBmaWxsPSIjZWFmNGVjIi8+CjxwYXRoIGQ9Ik0yMCA1MGMxMS01IDE4IDMgMjktMnMxNy0xMCAyNy02IiBzdHJva2U9IiMyMzdmOTYiIHN0cm9rZS13aWR0aD0iNCIvPgo8ZyBmaWxsPSIjMWYyMjIwIj48cmVjdCB4PSIyNSIgeT0iMjkiIHdpZHRoPSI2IiBoZWlnaHQ9IjYiIHJ4PSIuOCIvPjxyZWN0IHg9IjM1IiB5PSIzMSIgd2lkdGg9IjYiIGhlaWdodD0iNSIgcng9Ii44Ii8+PHJlY3QgeD0iNTgiIHk9IjI4IiB3aWR0aD0iNiIgaGVpZ2h0PSI2IiByeD0iLjgiLz48cmVjdCB4PSI2NyIgeT0iMzEiIHdpZHRoPSI1IiBoZWlnaHQ9IjUiIHJ4PSIuOCIvPjwvZz4KPHJlY3QgeD0iNDUiIHk9IjMwIiB3aWR0aD0iOSIgaGVpZ2h0PSI5IiByeD0iMSIgZmlsbD0iI2ZkZWNlZSIgc3Ryb2tlPSIjYzgxZDJiIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8cGF0aCBkPSJNNiA2OWg4NGwtNSA5SDExWiIgZmlsbD0iI2RmZTJkZSIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utd2lkdGg9IjMuNSIvPgo8L3N2Zz4K" alt="" width="160" height="120"><div><h3>Change Marker</h3><p class="tline">Compare two satellite pictures, mark what changed and date it.</p></div></div><ul class="bul"><li>In your group's folder it opens your village's pictures, under <b>Our village pictures</b>.</li><li>Online it holds the tool alone: compare two screenshots of your own under <b>Your own pictures</b>.</li><li>Press <b>Save work</b> every 15 minutes; <b>Copy for the sheet</b> puts one mark on the clipboard.</li></ul><ul class="btns"><li><a class="btn primary" href="../change-marker/index.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KPHJlY3QgeD0iMTQiIHk9IjE4IiB3aWR0aD0iNjgiIGhlaWdodD0iNDciIHJ4PSI0IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMy41Ii8+CjxyZWN0IHg9IjIwIiB5PSIyNCIgd2lkdGg9IjU2IiBoZWlnaHQ9IjM1IiByeD0iMS41IiBmaWxsPSIjZWFmNGVjIi8+CjxwYXRoIGQ9Ik0yMCA1MGMxMS01IDE4IDMgMjktMnMxNy0xMCAyNy02IiBzdHJva2U9IiMyMzdmOTYiIHN0cm9rZS13aWR0aD0iNCIvPgo8ZyBmaWxsPSIjMWYyMjIwIj48cmVjdCB4PSIyNSIgeT0iMjkiIHdpZHRoPSI2IiBoZWlnaHQ9IjYiIHJ4PSIuOCIvPjxyZWN0IHg9IjM1IiB5PSIzMSIgd2lkdGg9IjYiIGhlaWdodD0iNSIgcng9Ii44Ii8+PHJlY3QgeD0iNTgiIHk9IjI4IiB3aWR0aD0iNiIgaGVpZ2h0PSI2IiByeD0iLjgiLz48cmVjdCB4PSI2NyIgeT0iMzEiIHdpZHRoPSI1IiBoZWlnaHQ9IjUiIHJ4PSIuOCIvPjwvZz4KPHJlY3QgeD0iNDUiIHk9IjMwIiB3aWR0aD0iOSIgaGVpZ2h0PSI5IiByeD0iMSIgZmlsbD0iI2ZkZWNlZSIgc3Ryb2tlPSIjYzgxZDJiIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8cGF0aCBkPSJNNiA2OWg4NGwtNSA5SDExWiIgZmlsbD0iI2RmZTJkZSIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utd2lkdGg9IjMuNSIvPgo8L3N2Zz4K" alt="" width="24" height="24"><span>Open Change Marker</span></a></li><li><a class="btn sm" href="https://alislayman.github.io/change-marker/" target="_blank" rel="noopener"><span>Change Marker online</span></a></li></ul></article></li><li><article class="tcard" id="tool-s2k"><div class="thead"><img class="tico flip" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cmVjdCB4PSI4IiB5PSIyMiIgd2lkdGg9IjU2IiBoZWlnaHQ9IjcwIiByeD0iNiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNOCAyOGE2IDYgMCAwIDEgNi02aDQ0YTYgNiAwIDAgMSA2IDZ2OEg4WiIgZmlsbD0iIzNhOTU0ZiIvPgo8cGF0aCBkPSJNOCA1MGg1Nk04IDY0aDU2TTggNzhoNTZNMjYgMzZ2NTYiIHN0cm9rZT0iIzFmMjIyMCIgc3Ryb2tlLW9wYWNpdHk9Ii4yNSIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KPHJlY3QgeD0iOCIgeT0iMjIiIHdpZHRoPSI1NiIgaGVpZ2h0PSI3MCIgcng9IjYiIHN0cm9rZT0iIzFmMjIyMCIgc3Ryb2tlLXdpZHRoPSIzLjUiLz4KPHBhdGggZD0ibTcyIDU3IDEwIDBtLTUtNiA2IDYtNiA2IiBzdHJva2U9IiMzYTk1NGYiIHN0cm9rZS13aWR0aD0iMy41Ii8+CjxyZWN0IHg9IjkyIiB5PSIyMiIgd2lkdGg9IjYwIiBoZWlnaHQ9Ijc4IiByeD0iNiIgZmlsbD0iI2VlZjFlYSIvPgo8cGF0aCBkPSJNOTIgNzZjMTQtNiAyNCA0IDM2LTJzMTYtNiAyNC00IiBzdHJva2U9IiMyMzdmOTYiIHN0cm9rZS13aWR0aD0iNCIvPgo8cGF0aCBkPSJNMTA0IDQwbDEyLTQgMTAgNi0yIDEyLTE0IDJaIiBmaWxsPSIjZmJmM2RjIiBzdHJva2U9IiM4YTYxMDAiIHN0cm9rZS13aWR0aD0iMi41Ii8+CjxwYXRoIGQ9Ik0xMjggNTRjMC03IDUtMTIgMTItMTJzMTIgNSAxMiAxMmMwIDktMTIgMjAtMTIgMjBzLTEyLTExLTEyLTIwWiIgZmlsbD0iI2M4MWQyYiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8Y2lyY2xlIGN4PSIxNDAiIGN5PSI1NCIgcj0iNCIgZmlsbD0iI2ZmZiIvPgo8cmVjdCB4PSI5MiIgeT0iMjIiIHdpZHRoPSI2MCIgaGVpZ2h0PSI3OCIgcng9IjYiIHN0cm9rZT0iIzFmMjIyMCIgc3Ryb2tlLXdpZHRoPSIzLjUiLz4KPC9zdmc+Cg==" alt="" width="160" height="120"><div><h3>Sheet to KMZ</h3><p class="tline">Turns the group's sheet into one map file for Google Earth.</p></div></div><ul class="bul"><li>In Google Sheets: File, Download, Microsoft Excel (.xlsx).</li><li>Drop the file on Sheet to KMZ: it runs on your laptop, nothing is uploaded.</li><li>Press <b>Save KMZ</b> and open the file in Google Earth: each row with a Shape is on the map.</li></ul><ul class="btns"><li><a class="btn primary" href="../tools/sheet-to-kmz.html"><span>Open Sheet to KMZ</span></a></li></ul></article></li><li><article class="tcard" id="tool-sheet"><div class="thead"><img class="tico" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cmVjdCB4PSIyMCIgeT0iOTIiIHdpZHRoPSIzNCIgaGVpZ2h0PSIxOCIgcng9IjQiIGZpbGw9IiNlYWY0ZWMiIHN0cm9rZT0iIzNhOTU0ZiIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxyZWN0IHg9IjU4IiB5PSI5MiIgd2lkdGg9IjM0IiBoZWlnaHQ9IjE4IiByeD0iNCIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utb3BhY2l0eT0iLjQ1IiBzdHJva2Utd2lkdGg9IjMiLz4KPHJlY3QgeD0iOTYiIHk9IjkyIiB3aWR0aD0iMzQiIGhlaWdodD0iMTgiIHJ4PSI0IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS1vcGFjaXR5PSIuNDUiIHN0cm9rZS13aWR0aD0iMyIvPgo8cmVjdCB4PSIxMiIgeT0iMTAiIHdpZHRoPSIxMzYiIGhlaWdodD0iODYiIHJ4PSI4IiBmaWxsPSIjZmZmIi8+CjxwYXRoIGQ9Ik0xMiAxOGE4IDggMCAwIDEgOC04aDEyMGE4IDggMCAwIDEgOCA4djEwSDEyWiIgZmlsbD0iIzNhOTU0ZiIvPgo8cGF0aCBkPSJNMTIgNDVoMTM2TTEyIDYyaDEzNk0xMiA3OWgxMzZNNDggMjh2NjhtNTAtNjh2NjgiIHN0cm9rZT0iIzFmMjIyMCIgc3Ryb2tlLW9wYWNpdHk9Ii4yNSIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KPGcgZmlsbD0iIzFmMjIyMCIgZmlsbC1vcGFjaXR5PSIuMzUiPjxyZWN0IHg9IjIwIiB5PSIzNCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSI1NiIgeT0iMzQiIHdpZHRoPSIzNCIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iMTA2IiB5PSIzNCIgd2lkdGg9IjI2IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSIyMCIgeT0iNTEiIHdpZHRoPSIxNiIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iNTYiIHk9IjUxIiB3aWR0aD0iMjgiIGhlaWdodD0iNSIgcng9IjIuNSIvPjxyZWN0IHg9IjEwNiIgeT0iNTEiIHdpZHRoPSIzNCIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iMjAiIHk9IjY4IiB3aWR0aD0iMjIiIGhlaWdodD0iNSIgcng9IjIuNSIvPjxyZWN0IHg9IjU2IiB5PSI2OCIgd2lkdGg9IjM2IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSIxMDYiIHk9IjY4IiB3aWR0aD0iMjAiIGhlaWdodD0iNSIgcng9IjIuNSIvPjxyZWN0IHg9IjIwIiB5PSI4NSIgd2lkdGg9IjE4IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSI1NiIgeT0iODUiIHdpZHRoPSIyNCIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iMTA2IiB5PSI4NSIgd2lkdGg9IjMwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48L2c+CjxyZWN0IHg9IjEyIiB5PSIxMCIgd2lkdGg9IjEzNiIgaGVpZ2h0PSI4NiIgcng9IjgiIHN0cm9rZT0iIzFmMjIyMCIgc3Ryb2tlLXdpZHRoPSIzLjUiLz4KPC9zdmc+Cg==" alt="" width="160" height="120"><div><h3>Group sheet template</h3><p class="tline">The sheet every group fills: one row per change, one tab per kind.</p></div></div><ul class="bul"><li>Your group's own copy is in Google Sheets, linked from its column on the Padlet.</li><li>Hover over a column title to read what to write; row 2 is a grey example.</li></ul><ul class="btns"><li><a class="btn primary" href="../sheet/group-sheet-template.xlsx" download><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cmVjdCB4PSIyMCIgeT0iOTIiIHdpZHRoPSIzNCIgaGVpZ2h0PSIxOCIgcng9IjQiIGZpbGw9IiNlYWY0ZWMiIHN0cm9rZT0iIzNhOTU0ZiIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxyZWN0IHg9IjU4IiB5PSI5MiIgd2lkdGg9IjM0IiBoZWlnaHQ9IjE4IiByeD0iNCIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utb3BhY2l0eT0iLjQ1IiBzdHJva2Utd2lkdGg9IjMiLz4KPHJlY3QgeD0iOTYiIHk9IjkyIiB3aWR0aD0iMzQiIGhlaWdodD0iMTgiIHJ4PSI0IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS1vcGFjaXR5PSIuNDUiIHN0cm9rZS13aWR0aD0iMyIvPgo8cmVjdCB4PSIxMiIgeT0iMTAiIHdpZHRoPSIxMzYiIGhlaWdodD0iODYiIHJ4PSI4IiBmaWxsPSIjZmZmIi8+CjxwYXRoIGQ9Ik0xMiAxOGE4IDggMCAwIDEgOC04aDEyMGE4IDggMCAwIDEgOCA4djEwSDEyWiIgZmlsbD0iIzNhOTU0ZiIvPgo8cGF0aCBkPSJNMTIgNDVoMTM2TTEyIDYyaDEzNk0xMiA3OWgxMzZNNDggMjh2NjhtNTAtNjh2NjgiIHN0cm9rZT0iIzFmMjIyMCIgc3Ryb2tlLW9wYWNpdHk9Ii4yNSIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KPGcgZmlsbD0iIzFmMjIyMCIgZmlsbC1vcGFjaXR5PSIuMzUiPjxyZWN0IHg9IjIwIiB5PSIzNCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSI1NiIgeT0iMzQiIHdpZHRoPSIzNCIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iMTA2IiB5PSIzNCIgd2lkdGg9IjI2IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSIyMCIgeT0iNTEiIHdpZHRoPSIxNiIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iNTYiIHk9IjUxIiB3aWR0aD0iMjgiIGhlaWdodD0iNSIgcng9IjIuNSIvPjxyZWN0IHg9IjEwNiIgeT0iNTEiIHdpZHRoPSIzNCIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iMjAiIHk9IjY4IiB3aWR0aD0iMjIiIGhlaWdodD0iNSIgcng9IjIuNSIvPjxyZWN0IHg9IjU2IiB5PSI2OCIgd2lkdGg9IjM2IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSIxMDYiIHk9IjY4IiB3aWR0aD0iMjAiIGhlaWdodD0iNSIgcng9IjIuNSIvPjxyZWN0IHg9IjIwIiB5PSI4NSIgd2lkdGg9IjE4IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48cmVjdCB4PSI1NiIgeT0iODUiIHdpZHRoPSIyNCIgaGVpZ2h0PSI1IiByeD0iMi41Ii8+PHJlY3QgeD0iMTA2IiB5PSI4NSIgd2lkdGg9IjMwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiLz48L2c+CjxyZWN0IHg9IjEyIiB5PSIxMCIgd2lkdGg9IjEzNiIgaGVpZ2h0PSI4NiIgcng9IjgiIHN0cm9rZT0iIzFmMjIyMCIgc3Ryb2tlLXdpZHRoPSIzLjUiLz4KPC9zdmc+Cg==" alt="" width="40" height="30"><span>Download the template (.xlsx)</span></a></li><li><a class="btn" href="https://padlet.com/greensoutherners/usj-workshop-s025gvie7be6axfqld6u" target="_blank" rel="noopener"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cmVjdCB4PSI4IiB5PSIxMCIgd2lkdGg9IjE0NCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMCIgZmlsbD0iI2VlZjFlYSIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utd2lkdGg9IjMuNSIvPgo8ZyBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMi41Ij48cmVjdCB4PSIxOCIgeT0iMjAiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNiIgcng9IjUiLz48cmVjdCB4PSI2MSIgeT0iMjAiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNiIgcng9IjUiLz48cmVjdCB4PSIxMDQiIHk9IjIwIiB3aWR0aD0iMzgiIGhlaWdodD0iMzYiIHJ4PSI1Ii8+PHJlY3QgeD0iMTgiIHk9IjY0IiB3aWR0aD0iMzgiIGhlaWdodD0iMzYiIHJ4PSI1Ii8+PHJlY3QgeD0iNjEiIHk9IjY0IiB3aWR0aD0iMzgiIGhlaWdodD0iMzYiIHJ4PSI1Ii8+PHJlY3QgeD0iMTA0IiB5PSI2NCIgd2lkdGg9IjM4IiBoZWlnaHQ9IjM2IiByeD0iNSIvPjwvZz4KPHBhdGggZD0ibTY2IDUwIDktMTIgNyA4IDUtNSA3IDlaIiBmaWxsPSIjMjM3Zjk2Ii8+CjxwYXRoIGQ9Im0yMyA5NCA5LTEyIDcgOCA1LTUgNyA5WiIgZmlsbD0iIzNhOTU0ZiIvPgo8ZyBmaWxsPSIjMWYyMjIwIiBmaWxsLW9wYWNpdHk9Ii4zNSI+PHJlY3QgeD0iMjQiIHk9IjI3IiB3aWR0aD0iMjYiIGhlaWdodD0iNC41IiByeD0iMi4yNSIvPjxyZWN0IHg9IjI0IiB5PSIzNiIgd2lkdGg9IjIwIiBoZWlnaHQ9IjQuNSIgcng9IjIuMjUiLz48cmVjdCB4PSIyNCIgeT0iNDUiIHdpZHRoPSIyNCIgaGVpZ2h0PSI0LjUiIHJ4PSIyLjI1Ii8+PHJlY3QgeD0iMTEwIiB5PSI3MSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjQuNSIgcng9IjIuMjUiLz48cmVjdCB4PSIxMTAiIHk9IjgwIiB3aWR0aD0iMTgiIGhlaWdodD0iNC41IiByeD0iMi4yNSIvPjxyZWN0IHg9IjY3IiB5PSI3MSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjQuNSIgcng9IjIuMjUiLz48cmVjdCB4PSI2NyIgeT0iODAiIHdpZHRoPSIyMiIgaGVpZ2h0PSI0LjUiIHJ4PSIyLjI1Ii8+PHJlY3QgeD0iNjciIHk9Ijg5IiB3aWR0aD0iMTQiIGhlaWdodD0iNC41IiByeD0iMi4yNSIvPjwvZz4KPHBhdGggZD0iTTExNCAyN2gxMWw2IDZ2MTZoLTE3WiIgZmlsbD0iI2VhZjRlYyIgc3Ryb2tlPSIjM2E5NTRmIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8cGF0aCBkPSJNMTI1IDI3djZoNiIgc3Ryb2tlPSIjM2E5NTRmIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8L3N2Zz4K" alt="" width="40" height="30"><span>Workshop Padlet <small>folders, sheets, hand-in</small></span></a></li></ul></article></li></ul></section><section id="outside-tools"><header><h2>Satellite pictures, fires and places</h2></header><ul class="tcards"><li><article class="tcard" id="tool-esri"><div class="thead"><img class="tico" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cGF0aCBkPSJNODAgMzB2MTRNNjIgMzBsLTEyIDE0TTk4IDMwbDEyIDE0IiBzdHJva2U9IiMzYTk1NGYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtZGFzaGFycmF5PSIzIDUiLz4KPHJlY3QgeD0iMTQiIHk9IjQ2IiB3aWR0aD0iMTMyIiBoZWlnaHQ9IjY2IiByeD0iOCIgZmlsbD0iI2VhZjRlYyIvPgo8cGF0aCBkPSJNODAgNDZoNThhOCA4IDAgMCAxIDggOHY1MGE4IDggMCAwIDEtOCA4SDgwWiIgZmlsbD0iI2VlZjFlYSIvPgo8ZyBmaWxsPSIjM2E5NTRmIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjYyIiByPSI2Ii8+PGNpcmNsZSBjeD0iNDgiIGN5PSI1OCIgcj0iNiIvPjxjaXJjbGUgY3g9IjM2IiBjeT0iOTYiIHI9IjYiLz48Y2lyY2xlIGN4PSI2MiIgY3k9IjY4IiByPSI2Ii8+PGNpcmNsZSBjeD0iNTgiIGN5PSI5OCIgcj0iNSIvPjwvZz4KPHBhdGggZD0iTTkyIDU2bDE0LTIgMTAgOCA0IDE0LTEyIDgtMTQtNi00LTEyWiIgZmlsbD0iI2ZiZjNkYyIgc3Ryb2tlPSIjOGE2MTAwIiBzdHJva2Utd2lkdGg9IjMiLz4KPGcgZmlsbD0iIzNhOTU0ZiI+PGNpcmNsZSBjeD0iMTMyIiBjeT0iNjQiIHI9IjUuNSIvPjxjaXJjbGUgY3g9IjEzMCIgY3k9Ijk4IiByPSI2Ii8+PC9nPgo8cGF0aCBkPSJNMTQgODZjMTYtNiAzMCA2IDQ2IDBzMzAtOCA0NC0yIDI4IDQgNDItMiIgc3Ryb2tlPSIjMjM3Zjk2IiBzdHJva2Utd2lkdGg9IjQiLz4KPHBhdGggZD0iTTgwIDQydjc0IiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMy41Ii8+CjxjaXJjbGUgY3g9IjgwIiBjeT0iNzkiIHI9IjkiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzFmMjIyMCIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxwYXRoIGQ9Im03NiA3NS0zIDQgMyA0bTgtOCAzIDQtMyA0IiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMiIvPgo8cmVjdCB4PSIxNCIgeT0iNDYiIHdpZHRoPSIxMzIiIGhlaWdodD0iNjYiIHJ4PSI4IiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMy41Ii8+CjxyZWN0IHg9IjQ0IiB5PSIxMiIgd2lkdGg9IjIyIiBoZWlnaHQ9IjExIiByeD0iMS41IiBmaWxsPSIjMjM3Zjk2IiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMi41Ii8+CjxyZWN0IHg9Ijk0IiB5PSIxMiIgd2lkdGg9IjIyIiBoZWlnaHQ9IjExIiByeD0iMS41IiBmaWxsPSIjMjM3Zjk2IiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMi41Ii8+CjxwYXRoIGQ9Ik02NiAxNy41aDZtMTYgMGg2IiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMi41Ii8+CjxyZWN0IHg9IjcyIiB5PSI5IiB3aWR0aD0iMTYiIGhlaWdodD0iMTgiIHJ4PSIyLjUiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzFmMjIyMCIgc3Ryb2tlLXdpZHRoPSIzIi8+Cjwvc3ZnPgo=" alt="" width="160" height="120"><div><h3><span class="nw">Sentinel-2</span> Explorer <span class="tag">Easier to use</span></h3><p class="tline">Sentinel-2 pictures of any date, with a swipe and a change view: the easier one to use.</p></div></div><ul class="bul"><li>No account needed: find the village by name, or open it from the step buttons on your group page.</li><li><b>Swipe</b> puts two dates side by side; the short-wave infrared view shows burns.</li><li><b>Analyze</b>, then <b>Change</b>, shows where plants were lost between two dates.</li></ul><ul class="btns"><li><a class="btn primary" href="https://livingatlas.arcgis.com/sentinel2explorer" target="_blank" rel="noopener"><span>Open Sentinel-2 Explorer</span></a></li></ul></article></li><li><article class="tcard" id="tool-cop"><div class="thead"><img class="tico" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cGF0aCBkPSJNNDYgMTJoOTZhNiA2IDAgMCAxIDYgNnY1NGE2IDYgMCAwIDEtNiA2SDQ2YTYgNiAwIDAgMS02LTZWMThhNiA2IDAgMCAxIDYtNloiIGZpbGw9IiNmZGVjZWUiIHN0cm9rZT0iIzFmMjIyMCIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxnIGZpbGw9IiNjODFkMmIiPjxjaXJjbGUgY3g9IjEyOCIgY3k9IjI2IiByPSI1Ii8+PGNpcmNsZSBjeD0iMTM4IiBjeT0iNDQiIHI9IjUiLz48L2c+CjxwYXRoIGQ9Ik0zMCAyNmg5NmE2IDYgMCAwIDEgNiA2djU0YTYgNiAwIDAgMS02IDZIMzBhNiA2IDAgMCAxLTYtNlYzMmE2IDYgMCAwIDEgNi02WiIgZmlsbD0iI2ZiZjNkYyIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utd2lkdGg9IjMiLz4KPGcgZmlsbD0iIzNhOTU0ZiI+PGNpcmNsZSBjeD0iMTE0IiBjeT0iNDAiIHI9IjUiLz48Y2lyY2xlIGN4PSIxMjAiIGN5PSI1OCIgcj0iNSIvPjwvZz4KPHJlY3QgeD0iOCIgeT0iNDAiIHdpZHRoPSIxMDgiIGhlaWdodD0iNzIiIHJ4PSI2IiBmaWxsPSIjZWFmNGVjIi8+CjxnIGZpbGw9IiMzYTk1NGYiPjxjaXJjbGUgY3g9IjI0IiBjeT0iNTYiIHI9IjYiLz48Y2lyY2xlIGN4PSI0MiIgY3k9IjUyIiByPSI2Ii8+PGNpcmNsZSBjeD0iMzAiIGN5PSI5MiIgcj0iNiIvPjxjaXJjbGUgY3g9Ijk4IiBjeT0iNTYiIHI9IjYiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSI5NiIgcj0iNiIvPjwvZz4KPGcgZmlsbD0iIzFmMjIyMCI+PHJlY3QgeD0iNTgiIHk9IjU0IiB3aWR0aD0iOSIgaGVpZ2h0PSI4IiByeD0iMSIvPjxyZWN0IHg9IjcyIiB5PSI1OCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgcng9IjEiLz48cmVjdCB4PSI2MiIgeT0iNjgiIHdpZHRoPSI4IiBoZWlnaHQ9IjciIHJ4PSIxIi8+PC9nPgo8cGF0aCBkPSJNOCA4NGMxNi02IDMwIDQgNDYtMXMzNC04IDYyLTIiIHN0cm9rZT0iIzIzN2Y5NiIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxyZWN0IHg9IjgiIHk9IjQwIiB3aWR0aD0iMTA4IiBoZWlnaHQ9IjcyIiByeD0iNiIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utd2lkdGg9IjMuNSIvPgo8L3N2Zz4K" alt="" width="160" height="120"><div><h3>Copernicus Browser</h3><p class="tline">Every Sentinel-2 picture, any date, any layer: more to learn than Sentinel-2 Explorer.</p></div></div><ul class="bul"><li>Pick the date in its calendar; a free account opens more tools.</li><li>Its True color, False color and SWIR layers are Change Marker's three layers.</li><li>The step buttons on your group page open it on the village and the date.</li></ul><ul class="btns"><li><a class="btn" href="https://browser.dataspace.copernicus.eu/" target="_blank" rel="noopener"><span>Open Copernicus Browser</span></a></li></ul></article></li><li><article class="tcard" id="tool-firms"><div class="thead"><img class="tico" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cmVjdCB4PSIxNCIgeT0iMTQiIHdpZHRoPSIxMzIiIGhlaWdodD0iOTIiIHJ4PSI4IiBmaWxsPSIjZWVmMWVhIi8+CjxwYXRoIGQ9Ik0xNCA3MmMyMi0xMiA0NC0xNCA2Ni02czQ0IDYgNjYtNnYzOGE4IDggMCAwIDEtOCA4SDIyYTggOCAwIDAgMS04LThaIiBmaWxsPSIjZWFmNGVjIi8+CjxwYXRoIGQ9Ik0xNCA3MmMyMi0xMiA0NC0xNCA2Ni02czQ0IDYgNjYtNiIgc3Ryb2tlPSIjM2E5NTRmIiBzdHJva2Utd2lkdGg9IjMiLz4KPHBhdGggZD0iTTQ3IDE0djkyTTgwIDE0djkyTTExMyAxNHY5Mk0xNCA0NWgxMzJNMTQgNzZoMTMyIiBzdHJva2U9IiNkZmUyZGUiIHN0cm9rZS13aWR0aD0iMiIvPgo8Y2lyY2xlIGN4PSI5NiIgY3k9IjYwIiByPSIyMCIgZmlsbD0iI2IzNGEwMCIgZmlsbC1vcGFjaXR5PSIuMTUiLz4KPGcgZmlsbD0iI2IzNGEwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIuNSI+PHJlY3QgeD0iODYiIHk9IjUwIiB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHJ4PSIxLjUiLz48cmVjdCB4PSI5OCIgeT0iNTgiIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgcng9IjEuNSIvPjxyZWN0IHg9IjQwIiB5PSI4MiIgd2lkdGg9IjEyIiBoZWlnaHQ9IjEyIiByeD0iMS41Ii8+PC9nPgo8cmVjdCB4PSIxNCIgeT0iMTQiIHdpZHRoPSIxMzIiIGhlaWdodD0iOTIiIHJ4PSI4IiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMy41Ii8+Cjwvc3ZnPgo=" alt="" width="160" height="120"><div><h3>NASA FIRMS</h3><p class="tline">Heat spots that satellites saw, with their day and time.</p></div></div><ul class="bul"><li>Your group page opens it on the village: month by month in step 2, and on each white phosphorus report's day in step 4.</li><li>In its table choose UTC, then add 3 hours from <span class="nw">2026-03-29</span> (2 hours before).</li><li>A heat spot is a pixel 375 m to 1 km wide: it shows where to look, not what burned or why.</li></ul><ul class="btns"><li><a class="btn" href="https://firms.modaps.eosdis.nasa.gov/map/" target="_blank" rel="noopener"><span>Open NASA FIRMS</span></a></li></ul></article></li><li><article class="tcard" id="tool-effis"><div class="thead"><img class="tico" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cmVjdCB4PSIxNCIgeT0iMTQiIHdpZHRoPSIxMzIiIGhlaWdodD0iOTIiIHJ4PSI4IiBmaWxsPSIjZWVmMWVhIi8+CjxnIGZpbGw9IiMzYTk1NGYiPjxjaXJjbGUgY3g9IjMwIiBjeT0iMzAiIHI9IjYiLz48Y2lyY2xlIGN4PSI0NiIgY3k9IjkwIiByPSI2Ii8+PGNpcmNsZSBjeD0iMTI4IiBjeT0iMzAiIHI9IjYiLz48Y2lyY2xlIGN4PSIxMzAiIGN5PSI5MiIgcj0iNiIvPjxjaXJjbGUgY3g9IjI4IiBjeT0iNzAiIHI9IjUiLz48L2c+CjxwYXRoIGQ9Ik00OCA0MCA2NiAyOGwyMiA2IDE4LTQgMTQgMTQtNCAxOCA4IDE0LTE2IDE0LTIyLTQtMTggOC0xNC0xMi0xMC0xNiA2LTEyWiIgZmlsbD0iI2IzNGEwMCIgZmlsbC1vcGFjaXR5PSIuMjIiIHN0cm9rZT0iI2IzNGEwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik02MCA1MmwxMi02IDE0IDQgMTIgMCA2IDEwLTQgMTAtMTQgNi0xNi0yLTEwLThaIiBmaWxsPSIjMWYyMjIwIiBmaWxsLW9wYWNpdHk9Ii4yNSIvPgo8cmVjdCB4PSIxNCIgeT0iMTQiIHdpZHRoPSIxMzIiIGhlaWdodD0iOTIiIHJ4PSI4IiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMy41Ii8+Cjwvc3ZnPgo=" alt="" width="160" height="120"><div><h3>EFFIS</h3><p class="tline">Burnt areas mapped by Copernicus from satellites.</p></div></div><ul class="bul"><li>Step 2 on your group page opens it on <span class="nw">2026-03-01</span> to <span class="nw">2026-10-23</span>.</li><li>Keep the day only: its times are Central European, not Beirut.</li><li>An empty map may mean the service is down, not that nothing burned.</li></ul><ul class="btns"><li><a class="btn" href="https://forest-fire.emergency.copernicus.eu/apps/effis.csv/" target="_blank" rel="noopener"><span>Open EFFIS</span></a></li></ul></article></li><li><article class="tcard" id="tool-earth"><div class="thead"><img class="tico" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8Y2lyY2xlIGN4PSI4MCIgY3k9IjYyIiByPSI0NiIgZmlsbD0iI2VhZjRlYyIvPgo8cGF0aCBkPSJNNDQgNDBjMTAgMiAxNCAxMCAyNCA4czEwLTEyIDIwLTEwIDggMTIgMTggMTIgMTAtNiAxNC00TTM4IDc0YzEyLTQgMTggNCAyOCAyczE0LTEwIDI0LTYgMTAgMTIgMjIgMTAgMTItNiAxNi02IiBzdHJva2U9IiMzYTk1NGYiIHN0cm9rZS13aWR0aD0iMy41Ii8+CjxwYXRoIGQ9Ik0zNCA2Mmg5Mk04MCAxNnY5MiIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utb3BhY2l0eT0iLjMiIHN0cm9rZS13aWR0aD0iMi41Ii8+CjxlbGxpcHNlIGN4PSI4MCIgY3k9IjYyIiByeD0iMjIiIHJ5PSI0NiIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utb3BhY2l0eT0iLjMiIHN0cm9rZS13aWR0aD0iMi41Ii8+CjxjaXJjbGUgY3g9IjgwIiBjeT0iNjIiIHI9IjQ2IiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMy41Ii8+CjxwYXRoIGQ9Ik0xMDQgNTJjMC05IDctMTYgMTYtMTZzMTYgNyAxNiAxNmMwIDEyLTE2IDI2LTE2IDI2cy0xNi0xNC0xNi0yNloiIGZpbGw9IiMyMzdmOTYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxjaXJjbGUgY3g9IjEyMCIgY3k9IjUyIiByPSI1LjUiIGZpbGw9IiNmZmYiLz4KPC9zdmc+Cg==" alt="" width="160" height="120"><div><h3>Google Earth</h3><p class="tline">Sharp pictures and 3D hills, to match a photo or a video to a place.</p></div></div><ul class="bul"><li>On the web there is nothing to install; Google Earth Pro is the free desktop program.</li><li>Tilt the view to see the skyline a camera saw: ridges, buildings, roads.</li><li>Open a KMZ from Change Marker or Sheet to KMZ to see your marks on it.</li></ul><ul class="btns"><li><a class="btn" href="https://earth.google.com/web/" target="_blank" rel="noopener"><span>Open Google Earth</span></a></li><li><a class="btn sm" href="https://www.google.com/earth/about/versions/" target="_blank" rel="noopener"><span>Google Earth Pro</span></a></li></ul></article></li><li><article class="tcard" id="tool-sun"><div class="thead"><img class="tico" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cGF0aCBkPSJNOCAxMDBoMTQ0IiBzdHJva2U9IiNkZmUyZGUiIHN0cm9rZS13aWR0aD0iNSIvPgo8cGF0aCBkPSJNNjAgMTAwaDY2bC0xMi05SDYwWiIgZmlsbD0iIzFmMjIyMCIgZmlsbC1vcGFjaXR5PSIuMjUiLz4KPHBhdGggZD0iTTI2IDM2IDEyNSAxMDAiIHN0cm9rZT0iIzhhNjEwMCIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1kYXNoYXJyYXk9IjMgNiIvPgo8cmVjdCB4PSIzNCIgeT0iNTgiIHdpZHRoPSIyNiIgaGVpZ2h0PSI0MiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMWYyMjIwIiBzdHJva2Utd2lkdGg9IjMuNSIvPgo8ZyBmaWxsPSIjZGZlMmRlIiBzdHJva2U9IiMxZjIyMjAiIHN0cm9rZS13aWR0aD0iMi41Ij48cmVjdCB4PSI0MCIgeT0iNjYiIHdpZHRoPSI2IiBoZWlnaHQ9IjYiLz48cmVjdCB4PSI0OSIgeT0iNjYiIHdpZHRoPSI2IiBoZWlnaHQ9IjYiLz48cmVjdCB4PSI0MCIgeT0iODAiIHdpZHRoPSI2IiBoZWlnaHQ9IjYiLz48cmVjdCB4PSI0OSIgeT0iODAiIHdpZHRoPSI2IiBoZWlnaHQ9IjYiLz48L2c+CjxjaXJjbGUgY3g9IjI2IiBjeT0iMzYiIHI9IjExIiBmaWxsPSIjZmJmM2RjIiBzdHJva2U9IiM4YTYxMDAiIHN0cm9rZS13aWR0aD0iMy41Ii8+CjxnIHN0cm9rZT0iIzhhNjEwMCIgc3Ryb2tlLXdpZHRoPSIzIj48cGF0aCBkPSJNMjYgMTl2LTZNMjYgNTl2LTZNOSAzNkgzTTQ5IDM2aC02TTE0IDI0bC00LTRNMzggMjRsNC00TTE0IDQ4bC00IDQiLz48L2c+Cjwvc3ZnPgo=" alt="" width="160" height="120"><div><h3>SunCalc</h3><p class="tline">Where the sun stood at a place, a date and an hour.</p></div></div><ul class="bul"><li>Set the place, the date and the Beirut hour a source gives.</li><li>Shadows point away from the sun: compare them with the footage.</li></ul><ul class="btns"><li><a class="btn" href="https://www.suncalc.org/" target="_blank" rel="noopener"><span>Open SunCalc</span></a></li></ul></article></li></ul></section>
+</main>
+<footer class="end"><p>Prepared by Green Southerners for the USJ workshop, November 2026.</p></footer>
+</div>
+</div>
+</body>
+</html>

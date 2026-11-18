@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sheet to KMZ</title>
+<style>
+:root {
+  --plane: #f6f5f1; --surface: #ffffff; --ink-1: #1d1f1c; --ink-2: #474a44; --ink-3: #6b6f66;
+  --hairline: #d9d7cf; --accent: #2f7d43; --accent-ink: #1d5a2c; --accent-wash: #e8f3ea;
+  --warn-wash: #fff4d6; --warn-ink: #6e4b00; --bad-wash: #fde9e7; --bad-ink: #8a1c12;
+  --det: #c81d2b; --bul: #9a6b00; --brn: #d9560b; --wpb: #c42a62; --lnd: #2e8b57; --chg: #1f6fd1;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --plane: #161815; --surface: #20231f; --ink-1: #ecebe5; --ink-2: #c4c4bb; --ink-3: #9b9c93;
+    --hairline: #3a3d37; --accent: #5cb874; --accent-ink: #9fdcae; --accent-wash: #1f3324;
+    --warn-wash: #3a2f12; --warn-ink: #f2d38a; --bad-wash: #3d1a17; --bad-ink: #f4a69d;
+    --det: #f25060; --bul: #e2b34a; --brn: #ff8a3d; --wpb: #ec6a98; --lnd: #5cc98a; --chg: #6ea8ff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --plane: #161815; --surface: #20231f; --ink-1: #ecebe5; --ink-2: #c4c4bb; --ink-3: #9b9c93;
+  --hairline: #3a3d37; --accent: #5cb874; --accent-ink: #9fdcae; --accent-wash: #1f3324;
+  --warn-wash: #3a2f12; --warn-ink: #f2d38a; --bad-wash: #3d1a17; --bad-ink: #f4a69d;
+  --det: #f25060; --bul: #e2b34a; --brn: #ff8a3d; --wpb: #ec6a98; --lnd: #5cc98a; --chg: #6ea8ff;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--plane); color: var(--ink-1);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif; }
+main { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 1.6rem; margin: 0 0 4px; }
+h2 { font-size: 1.15rem; margin: 28px 0 8px; }
+p { margin: 6px 0; }
+.lede { color: var(--ink-2); margin-bottom: 18px; }
+ol.steps { padding-left: 1.3em; margin: 8px 0 16px; }
+ol.steps li { margin: 4px 0; }
+.drop { display: block; border: 2px dashed var(--hairline); border-radius: 12px; background: var(--surface);
+  padding: 28px 16px; text-align: center; cursor: pointer; }
+.drop:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.drop.over { border-color: var(--accent); background: var(--accent-wash); }
+.drop strong { display: block; font-size: 1.1rem; margin-bottom: 4px; }
+.drop input { display: none; }
+.opts { display: flex; flex-wrap: wrap; gap: 14px 22px; margin: 12px 0 0; color: var(--ink-2); font-size: .95rem; }
+.opts label { display: inline-flex; gap: 8px; align-items: center; }
+.opts input[type=text] { font: inherit; padding: 4px 8px; border: 1px solid var(--hairline); border-radius: 6px;
+  background: var(--surface); color: var(--ink-1); min-width: 220px; }
+.card { background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; padding: 14px 16px; margin: 12px 0; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--hairline); vertical-align: top; }
+th { color: var(--ink-2); font-weight: 600; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.buttons { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 4px; }
+button { font: inherit; border-radius: 8px; border: 1px solid var(--hairline); background: var(--surface);
+  color: var(--ink-1); padding: 8px 14px; cursor: pointer; }
+button.main { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+button:disabled { opacity: .5; cursor: default; }
+.msg { border-radius: 8px; padding: 8px 12px; margin: 6px 0; font-size: .95rem; }
+.msg.warn { background: var(--warn-wash); color: var(--warn-ink); }
+.msg.bad { background: var(--bad-wash); color: var(--bad-ink); }
+.msg.ok { background: var(--accent-wash); color: var(--accent-ink); }
+#preview svg { width: 100%; height: auto; display: block; background: var(--plane); border-radius: 8px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .9rem; color: var(--ink-2); margin-top: 8px; }
+.small { font-size: .9rem; color: var(--ink-3); }
+code { font-family: ui-monospace, Consolas, monospace; font-size: .92em; }
+details summary { cursor: pointer; color: var(--ink-2); }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Sheet to KMZ</h1>
+  <p class="lede">Turns your group's sheet into a map file for Google Earth (KMZ) and a GeoJSON file.
+    It runs on your computer only: nothing is uploaded anywhere.</p>
+
+  <ol class="steps">
+    <li>In Google Sheets, open your group's sheet and choose <b>File, Download, Microsoft Excel (.xlsx)</b>.</li>
+    <li>Drop the downloaded file in the box below (or click the box and choose it).</li>
+    <li>Check the list of rows, then press <b>Save KMZ</b> and open the file in Google Earth.</li>
+  </ol>
+
+  <label class="drop" id="drop">
+    <strong>Drop your .xlsx file here</strong>
+    <span class="small">or click to choose it. A .csv file of one tab works too.</span>
+    <input type="file" id="file" accept=".xlsx,.csv,.tsv,.txt" multiple>
+  </label>
+  <div class="opts">
+    <label><input type="checkbox" id="skipExample" checked> Leave out example rows</label>
+    <label>Map name <input type="text" id="mapName" placeholder="taken from the file name"></label>
+  </div>
+
+  <div id="messages"></div>
+
+  <section id="results" class="hidden">
+    <h2>What was read</h2>
+    <div class="card">
+      <table id="summary"><thead><tr><th>Tab</th><th class="n">Rows</th><th class="n">On the map</th><th class="n">Not mapped</th></tr></thead><tbody></tbody></table>
+      <div class="buttons">
+        <button class="main" id="saveKmz">Save KMZ (Google Earth)</button>
+        <button id="saveGeojson">Save GeoJSON</button>
+        <button id="saveKml">Save KML</button>
+      </div>
+      <p class="small">On Google Earth's time slider, a row with a Date shows on that day. A row with only Seen between appears from the first picture that shows the change (its second date) and stays.</p>
+    </div>
+    <div id="problems"></div>
+    <h2>Preview</h2>
+    <div class="card" id="preview"></div>
+    <details class="card"><summary>Every row on the map</summary><div id="rowlist"></div></details>
+  </section>
+
+  <h2>How the Shape column is read</h2>
+  <div class="card small">
+    <p>Each row is drawn from its <b>Shape</b> cell. The cell can hold any of these:</p>
+    <ul>
+      <li>the line <b>Change Marker</b> copies with <b>Copy for the sheet</b>;</li>
+      <li>the text copied from <b>geojson.io</b> (a FeatureCollection, a Feature or a geometry);</li>
+      <li>a WKT shape such as <code>POLYGON((35.51 33.31, 35.52 33.31, 35.52 33.32, 35.51 33.31))</code>;</li>
+      <li>a shape copied from Google Earth Pro (KML text with <code>&lt;coordinates&gt;</code>);</li>
+      <li>a point as <code>33.3157, 35.5127</code> (latitude, longitude, as Google Maps copies it).</li>
+    </ul>
+    <p>If the Shape cell is empty but the row has Latitude and Longitude columns, the row becomes a point.
+      Rows whose ID starts with "Example" are left out unless you untick the box above.</p>
+  </div>
+  <p class="small">Prepared by Green Southerners for the USJ workshop, November 2026.</p>
+</main>
+
+<script>
+"use strict";
+
+/* ---------- styles per tab ---------- */
+const KINDS = [
+  { key: "det", test: /deton|demol/i, label: "Detonations", kml: "ff2b1dc8", fill: "662b1dc8", css: "--det" },
+  { key: "bul", test: /bulldoz|razed|clear/i, label: "Bulldozing", kml: "ff006b9a", fill: "66006b9a", css: "--bul" },
+  { key: "brn", test: /fire|burn/i, label: "Fires", kml: "ff0b56d9", fill: "660b56d9", css: "--brn" },
+  { key: "wpb", test: /phosph|\bwp\b/i, label: "White phosphorus", kml: "ff622ac4", fill: "66622ac4", css: "--wpb" },
+  { key: "chg", test: /other change|\btree|\bplant/i, label: "Other changes", kml: "ffd16f1f", fill: "66d16f1f", css: "--chg" },
+  { key: "lnd", test: /land|river|forest|castle|change/i, label: "Land and river", kml: "ff578b2e", fill: "66578b2e", css: "--lnd" },
+];
+const OTHER = { key: "oth", label: "Other", kml: "ff666666", fill: "66666666", css: "--ink-3" };
+function kindOf(tab) { return KINDS.find(k => k.test.test(tab)) || OTHER; }
+
+/* ---------- small helpers ---------- */
+const $ = id => document.getElementById(id);
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+function xmlEsc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+function cdata(s) { return "<![CDATA[" + String(s).replace(/\]\]>/g, "]]]]><![CDATA[>") + "]]>"; }
+function addMsg(kind, html) { const d = document.createElement("div"); d.className = "msg " + kind; d.innerHTML = html; $("messages").appendChild(d); }
+function clearMsgs() { $("messages").innerHTML = ""; }
+
+/* ---------- ZIP reading (for .xlsx) ---------- */
+async function inflateRaw(bytes) {
+  if (typeof DecompressionStream === "undefined") {
+    throw new Error("This browser cannot open .xlsx files. Use a recent Chrome, Edge or Firefox, or download the tab as .csv.");
+  }
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+  return new Uint8Array(await new Response(stream).arrayBuffer());
+}
+function readZip(buf) {
+  const dv = new DataView(buf);
+  let eocd = -1;
+  for (let i = buf.byteLength - 22; i >= Math.max(0, buf.byteLength - 65557); i--) {
+    if (dv.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
+  }
+  if (eocd < 0) throw new Error("This file is not an .xlsx file (it is not a zip archive).");
+  const count = dv.getUint16(eocd + 10, true);
+  let p = dv.getUint32(eocd + 16, true);
+  const entries = {};
+  const dec = new TextDecoder();
+  for (let n = 0; n < count; n++) {
+    if (dv.getUint32(p, true) !== 0x02014b50) throw new Error("The .xlsx file looks damaged.");
+    const method = dv.getUint16(p + 10, true);
+    const csize = dv.getUint32(p + 20, true);
+    const nlen = dv.getUint16(p + 28, true), xlen = dv.getUint16(p + 30, true), clen = dv.getUint16(p + 32, true);
+    const lho = dv.getUint32(p + 42, true);
+    const name = dec.decode(new Uint8Array(buf, p + 46, nlen));
+    entries[name] = { method, csize, lho };
+    p += 46 + nlen + xlen + clen;
+  }
+  return {
+    names: Object.keys(entries),
+    async text(name) {
+      const e = entries[name];
+      if (!e) return null;
+      const start = e.lho + 30 + dv.getUint16(e.lho + 26, true) + dv.getUint16(e.lho + 28, true);
+      const raw = new Uint8Array(buf, start, e.csize);
+      let bytes;
+      if (e.method === 0) bytes = raw;
+      else if (e.method === 8) bytes = await inflateRaw(raw);
+      else throw new Error("The .xlsx file uses a compression this page cannot read.");
+      return dec.decode(bytes);
+    },
+  };
+}
+function xmlDoc(text) {
+  const d = new DOMParser().parseFromString(text, "application/xml");
+  if (d.getElementsByTagName("parsererror").length) throw new Error("A part of the .xlsx file could not be read.");
+  return d;
+}
+function kids(node, local) { return Array.from(node.getElementsByTagNameNS("*", local)); }
+function colIndex(ref) {
+  const m = /^([A-Z]+)/.exec(ref || "");
+  if (!m) return -1;
+  let n = 0;
+  for (const ch of m[1]) n = n * 26 + (ch.charCodeAt(0) - 64);
+  return n - 1;
+}
+async function readXlsx(buf) {
+  const zip = readZip(buf);
+  const wbText = await zip.text("xl/workbook.xml");
+  if (!wbText) throw new Error("This .xlsx file has no workbook inside.");
+  const wb = xmlDoc(wbText);
+  const relsText = await zip.text("xl/_rels/workbook.xml.rels");
+  const rels = {};
+  if (relsText) for (const r of kids(xmlDoc(relsText), "Relationship")) rels[r.getAttribute("Id")] = r.getAttribute("Target");
+  const ssText = await zip.text("xl/sharedStrings.xml");
+  const shared = [];
+  if (ssText) {
+    for (const si of kids(xmlDoc(ssText), "si")) {
+      let s = "";
+      for (const t of kids(si, "t")) { if (t.parentNode && t.parentNode.localName === "rPh") continue; s += t.textContent; }
+      shared.push(s);
+    }
+  }
+  const out = [];
+  for (const sh of kids(wb, "sheet")) {
+    const name = sh.getAttribute("name");
+    const state = sh.getAttribute("state");
+    const rid = sh.getAttributeNS("http://schemas.openxmlformats.org/officeDocument/2006/relationships", "id") || sh.getAttribute("r:id");
+    let target = rels[rid];
+    if (!target) continue;
+    target = target.replace(/^\//, "");
+    if (!target.startsWith("xl/")) target = "xl/" + target;
+    const sx = await zip.text(target);
+    if (!sx) continue;
+    const doc = xmlDoc(sx);
+    const rows = [];
+    for (const row of kids(doc, "row")) {
+      const r = parseInt(row.getAttribute("r"), 10);
+      const cells = [];
+      let next = 0;
+      for (const c of kids(row, "c")) {
+        let ci = colIndex(c.getAttribute("r"));
+        if (ci < 0) ci = next;
+        next = ci + 1;
+        const t = c.getAttribute("t");
+        const v = kids(c, "v")[0];
+        let val = "";
+        if (t === "s") val = shared[parseInt(v ? v.textContent : "-1", 10)] ?? "";
+        else if (t === "inlineStr") val = kids(c, "t").map(x => x.textContent).join("");
+        else if (t === "b") val = v && v.textContent === "1" ? "TRUE" : "FALSE";
+        else val = v ? v.textContent : "";
+        cells[ci] = { v: val, num: (!t || t === "n") && v !== undefined };
+      }
+      rows.push({ r: isNaN(r) ? rows.length + 1 : r, cells });
+    }
+    out.push({ name, hidden: state === "hidden" || state === "veryHidden", rows });
+  }
+  return out;
+}
+
+/* ---------- CSV ---------- */
+function readCsv(text, name) {
+  text = text.replace(/^﻿/, "");
+  const first = text.split(/\r?\n/, 1)[0] || "";
+  const delim = [",", ";", "\t"].map(d => [d, first.split(d).length]).sort((a, b) => b[1] - a[1])[0][0];
+  const rows = [];
+  let row = [], cell = "", q = false, i = 0, r = 1;
+  while (i < text.length) {
+    const ch = text[i];
+    if (q) {
+      if (ch === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; }
+      else cell += ch;
+    } else if (ch === '"') q = true;
+    else if (ch === delim) { row.push(cell); cell = ""; }
+    else if (ch === "\n" || ch === "\r") {
+      if (ch === "\r" && text[i + 1] === "\n") i++;
+      row.push(cell); rows.push({ r: r++, cells: row.map(v => ({ v, num: false })) }); row = []; cell = "";
+    } else cell += ch;
+    i++;
+  }
+  if (cell !== "" || row.length) { row.push(cell); rows.push({ r: r++, cells: row.map(v => ({ v, num: false })) }); }
+  return [{ name: name.replace(/\.(csv|tsv|txt)$/i, ""), hidden: false, rows }];
+}
+
+/* ---------- columns ---------- */
+const COLS = {
+  shape: /shape|geojson|geometry|\bwkt\b/i,
+  id: /^\s*id\b/i,
+  village: /village|town/i,
+  date: /^\s*date/i,
+  seen: /seen between|between/i,
+  what: /^\s*what\b/i,
+  lat: /^\s*lat/i,
+  lon: /^\s*(lon|lng|long)/i,
+};
+function findHeader(rows) {
+  for (let i = 0; i < Math.min(rows.length, 15); i++) {
+    const vals = rows[i].cells.map(c => (c && c.v || "").trim());
+    if (vals.some(v => COLS.shape.test(v)) || (vals.some(v => COLS.lat.test(v)) && vals.some(v => COLS.lon.test(v)))) return i;
+  }
+  return -1;
+}
+function excelDate(serial) {
+  const ms = Math.round((serial - 25569) * 86400000);
+  const d = new Date(ms);
+  if (isNaN(d)) return null;
+  const iso = d.toISOString();
+  const hasTime = Math.abs(serial - Math.floor(serial)) > 1e-6;
+  return hasTime ? iso.slice(0, 10) + " " + iso.slice(11, 16) : iso.slice(0, 10);
+}
+
+/* ---------- Beirut time ---------- */
+function lastSunday(year, month) {
+  const d = new Date(Date.UTC(year, month + 1, 0));
+  d.setUTCDate(d.getUTCDate() - d.getUTCDay());
+  return d;
+}
+function beirutOffset(y, m, day) {
+  const t = Date.UTC(y, m - 1, day);
+  const start = lastSunday(y, 2).getTime(), end = lastSunday(y, 9).getTime();
+  return t >= start && t < end ? "+03:00" : "+02:00";
+}
+function parseWhen(text) {
+  if (!text) return null;
+  const m = /(\d{4})-(\d{1,2})-(\d{1,2})(?:[ T]+(\d{1,2}):(\d{2}))?/.exec(String(text));
+  if (!m) return null;
+  const y = +m[1], mo = +m[2], d = +m[3];
+  if (mo < 1 || mo > 12 || d < 1 || d > 31) return null;
+  const date = `${m[1]}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+  if (m[4] !== undefined) return { date, kml: `${date}T${String(+m[4]).padStart(2, "0")}:${m[5]}:00${beirutOffset(y, mo, d)}` };
+  return { date, kml: date };
+}
+/* Seen between holds the last picture without the change and the first picture that shows it.
+   The later date, the first picture with the change, is when the mark appears on the time slider. */
+function parseSpan(text) {
+  if (!text) return null;
+  const s = String(text);
+  const found = s.match(/\d{4}-\d{1,2}-\d{1,2}/g);
+  if (!found) return null;
+  const dates = found.map(parseWhen).filter(Boolean).map(w => w.date).sort();
+  if (!dates.length) return null;
+  if (dates.length >= 2) return { begin: dates[0], end: dates[dates.length - 1], first: dates[dates.length - 1] };
+  // One date is enough only when it is the second one ("? to 2026-07-15"): the first picture with the change.
+  if (/\b(to|and)\b/i.test(s.slice(0, s.indexOf(found[0])))) return { begin: "", end: dates[0], first: dates[0] };
+  return null;
+}
+
+/* ---------- shapes ---------- */
+const LEB = { lonMin: 34.9, lonMax: 36.8, latMin: 32.9, latMax: 34.8 };
+function looksLat(v) { return v >= LEB.latMin && v <= LEB.latMax; }
+function looksLon(v) { return v >= LEB.lonMin && v <= LEB.lonMax; }
+function fixPos(p, notes) {
+  if (!Array.isArray(p) || p.length < 2) throw new Error("a point has no coordinates");
+  let lon = Number(p[0]), lat = Number(p[1]);
+  if (!isFinite(lon) || !isFinite(lat)) throw new Error("a coordinate is not a number");
+  if (looksLat(lon) && looksLon(lat)) { [lon, lat] = [lat, lon]; notes.swapped = true; }
+  if (!(looksLon(lon) && looksLat(lat))) notes.outside = true;
+  return [lon, lat];
+}
+function walkGeom(g, notes) {
+  if (!g || !g.type) throw new Error("a shape has no type");
+  const c = g.coordinates;
+  switch (g.type) {
+    case "Point": return { type: "Point", coordinates: fixPos(c, notes) };
+    case "MultiPoint": return { type: "MultiPoint", coordinates: c.map(p => fixPos(p, notes)) };
+    case "LineString": return { type: "LineString", coordinates: c.map(p => fixPos(p, notes)) };
+    case "MultiLineString": return { type: "MultiLineString", coordinates: c.map(l => l.map(p => fixPos(p, notes))) };
+    case "Polygon": return { type: "Polygon", coordinates: c.map(r => closeRing(r.map(p => fixPos(p, notes)))) };
+    case "MultiPolygon": return { type: "MultiPolygon", coordinates: c.map(poly => poly.map(r => closeRing(r.map(p => fixPos(p, notes))))) };
+    case "GeometryCollection": return { type: "GeometryCollection", geometries: g.geometries.map(x => walkGeom(x, notes)) };
+    default: throw new Error("unknown shape type " + g.type);
+  }
+}
+function closeRing(r) {
+  if (r.length && (r[0][0] !== r[r.length - 1][0] || r[0][1] !== r[r.length - 1][1])) r.push([r[0][0], r[0][1]]);
+  if (r.length < 4) throw new Error("a polygon has fewer than three corners");
+  return r;
+}
+function fromGeojson(obj, notes) {
+  if (obj.type === "FeatureCollection") {
+    const gs = (obj.features || []).filter(f => f && f.geometry).map(f => walkGeom(f.geometry, notes));
+    if (!gs.length) throw new Error("the FeatureCollection is empty: draw a shape first, then copy");
+    return gs;
+  }
+  if (obj.type === "Feature") { if (!obj.geometry) throw new Error("the Feature has no shape"); return [walkGeom(obj.geometry, notes)]; }
+  return [walkGeom(obj, notes)];
+}
+function wktNums(s) { return s.trim().split(/\s*,\s*/).map(pair => pair.trim().split(/\s+/).map(Number)); }
+function wktGroups(s) {
+  const out = []; let depth = 0, start = -1;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "(") { if (depth === 0) start = i + 1; depth++; }
+    else if (s[i] === ")") { depth--; if (depth === 0) out.push(s.slice(start, i)); }
+  }
+  return out;
+}
+function fromWkt(text, notes) {
+  const m = /^\s*(POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON)\s*(?:ZM|Z|M)?\s*\((.*)\)\s*$/is.exec(text);
+  if (!m) throw new Error("the WKT text could not be read");
+  const type = m[1].toUpperCase(), body = m[2];
+  let g;
+  if (type === "POINT") g = { type: "Point", coordinates: wktNums(body)[0] };
+  else if (type === "LINESTRING") g = { type: "LineString", coordinates: wktNums(body) };
+  else if (type === "POLYGON") g = { type: "Polygon", coordinates: wktGroups("(" + body + ")").length === 1 && !/\(/.test(body) ? [wktNums(body)] : wktGroups(body).map(wktNums) };
+  else if (type === "MULTIPOINT") g = { type: "MultiPoint", coordinates: /\(/.test(body) ? wktGroups(body).map(x => wktNums(x)[0]) : wktNums(body) };
+  else if (type === "MULTILINESTRING") g = { type: "MultiLineString", coordinates: wktGroups(body).map(wktNums) };
+  else g = { type: "MultiPolygon", coordinates: wktGroups(body).map(poly => wktGroups(poly).map(wktNums)) };
+  return [walkGeom(g, notes)];
+}
+function kmlCoords(text) { return text.trim().split(/\s+/).filter(Boolean).map(t => t.split(",").map(Number)); }
+function fromKml(text, notes) {
+  const wrapped = "<root>" + text.replace(/<\?xml[^>]*\?>/, "").replace(/<(\/?)\w+:/g, "<$1") + "</root>";
+  const d = new DOMParser().parseFromString(wrapped, "application/xml");
+  if (d.getElementsByTagName("parsererror").length) throw new Error("the KML text could not be read");
+  const gs = [];
+  for (const n of d.getElementsByTagName("Point")) { const c = n.getElementsByTagName("coordinates")[0]; if (c) gs.push({ type: "Point", coordinates: kmlCoords(c.textContent)[0] }); }
+  for (const n of d.getElementsByTagName("LineString")) { const c = n.getElementsByTagName("coordinates")[0]; if (c) gs.push({ type: "LineString", coordinates: kmlCoords(c.textContent) }); }
+  for (const n of d.getElementsByTagName("Polygon")) {
+    const rings = [];
+    for (const b of ["outerBoundaryIs", "innerBoundaryIs"]) for (const bb of n.getElementsByTagName(b)) { const c = bb.getElementsByTagName("coordinates")[0]; if (c) rings.push(kmlCoords(c.textContent)); }
+    if (rings.length) gs.push({ type: "Polygon", coordinates: rings });
+  }
+  if (!gs.length) throw new Error("no shape found in the KML text");
+  return gs.map(g => walkGeom(g, notes));
+}
+function fromPair(text, notes) {
+  const m = /^\s*\(?\s*(-?\d+(?:\.\d+)?)\s*[,;\s]\s*(-?\d+(?:\.\d+)?)\s*\)?\s*$/.exec(text);
+  if (!m) return null;
+  const a = +m[1], b = +m[2];
+  let lon, lat;
+  if (looksLat(a) && looksLon(b)) { lat = a; lon = b; }
+  else if (looksLon(a) && looksLat(b)) { lon = a; lat = b; }
+  else { lat = a; lon = b; notes.outside = true; }
+  return [{ type: "Point", coordinates: [lon, lat] }];
+}
+function fromMapsLink(text, notes) {
+  const m = /@(-?\d+\.\d+),(-?\d+\.\d+)/.exec(text) || /[?&](?:q|query|ll)=(-?\d+\.\d+)(?:,|%2C)(-?\d+\.\d+)/i.exec(text);
+  if (!m) return null;
+  return fromPair(m[1] + ", " + m[2], notes);
+}
+function parseShape(raw) {
+  const notes = {};
+  let text = String(raw || "").trim();
+  if (!text) return { geoms: [], notes };
+  text = text.replace(/[“”„″]/g, '"').replace(/[‘’]/g, "'").replace(/ /g, " ");
+  let geoms = null;
+  if (/^[\[{]/.test(text) || /"type"\s*:/.test(text)) {
+    let obj = null;
+    try { obj = JSON.parse(text); }
+    catch (e) {
+      const a = text.indexOf("{"), b = text.lastIndexOf("}");
+      if (a >= 0 && b > a) { try { obj = JSON.parse(text.slice(a, b + 1)); } catch (e2) { /* fall through */ } }
+    }
+    if (!obj) throw new Error("the GeoJSON text is cut or broken: copy all of it from geojson.io again");
+    geoms = fromGeojson(obj, notes);
+  } else if (/^\s*(POINT|LINESTRING|POLYGON|MULTI)/i.test(text)) geoms = fromWkt(text, notes);
+  else if (/<coordinates/i.test(text)) geoms = fromKml(text, notes);
+  else geoms = fromPair(text, notes) || fromMapsLink(text, notes);
+  if (!geoms) throw new Error("the text is not a shape this page knows");
+  return { geoms, notes };
+}
+function mergeGeoms(gs) {
+  if (gs.length === 1) return gs[0];
+  const types = new Set(gs.map(g => g.type));
+  if (types.size === 1) {
+    const t = gs[0].type;
+    if (t === "Point") return { type: "MultiPoint", coordinates: gs.map(g => g.coordinates) };
+    if (t === "LineString") return { type: "MultiLineString", coordinates: gs.map(g => g.coordinates) };
+    if (t === "Polygon") return { type: "MultiPolygon", coordinates: gs.map(g => g.coordinates) };
+  }
+  return { type: "GeometryCollection", geometries: gs };
+}
+
+/* ---------- reading a workbook into features ---------- */
+const SKIP_TABS = /^(read ?me|readme|summary|lists?|instructions?|how to|start here|cases|timeline)/i;
+function processTabs(tabs, skipExample) {
+  const result = { tabs: [], features: [], problems: [] };
+  for (const tab of tabs) {
+    if (tab.hidden || SKIP_TABS.test(tab.name)) continue;
+    const h = findHeader(tab.rows);
+    if (h < 0) continue;
+    const header = tab.rows[h].cells.map(c => (c && c.v || "").trim());
+    const idx = {};
+    header.forEach((name, i) => { for (const [k, re] of Object.entries(COLS)) if (idx[k] === undefined && name && re.test(name)) idx[k] = i; });
+    if (idx.seen !== undefined && idx.date === idx.seen) delete idx.date;
+    const kind = kindOf(tab.name);
+    const stat = { name: tab.name, kind, rows: 0, mapped: 0, skipped: 0 };
+    for (let i = h + 1; i < tab.rows.length; i++) {
+      const row = tab.rows[i];
+      const get = j => (j === undefined || !row.cells[j]) ? "" : String(row.cells[j].v ?? "").trim();
+      const values = header.map((_, j) => get(j));
+      if (!values.some(v => v)) continue;
+      const id = get(idx.id);
+      if (skipExample && /^example/i.test(id)) continue;
+      stat.rows++;
+      const props = {};
+      header.forEach((name, j) => {
+        if (!name || j === idx.shape) return;
+        let v = values[j];
+        const cell = row.cells[j];
+        if (v && cell && cell.num && (j === idx.date || j === idx.seen) && /^\d+(\.\d+)?$/.test(v)) v = excelDate(parseFloat(v)) || v;
+        if (v) props[name] = v;
+      });
+      const label = `${tab.name}, row ${row.r}${id ? " (" + id + ")" : ""}`;
+      let geoms = [], notes = {};
+      try {
+        const parsed = parseShape(get(idx.shape));
+        geoms = parsed.geoms; notes = parsed.notes;
+        if (!geoms.length && idx.lat !== undefined && idx.lon !== undefined && get(idx.lat) && get(idx.lon)) {
+          const p = fromPair(get(idx.lat) + ", " + get(idx.lon), notes);
+          if (p) geoms = p;
+        }
+      } catch (e) {
+        stat.skipped++;
+        result.problems.push({ kind: "bad", text: `${label}: ${e.message}.`, start: get(idx.shape).slice(0, 60) });
+        continue;
+      }
+      if (!geoms.length) {
+        stat.skipped++;
+        result.problems.push({ kind: "warn", text: `${label}: no shape yet, so it is not on the map.` });
+        continue;
+      }
+      if (notes.swapped) result.problems.push({ kind: "warn", text: `${label}: latitude and longitude looked swapped, so the page swapped them back. Check this shape on the map.` });
+      if (notes.outside) result.problems.push({ kind: "warn", text: `${label}: this shape is outside Lebanon. Check it.` });
+      const dateText = idx.date === undefined ? "" : props[header[idx.date]] || "";
+      const seenText = idx.seen === undefined ? "" : props[header[idx.seen]] || "";
+      const when = parseWhen(dateText);
+      const span = parseSpan(seenText);
+      if (dateText && !when) result.problems.push({ kind: "warn", text: `${label}: the Date "${dateText}" could not be read, so ${span ? `the row appears on the time slider from its Seen between date, ${span.first}` : "the row is not on the time slider"}. Write it as 2026-07-31, or 2026-07-31 23:40.` });
+      else if (!when && seenText && !span) result.problems.push({ kind: "warn", text: `${label}: Seen between "${seenText}" could not be read, so the row is not on the time slider. Write both dates, as 2026-06-18 to 2026-07-15.` });
+      stat.mapped++;
+      result.features.push({
+        tab: tab.name, kind, row: row.r, id,
+        name: [id, get(idx.what)].filter(Boolean).join(": ").slice(0, 90) || label,
+        props, when, span, geometry: mergeGeoms(geoms),
+      });
+    }
+    result.tabs.push(stat);
+  }
+  return result;
+}
+
+/* ---------- KML ---------- */
+function kmlGeom(g) {
+  const c = p => `${+p[0].toFixed(7)},${+p[1].toFixed(7)},0`;
+  const ring = r => `<LinearRing><coordinates>${r.map(c).join(" ")}</coordinates></LinearRing>`;
+  switch (g.type) {
+    case "Point": return `<Point><coordinates>${c(g.coordinates)}</coordinates></Point>`;
+    case "LineString": return `<LineString><tessellate>1</tessellate><coordinates>${g.coordinates.map(c).join(" ")}</coordinates></LineString>`;
+    case "Polygon": return `<Polygon><tessellate>1</tessellate><outerBoundaryIs>${ring(g.coordinates[0])}</outerBoundaryIs>${g.coordinates.slice(1).map(r => `<innerBoundaryIs>${ring(r)}</innerBoundaryIs>`).join("")}</Polygon>`;
+    case "MultiPoint": return `<MultiGeometry>${g.coordinates.map(p => kmlGeom({ type: "Point", coordinates: p })).join("")}</MultiGeometry>`;
+    case "MultiLineString": return `<MultiGeometry>${g.coordinates.map(l => kmlGeom({ type: "LineString", coordinates: l })).join("")}</MultiGeometry>`;
+    case "MultiPolygon": return `<MultiGeometry>${g.coordinates.map(p => kmlGeom({ type: "Polygon", coordinates: p })).join("")}</MultiGeometry>`;
+    case "GeometryCollection": return `<MultiGeometry>${g.geometries.map(kmlGeom).join("")}</MultiGeometry>`;
+  }
+  return "";
+}
+function linkify(v) {
+  return esc(v).replace(/https?:\/\/[^\s<]+/g, u => `<a href="${u}">${u}</a>`).replace(/\n/g, "<br>");
+}
+function buildKml(res, title) {
+  const used = [...new Map(res.features.map(f => [f.kind.key, f.kind])).values()];
+  const styles = used.map(k => `<Style id="s-${k.key}"><IconStyle><color>${k.kml}</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle><LabelStyle><scale>0.8</scale></LabelStyle><LineStyle><color>${k.kml}</color><width>3</width></LineStyle><PolyStyle><color>${k.fill}</color></PolyStyle></Style>`).join("\n");
+  const folders = res.tabs.filter(t => t.mapped).map(t => {
+    const pm = res.features.filter(f => f.tab === t.name).map(f => {
+      const rows = Object.entries(f.props).map(([k, v]) => `<tr><th style="text-align:left;padding:2px 8px 2px 0;vertical-align:top">${esc(k)}</th><td style="padding:2px 0">${linkify(v)}</td></tr>`).join("");
+      // A dated row is an instant: that day (and hour). A row seen only on the pictures has no end:
+      // it appears from the first picture that shows the change and stays. The two dates stay in the table.
+      const time = f.when ? `<TimeStamp><when>${f.when.kml}</when></TimeStamp>` : (f.span ? `<TimeSpan><begin>${f.span.first}</begin></TimeSpan>` : "");
+      const ext = Object.entries(f.props).map(([k, v]) => `<Data name="${xmlEsc(k)}"><value>${xmlEsc(v)}</value></Data>`).join("");
+      return `<Placemark><name>${xmlEsc(f.name)}</name><description>${cdata(`<table>${rows}</table><p style="color:#666">${esc(f.tab)}, row ${f.row}</p>`)}</description>${time}<styleUrl>#s-${f.kind.key}</styleUrl><ExtendedData>${ext}</ExtendedData>${kmlGeom(f.geometry)}</Placemark>`;
+    }).join("\n");
+    return `<Folder><name>${xmlEsc(t.name)}</name>\n${pm}\n</Folder>`;
+  }).join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n<Document>\n<name>${xmlEsc(title)}</name>\n<description>${cdata("Made with Sheet to KMZ from " + esc(title) + ". Each folder is a tab of the sheet. On the time slider, a row with a Date shows on that day; a row with only Seen between appears from the first picture that shows the change.")}</description>\n${styles}\n${folders}\n</Document>\n</kml>\n`;
+}
+
+/* ---------- ZIP writing (for .kmz) ---------- */
+const CRC_TABLE = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(bytes) { let c = 0xFFFFFFFF; for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+async function deflateRaw(bytes) {
+  if (typeof CompressionStream === "undefined") return null;
+  try {
+    const stream = new Blob([bytes]).stream().pipeThrough(new CompressionStream("deflate-raw"));
+    return new Uint8Array(await new Response(stream).arrayBuffer());
+  } catch (e) { return null; }
+}
+async function makeZip(files) {
+  const enc = new TextEncoder();
+  const parts = [], central = [];
+  let offset = 0;
+  const now = new Date();
+  const dosTime = (now.getHours() << 11) | (now.getMinutes() << 5) | (now.getSeconds() >> 1);
+  const dosDate = ((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate();
+  for (const f of files) {
+    const name = enc.encode(f.name);
+    const data = typeof f.data === "string" ? enc.encode(f.data) : f.data;
+    const crc = crc32(data);
+    const packed = await deflateRaw(data);
+    const method = packed ? 8 : 0;
+    const body = packed || data;
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, method, true);
+    lh.setUint16(10, dosTime, true); lh.setUint16(12, dosDate, true); lh.setUint32(14, crc, true);
+    lh.setUint32(18, body.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, name.length, true); lh.setUint16(28, 0, true);
+    parts.push(new Uint8Array(lh.buffer), name, body);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, method, true);
+    ch.setUint16(12, dosTime, true); ch.setUint16(14, dosDate, true); ch.setUint32(16, crc, true); ch.setUint32(20, body.length, true);
+    ch.setUint32(24, data.length, true); ch.setUint16(28, name.length, true); ch.setUint32(42, offset, true);
+    central.push(new Uint8Array(ch.buffer), name);
+    offset += 30 + name.length + body.length;
+  }
+  const cdSize = central.reduce((s, a) => s + a.length, 0);
+  const end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+  end.setUint32(12, cdSize, true); end.setUint32(16, offset, true);
+  return new Blob([...parts, ...central, new Uint8Array(end.buffer)], { type: "application/vnd.google-earth.kmz" });
+}
+
+/* ---------- GeoJSON ---------- */
+function buildGeojson(res, title) {
+  return JSON.stringify({
+    type: "FeatureCollection", name: title,
+    features: res.features.map(f => ({ type: "Feature", properties: Object.assign({ tab: f.tab, row: f.row }, f.props), geometry: f.geometry })),
+  }, null, 1);
+}
+
+/* ---------- preview ---------- */
+function allPositions(g, out) {
+  if (g.type === "Point") out.push(g.coordinates);
+  else if (g.type === "MultiPoint" || g.type === "LineString") out.push(...g.coordinates);
+  else if (g.type === "MultiLineString" || g.type === "Polygon") g.coordinates.forEach(l => out.push(...l));
+  else if (g.type === "MultiPolygon") g.coordinates.forEach(p => p.forEach(l => out.push(...l)));
+  else if (g.type === "GeometryCollection") g.geometries.forEach(x => allPositions(x, out));
+  return out;
+}
+function drawPreview(res) {
+  const box = $("preview");
+  if (!res.features.length) { box.innerHTML = '<p class="small">Nothing to draw yet.</p>'; return; }
+  const pts = res.features.flatMap(f => allPositions(f.geometry, []));
+  let x0 = Math.min(...pts.map(p => p[0])), x1 = Math.max(...pts.map(p => p[0]));
+  let y0 = Math.min(...pts.map(p => p[1])), y1 = Math.max(...pts.map(p => p[1]));
+  const padX = Math.max((x1 - x0) * 0.08, 0.004), padY = Math.max((y1 - y0) * 0.08, 0.004);
+  x0 -= padX; x1 += padX; y0 -= padY; y1 += padY;
+  const k = Math.cos((y0 + y1) / 2 * Math.PI / 180);
+  const W = 900, H = Math.max(260, Math.min(700, W * (y1 - y0) / ((x1 - x0) * k)));
+  const sx = W / (x1 - x0), sy = H / (y1 - y0);
+  const P = p => `${((p[0] - x0) * sx).toFixed(1)},${((y1 - p[1]) * sy).toFixed(1)}`;
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || "#666";
+  const shapes = [];
+  const draw = (g, col, title) => {
+    const t = `<title>${esc(title)}</title>`;
+    if (g.type === "Point") shapes.push(`<circle cx="${P(g.coordinates).split(",")[0]}" cy="${P(g.coordinates).split(",")[1]}" r="5" fill="${col}" stroke="#fff" stroke-width="1.5">${t}</circle>`);
+    else if (g.type === "LineString") shapes.push(`<polyline points="${g.coordinates.map(P).join(" ")}" fill="none" stroke="${col}" stroke-width="3">${t}</polyline>`);
+    else if (g.type === "Polygon") shapes.push(`<path d="${g.coordinates.map(r => "M" + r.map(P).join("L") + "Z").join("")}" fill="${col}" fill-opacity=".35" stroke="${col}" stroke-width="2" fill-rule="evenodd">${t}</path>`);
+    else if (g.type === "MultiPoint") g.coordinates.forEach(p => draw({ type: "Point", coordinates: p }, col, title));
+    else if (g.type === "MultiLineString") g.coordinates.forEach(l => draw({ type: "LineString", coordinates: l }, col, title));
+    else if (g.type === "MultiPolygon") g.coordinates.forEach(p => draw({ type: "Polygon", coordinates: p }, col, title));
+    else if (g.type === "GeometryCollection") g.geometries.forEach(x => draw(x, col, title));
+  };
+  const order = ["lnd", "chg", "brn", "bul", "det", "wpb", "oth"];
+  [...res.features].sort((a, b) => order.indexOf(a.kind.key) - order.indexOf(b.kind.key)).forEach(f => draw(f.geometry, css(f.kind.css), `${f.tab}: ${f.name}`));
+  const grid = [];
+  const step = (x1 - x0) > 0.2 ? 0.05 : (x1 - x0) > 0.06 ? 0.01 : 0.005;
+  for (let x = Math.ceil(x0 / step) * step; x < x1; x += step) grid.push(`<line x1="${((x - x0) * sx).toFixed(1)}" y1="0" x2="${((x - x0) * sx).toFixed(1)}" y2="${H}" stroke="${css("--hairline")}"/><text x="${((x - x0) * sx + 3).toFixed(1)}" y="${H - 4}" font-size="11" fill="${css("--ink-3")}">${x.toFixed(3)} E</text>`);
+  for (let y = Math.ceil(y0 / step) * step; y < y1; y += step) grid.push(`<line x1="0" y1="${((y1 - y) * sy).toFixed(1)}" x2="${W}" y2="${((y1 - y) * sy).toFixed(1)}" stroke="${css("--hairline")}"/><text x="4" y="${((y1 - y) * sy - 3).toFixed(1)}" font-size="11" fill="${css("--ink-3")}">${y.toFixed(3)} N</text>`);
+  const used = [...new Map(res.features.map(f => [f.kind.key, f.kind])).values()];
+  box.innerHTML = `<svg viewBox="0 0 ${W} ${H.toFixed(0)}" role="img" aria-label="Preview of the shapes">${grid.join("")}${shapes.join("")}</svg>` +
+    `<div class="legend">${used.map(k => `<span><span class="swatch" style="background:${css(k.css)}"></span>${esc(k.label)}</span>`).join("")}</div>` +
+    `<p class="small">A plain preview without a base map. Open the KMZ in Google Earth to see the shapes on the ground.</p>`;
+}
+
+/* ---------- page wiring ---------- */
+let current = null, currentTitle = "map";
+function show(res) {
+  const tb = $("summary").querySelector("tbody");
+  tb.innerHTML = res.tabs.map(t => `<tr><td><span class="swatch" style="background:var(${t.kind.css})"></span>${esc(t.name)}</td><td class="n">${t.rows}</td><td class="n">${t.mapped}</td><td class="n">${t.skipped}</td></tr>`).join("") ||
+    '<tr><td colspan="4">No tab with a Shape column was found.</td></tr>';
+  const pr = $("problems");
+  pr.innerHTML = res.problems.map(p => `<div class="msg ${p.kind}">${esc(p.text)}${p.start ? `<br><span class="small">The cell starts with: <code>${esc(p.start)}</code></span>` : ""}</div>`).join("");
+  if (res.problems.some(p => p.kind === "bad")) pr.insertAdjacentHTML("afterbegin", '<div class="msg warn">Tip: copy the shape again as one line (in Change Marker: Copy for the sheet; in geojson.io: Feature Editor, Export, GeoJSON, Copy), then click the Shape cell and paste (Ctrl+V, or Command+V on a Mac).</div>');
+  $("rowlist").innerHTML = `<table><thead><tr><th>Tab</th><th>Row</th><th>Name</th><th>Shape</th><th>On the time slider</th></tr></thead><tbody>${res.features.map(f => `<tr><td>${esc(f.tab)}</td><td class="n">${f.row}</td><td>${esc(f.name)}</td><td>${esc(f.geometry.type)}</td><td>${f.when ? esc(f.when.kml) : f.span ? esc("from " + f.span.first) : ""}</td></tr>`).join("")}</tbody></table>`;
+  drawPreview(res);
+  $("results").classList.remove("hidden");
+  const has = res.features.length > 0;
+  ["saveKmz", "saveGeojson", "saveKml"].forEach(id => $(id).disabled = !has);
+}
+async function handle(files) {
+  clearMsgs();
+  const tabs = [];
+  let first = null;
+  for (const f of files) {
+    try {
+      if (/\.xlsx$/i.test(f.name)) tabs.push(...await readXlsx(await f.arrayBuffer()));
+      else if (/\.(csv|tsv|txt)$/i.test(f.name)) tabs.push(...readCsv(await f.text(), f.name));
+      else { addMsg("bad", `${esc(f.name)}: this page reads .xlsx and .csv files only.`); continue; }
+      first = first || f.name;
+    } catch (e) { addMsg("bad", `${esc(f.name)}: ${esc(e.message)}`); }
+  }
+  if (!tabs.length) return;
+  currentTitle = ($("mapName").value.trim() || (first || "map").replace(/\.(xlsx|csv|tsv|txt)$/i, ""));
+  current = processTabs(tabs, $("skipExample").checked);
+  const n = current.features.length;
+  addMsg(n ? "ok" : "warn", n ? `${n} row${n === 1 ? "" : "s"} ready for the map.` : "No row has a shape yet. Paste each shape in the Shape column first.");
+  show(current);
+}
+function download(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+}
+function safeName(s) { return s.replace(/[\\/:*?"<>|]+/g, " ").trim() || "map"; }
+$("saveKmz").addEventListener("click", async () => { if (!current) return; download(await makeZip([{ name: "doc.kml", data: buildKml(current, currentTitle) }]), safeName(currentTitle) + ".kmz"); });
+$("saveKml").addEventListener("click", () => { if (!current) return; download(new Blob([buildKml(current, currentTitle)], { type: "application/vnd.google-earth.kml+xml" }), safeName(currentTitle) + ".kml"); });
+$("saveGeojson").addEventListener("click", () => { if (!current) return; download(new Blob([buildGeojson(current, currentTitle)], { type: "application/geo+json" }), safeName(currentTitle) + ".geojson"); });
+const drop = $("drop");
+$("file").addEventListener("change", e => { if (e.target.files.length) handle([...e.target.files]); e.target.value = ""; });
+["dragenter", "dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave", "drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", e => { if (e.dataTransfer.files.length) handle([...e.dataTransfer.files]); });
+$("skipExample").addEventListener("change", () => { const f = $("file"); if (current) addMsg("warn", "Drop the file again to apply this choice."); });
+window.SheetToKmz = { readXlsx, readCsv, processTabs, parseShape, buildKml, buildGeojson, makeZip, parseWhen, parseSpan, beirutOffset };
+</script>
+</body>
+</html>
